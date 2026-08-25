@@ -1,0 +1,4 @@
+
+> @darun/api@0.0.1 type-check /Users/bjork/Documents/portfolio/darun.dev/packages/api
+> tsc --noEmit
+
