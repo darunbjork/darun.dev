@@ -1,3 +1,20 @@
+# Dependencies
 node_modules/
-dist
+
+# Build outputs
+dist/
+*.tsbuildinfo
+
+# Generated Prisma client (if you want to ignore it)
+packages/api/src/generated/prisma/
+
+# Turbo cache
+.turbo/
+
+# Environment files
 .env
+.env.*
+!.env.example
+
+# Logs
+*.log

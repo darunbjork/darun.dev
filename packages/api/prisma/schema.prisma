@@ -5,10 +5,168 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // ! url is NOT here anymore – it lives in prisma.config.ts
+  // * Prisma 7: connection URL lives in prisma.config.ts
 }
 
-model HealthCheck {
+// ── Authentication ──────────────────────────────────────────────────────────
+
+model Admin {
+  id           String               @id @default(cuid())
+  email        String               @unique
+  passwordHash String // Argon2id — never bcrypt
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  resetTokens  PasswordResetToken[]
+
+  @@map("admins")
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  adminId   String
+  admin     Admin     @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  tokenHash String // SHA-256 of the raw token sent via email
+  expiresAt DateTime // now() + 15 minutes
+  usedAt    DateTime? // set on use — prevents reuse
+  createdAt DateTime  @default(now())
+
+  @@map("password_reset_tokens")
+}
+
+// ── Projects ────────────────────────────────────────────────────────────────
+
+model Project {
+  id             String         @id @default(cuid())
+  slug           String         @unique
+  title          String
+  description    String?
+  coverUrl       String? // Cloudinary secure_url
+  coverPublicId  String? // Cloudinary public_id for deletion
+  techStack      Json? // string[]
+  problem        String?
+  solution       String?
+  impact         String?
+  learnings      String?
+  views          Int            @default(0)
+  uniqueVisitors Int            @default(0)
+  likeCount      Int            @default(0)
+  dislikeCount   Int            @default(0)
+  averageRating  Float          @default(0)
+  badge          String? // ! "Most Used" | "Featured" | null
+  order          Int            @default(0)
+  featured       Boolean        @default(false)
+  published      Boolean        @default(false)
+  repoUrl        String?
+  liveUrl        String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  images         ProjectImage[]
+  viewsLog       ProjectView[]
+  feedback       Feedback[]
+
+  @@map("projects")
+}
+
+model ProjectImage {
   id        String   @id @default(cuid())
-  checkedAt DateTime @default(now())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  url       String
+  publicId  String
+  width     Int?
+  height    Int?
+  format    String?
+  bytes     Int?
+  alt       String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@map("project_images")
+}
+
+// ── Visitors & Analytics ────────────────────────────────────────────────────
+
+model Visitor {
+  id              String        @id @default(cuid())
+  fingerprintHash String        @unique
+  userAgent       String?
+  country         String?
+  lastSeen        DateTime      @default(now())
+  createdAt       DateTime      @default(now())
+  views           ProjectView[]
+  feedback        Feedback[]
+  chatSessions    ChatSession[]
+
+  @@map("visitors")
+}
+
+model ProjectView {
+  id          String   @id @default(cuid())
+  visitorId   String
+  visitor     Visitor  @relation(fields: [visitorId], references: [id])
+  projectSlug String
+  viewedAt    DateTime @default(now())
+  project     Project? @relation(fields: [projectId], references: [id])
+  projectId   String?
+
+  @@unique([visitorId, projectSlug])
+  @@map("project_views")
+}
+
+// ── Feedback ─────────────────────────────────────────────────────────────────
+
+model Feedback {
+  id          String   @id @default(cuid())
+  visitorId   String
+  visitor     Visitor  @relation(fields: [visitorId], references: [id])
+  projectSlug String
+  rating      Int // 1–5
+  like        Boolean
+  comment     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  project     Project? @relation(fields: [projectId], references: [id])
+  projectId   String?
+
+  @@unique([visitorId, projectSlug])
+  @@map("feedback")
+}
+
+// ── AI Chat ──────────────────────────────────────────────────────────────────
+
+model ChatSession {
+  id             String        @id @default(cuid())
+  visitorId      String?
+  visitor        Visitor?      @relation(fields: [visitorId], references: [id])
+  userType       String        @default("Unknown") // ? Recruiter|Developer|Client|Other
+  startedAt      DateTime      @default(now())
+  endedAt        DateTime?
+  sentimentScore Float?
+  messages       ChatMessage[]
+  notes          ChatNotes?
+
+  @@map("chat_sessions")
+}
+
+model ChatMessage {
+  id        String      @id @default(cuid())
+  sessionId String
+  session   ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  role      String // * "user" | "assistant"
+  content   String
+  timestamp DateTime    @default(now())
+
+  @@map("chat_messages")
+}
+
+model ChatNotes {
+  id          String      @id @default(cuid())
+  sessionId   String      @unique
+  session     ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  summary     String?
+  nextSteps   Json?
+  painPoints  Json?
+  generatedAt DateTime    @default(now())
+
+  @@map("chat_notes")
 }

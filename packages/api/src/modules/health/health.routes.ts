@@ -1,6 +1,7 @@
 import type { FastifyInstance, FastifyPluginAsync } from "fastify"
+import { ok, fail } from "../../utils/response.js"
 
-interface HealthResponse {
+interface HealthData {
   status: "ok" | "degraded"
   timestamp: string
   services: {
@@ -10,7 +11,7 @@ interface HealthResponse {
 }
 
 const healthRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
-  fastify.get<{ Reply: HealthResponse }>(
+  fastify.get(
     "/health",
     {
       schema: {
@@ -18,15 +19,32 @@ const healthRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
           200: {
             type: "object",
             properties: {
-              status: { type: "string", enum: ["ok", "degraded"] },
-              timestamp: { type: "string" },
-              services: {
+              success: { type: "boolean" },
+              data: {
                 type: "object",
                 properties: {
-                  db: { type: "string", enum: ["ok", "error"] },
-                  redis: { type: "string", enum: ["ok", "error"] },
+                  status: { type: "string", enum: ["ok", "degraded"] },
+                  timestamp: { type: "string" },
+                  services: {
+                    type: "object",
+                    properties: {
+                      db: { type: "string", enum: ["ok", "error"] },
+                      redis: { type: "string", enum: ["ok", "error"] },
+                    },
+                  },
                 },
               },
+              error: { type: "null" },
+              correlationId: { type: "string" },
+            },
+          },
+          503: {
+            type: "object",
+            properties: {
+              success: { type: "boolean" },
+              data: { type: "null" },
+              error: { type: "string" },
+              correlationId: { type: "string" },
             },
           },
         },
@@ -51,12 +69,20 @@ const healthRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
       }
 
       const overall = dbStatus === "ok" && redisStatus === "ok" ? "ok" : "degraded"
+      const correlationId = request.correlationId ?? "unknown"
 
-      return reply.status(overall === "ok" ? 200 : 503).send({
-        status: overall,
-        timestamp: new Date().toISOString(),
-        services: { db: dbStatus, redis: redisStatus },
-      })
+      if (overall === "ok") {
+        const data: HealthData = {
+          status: overall,
+          timestamp: new Date().toISOString(),
+          services: { db: dbStatus, redis: redisStatus },
+        }
+        return reply.status(200).send(ok(data, correlationId))
+      }
+
+      return reply.status(503).send(
+        fail("One or more services are degraded", correlationId)
+      )
     }
   )
 }

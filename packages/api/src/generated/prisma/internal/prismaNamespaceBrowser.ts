@@ -51,7 +51,16 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  HealthCheck: 'HealthCheck'
+  Admin: 'Admin',
+  PasswordResetToken: 'PasswordResetToken',
+  Project: 'Project',
+  ProjectImage: 'ProjectImage',
+  Visitor: 'Visitor',
+  ProjectView: 'ProjectView',
+  Feedback: 'Feedback',
+  ChatSession: 'ChatSession',
+  ChatMessage: 'ChatMessage',
+  ChatNotes: 'ChatNotes'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -70,12 +79,147 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const HealthCheckScalarFieldEnum = {
+export const AdminScalarFieldEnum = {
   id: 'id',
-  checkedAt: 'checkedAt'
+  email: 'email',
+  passwordHash: 'passwordHash',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
-export type HealthCheckScalarFieldEnum = (typeof HealthCheckScalarFieldEnum)[keyof typeof HealthCheckScalarFieldEnum]
+export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
+
+
+export const PasswordResetTokenScalarFieldEnum = {
+  id: 'id',
+  adminId: 'adminId',
+  tokenHash: 'tokenHash',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PasswordResetTokenScalarFieldEnum = (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum]
+
+
+export const ProjectScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  title: 'title',
+  description: 'description',
+  coverUrl: 'coverUrl',
+  coverPublicId: 'coverPublicId',
+  techStack: 'techStack',
+  problem: 'problem',
+  solution: 'solution',
+  impact: 'impact',
+  learnings: 'learnings',
+  views: 'views',
+  uniqueVisitors: 'uniqueVisitors',
+  likeCount: 'likeCount',
+  dislikeCount: 'dislikeCount',
+  averageRating: 'averageRating',
+  badge: 'badge',
+  order: 'order',
+  featured: 'featured',
+  published: 'published',
+  repoUrl: 'repoUrl',
+  liveUrl: 'liveUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
+
+
+export const ProjectImageScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  url: 'url',
+  publicId: 'publicId',
+  width: 'width',
+  height: 'height',
+  format: 'format',
+  bytes: 'bytes',
+  alt: 'alt',
+  order: 'order',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectImageScalarFieldEnum = (typeof ProjectImageScalarFieldEnum)[keyof typeof ProjectImageScalarFieldEnum]
+
+
+export const VisitorScalarFieldEnum = {
+  id: 'id',
+  fingerprintHash: 'fingerprintHash',
+  userAgent: 'userAgent',
+  country: 'country',
+  lastSeen: 'lastSeen',
+  createdAt: 'createdAt'
+} as const
+
+export type VisitorScalarFieldEnum = (typeof VisitorScalarFieldEnum)[keyof typeof VisitorScalarFieldEnum]
+
+
+export const ProjectViewScalarFieldEnum = {
+  id: 'id',
+  visitorId: 'visitorId',
+  projectSlug: 'projectSlug',
+  viewedAt: 'viewedAt',
+  projectId: 'projectId'
+} as const
+
+export type ProjectViewScalarFieldEnum = (typeof ProjectViewScalarFieldEnum)[keyof typeof ProjectViewScalarFieldEnum]
+
+
+export const FeedbackScalarFieldEnum = {
+  id: 'id',
+  visitorId: 'visitorId',
+  projectSlug: 'projectSlug',
+  rating: 'rating',
+  like: 'like',
+  comment: 'comment',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  projectId: 'projectId'
+} as const
+
+export type FeedbackScalarFieldEnum = (typeof FeedbackScalarFieldEnum)[keyof typeof FeedbackScalarFieldEnum]
+
+
+export const ChatSessionScalarFieldEnum = {
+  id: 'id',
+  visitorId: 'visitorId',
+  userType: 'userType',
+  startedAt: 'startedAt',
+  endedAt: 'endedAt',
+  sentimentScore: 'sentimentScore'
+} as const
+
+export type ChatSessionScalarFieldEnum = (typeof ChatSessionScalarFieldEnum)[keyof typeof ChatSessionScalarFieldEnum]
+
+
+export const ChatMessageScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  role: 'role',
+  content: 'content',
+  timestamp: 'timestamp'
+} as const
+
+export type ChatMessageScalarFieldEnum = (typeof ChatMessageScalarFieldEnum)[keyof typeof ChatMessageScalarFieldEnum]
+
+
+export const ChatNotesScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  summary: 'summary',
+  nextSteps: 'nextSteps',
+  painPoints: 'painPoints',
+  generatedAt: 'generatedAt'
+} as const
+
+export type ChatNotesScalarFieldEnum = (typeof ChatNotesScalarFieldEnum)[keyof typeof ChatNotesScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -86,10 +230,35 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
