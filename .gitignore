@@ -3,9 +3,10 @@ node_modules/
 
 # Build outputs
 dist/
+coverage/
 *.tsbuildinfo
 
-# Generated Prisma client (if you want to ignore it)
+# Generated Prisma client (optional – you can choose to keep it)
 packages/api/src/generated/prisma/
 
 # Turbo cache
