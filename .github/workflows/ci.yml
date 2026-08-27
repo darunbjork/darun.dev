@@ -66,6 +66,24 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Create .env file
+        run: |
+          cat > .env << 'EOF'
+          NODE_ENV=test
+          PORT=3000
+          DATABASE_URL=postgresql://darundev:darundev@localhost:5432/darundev_test
+          REDIS_URL=redis://localhost:6379
+          JWT_SECRET=test-secret-32-chars-minimum-abc
+          JWT_EXPIRES_IN=7d
+          FRONTEND_URL=http://localhost:5173
+          CLOUDINARY_CLOUD_NAME=test
+          CLOUDINARY_API_KEY=test
+          CLOUDINARY_API_SECRET=test
+          GEMINI_API_KEY=test
+          RESEND_API_KEY=test
+          RESEND_FROM=noreply@darun.dev
+          EOF
+
       - name: Generate Prisma Client
         run: |
           cd packages/api
