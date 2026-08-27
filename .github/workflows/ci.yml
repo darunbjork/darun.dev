@@ -36,7 +36,7 @@ jobs:
           --health-timeout 3s
           --health-retries 5
 
-    env:
+    env: # just a reminder that these env vars are also set in the .env file, which is used by the app during tests
       NODE_ENV: test
       DATABASE_URL: postgresql://darundev:darundev@localhost:5432/darundev_test
       REDIS_URL: redis://localhost:6379
