@@ -15,6 +15,7 @@ import { redisPlugin } from "./plugins/redis.plugin.js"
 import { correlationId } from "./middleware/correlation-id.js"
 import { errorHandler } from "./middleware/error.handler.js"
 import { healthRoutes } from "./modules/health/health.routes.js"
+import { authRoutes } from "./modules/auth/auth.routes.js"
 
 export async function buildApp(): Promise<FastifyInstance> {
   const fastify = Fastify({
@@ -103,6 +104,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   fastify.setErrorHandler(errorHandler)
 
   await fastify.register(healthRoutes)
+  await fastify.register(authRoutes)
 
   return fastify
 }
