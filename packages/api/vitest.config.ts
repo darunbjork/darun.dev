@@ -3,6 +3,7 @@ import { defineConfig } from "vitest/config"
 export default defineConfig({
   test: {
     environment: "node",
+    exclude: ["dist/**", "node_modules/**"], 
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],
@@ -16,6 +17,7 @@ export default defineConfig({
         "src/types/**",
         "dist/**",
         "prisma/**",
+        "node_modules/**",
       ],
     },
     setupFiles: ["./src/__tests__/setup.ts"],
