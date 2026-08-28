@@ -76,6 +76,8 @@ jobs:
           JWT_SECRET=test-secret-32-chars-minimum-abc
           JWT_EXPIRES_IN=7d
           FRONTEND_URL=http://localhost:5173
+          ADMIN_EMAIL=admin@darun.dev
+          ADMIN_PASSWORD=TestPassword123!
           CLOUDINARY_CLOUD_NAME=test
           CLOUDINARY_API_KEY=test
           CLOUDINARY_API_SECRET=test
