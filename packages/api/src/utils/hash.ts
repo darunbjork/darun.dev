@@ -3,7 +3,7 @@ import { createHash } from "crypto"
 
 const ARGON_OPTIONS = {
   type: argon2.argon2id as 0 | 1 | 2,
-  memoryCost: 65536, // 64 MB
+  memoryCost: 65536, // ! 64 MB
   timeCost: 3,
   parallelism: 4,
 }
