@@ -46,11 +46,11 @@ export async function buildApp(): Promise<FastifyInstance> {
     },
   })
 
-  await fastify.register(fastifyCors, {
-    origin: env.FRONTEND_URL,
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-  })
+await fastify.register(fastifyCors, {
+  origin: [env.FRONTEND_URL], // ! array → only this origin gets the header
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+})
 
   await fastify.register(fastifyCookie, {
     secret: env.JWT_SECRET,
