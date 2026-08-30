@@ -19,7 +19,7 @@ import { authRoutes } from "./modules/auth/auth.routes.js"
 
 export async function buildApp(): Promise<FastifyInstance> {
   const fastify = Fastify({
-    trustProxy: true, //? REQUIRED: real client IP behind reverse proxy
+    trustProxy: true,
     logger: {
       level: env.NODE_ENV === "test" ? "silent" : "info",
       transport: env.NODE_ENV === "development"
@@ -28,22 +28,23 @@ export async function buildApp(): Promise<FastifyInstance> {
     },
   })
 
+  // 1. Security headers
   await fastify.register(fastifyHelmet, {
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc:  ["'self'", "'unsafe-inline'"],
-      styleSrc:   ["'self'", "'unsafe-inline'"],
-      imgSrc:     ["'self'", "data:", "res.cloudinary.com"],
-      connectSrc: ["'self'"],
-      fontSrc:    ["'self'", "fonts.gstatic.com"],
-      objectSrc:  ["'none'"],
-      frameSrc:   ["'none'"],
-      baseUri:    ["'self'"],
-      formAction: ["'self'"],
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc:  ["'self'", "'unsafe-inline'"],
+        styleSrc:   ["'self'", "'unsafe-inline'"],
+        imgSrc:     ["'self'", "data:", "res.cloudinary.com"],
+        connectSrc: ["'self'"],
+        fontSrc:    ["'self'", "fonts.gstatic.com"],
+        objectSrc:  ["'none'"],
+        frameSrc:   ["'none'"],
+        baseUri:    ["'self'"],
+        formAction: ["'self'"],
+      },
     },
-  },
-})
+  })
 
   await fastify.register(fastifyCors, {
     origin: env.FRONTEND_URL,
@@ -55,14 +56,16 @@ export async function buildApp(): Promise<FastifyInstance> {
     secret: env.JWT_SECRET,
   })
 
+  // ! 4. CSRF protection
   await fastify.register(fastifyCsrf, {
     cookieOpts: {
-      httpOnly: false,
+      httpOnly: false, // * must be readable by JS for double-submit
       sameSite: "strict",
       secure: env.NODE_ENV === "production",
     },
   })
 
+  // * 5–6. Infrastructure (MUST be before rate-limit)
   await fastify.register(prismaPlugin)
   await fastify.register(redisPlugin)
 
@@ -74,7 +77,7 @@ export async function buildApp(): Promise<FastifyInstance> {
 
   await fastify.register(fastifyMultipart, {
     limits: {
-      fileSize: 10 * 1024 * 1024, // ! 10 MB
+      fileSize: 10 * 1024 * 1024,
       files: 5,
     },
   })
@@ -103,8 +106,10 @@ export async function buildApp(): Promise<FastifyInstance> {
     uiConfig: { deepLinking: true },
   })
 
+  // ? Correlation ID on every request
   fastify.addHook("onRequest", correlationId)
 
+  // ! Global error handler
   fastify.setErrorHandler(errorHandler)
 
   await fastify.register(healthRoutes)
