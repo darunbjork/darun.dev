@@ -16,6 +16,7 @@ import { correlationId } from "./middleware/correlation-id.js"
 import { errorHandler } from "./middleware/error.handler.js"
 import { healthRoutes } from "./modules/health/health.routes.js"
 import { authRoutes } from "./modules/auth/auth.routes.js"
+import { analyticsRoutes } from "./modules/analytics/analytics.routes.js"
 
 export async function buildApp(): Promise<FastifyInstance> {
   const fastify = Fastify({
@@ -114,6 +115,7 @@ await fastify.register(fastifyCors, {
 
   await fastify.register(healthRoutes)
   await fastify.register(authRoutes)
+  await fastify.register(analyticsRoutes)
 
   return fastify
 }
