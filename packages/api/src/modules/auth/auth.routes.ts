@@ -1,17 +1,19 @@
 import type { FastifyInstance, FastifyPluginAsync } from "fastify"
 import { AuthService } from "./auth.service.js"
 import { ok } from "../../utils/response.js"
+import { PasswordResetService } from "./password-reset.service.js"
 
 const COOKIE_OPTIONS = {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
   sameSite: "strict" as const,
   path: "/",
-  maxAge: 7 * 24 * 60 * 60, // 7 days in seconds
+  maxAge: 7 * 24 * 60 * 60,
 }
 
 const authRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
   const authService = new AuthService(fastify)
+  const passwordResetService = new PasswordResetService(fastify)
 
   fastify.post<{ Body: { email: string; password: string } }>(
     "/api/v1/admin/auth/register",
@@ -68,6 +70,81 @@ const authRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
       ok({ message: "Logged out" }, request.correlationId)
     )
   })
+
+fastify.post<{
+  Body: { email: string }
+}>(
+  "/api/v1/admin/auth/forgot-password",
+  {
+    config: { rateLimit: { max: 3, timeWindow: "1 minute" } },
+    schema: {
+      body: {
+        type: "object",
+        required: ["email"],
+        properties: {
+          email: { type: "string", format: "email" },
+        },
+      },
+      response: {
+        200: {
+          type: "object",
+          properties: {
+            success: { type: "boolean" },
+            data: { type: "object" },
+            error: { type: ["string", "null"] },
+            correlationId: { type: "string" },
+          },
+        },
+      },
+    },
+  },
+  async (request, reply) => {
+    await passwordResetService.requestReset(request.body.email)
+    return reply.status(200).send(
+      ok(
+        { message: "If that email exists, a reset link has been sent." },
+        request.correlationId
+      )
+    )
+  }
+)
+
+fastify.post<{
+  Body: { token: string; password: string }
+}>(
+  "/api/v1/admin/auth/reset-password",
+  {
+    config: { rateLimit: { max: 5, timeWindow: "1 minute" } },
+    schema: {
+      body: {
+        type: "object",
+        required: ["token", "password"],
+        properties: {
+          token: { type: "string", minLength: 10 },
+          password: { type: "string", minLength: 8 },
+        },
+      },
+      response: {
+        200: {
+          type: "object",
+          properties: {
+            success: { type: "boolean" },
+            data: { type: "object" },
+            error: { type: ["string", "null"] },
+            correlationId: { type: "string" },
+          },
+        },
+      },
+    },
+  },
+  async (request, reply) => {
+    const { token, password } = request.body
+    await passwordResetService.resetPassword(token, password)
+    return reply.status(200).send(
+      ok({ message: "Password updated successfully" }, request.correlationId)
+    )
+  }
+)
 }
 
 export { authRoutes }
