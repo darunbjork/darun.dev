@@ -29,17 +29,21 @@ export async function buildApp(): Promise<FastifyInstance> {
   })
 
   await fastify.register(fastifyHelmet, {
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc:  ["'self'", "'unsafe-inline'"],
-        styleSrc:   ["'self'", "'unsafe-inline'"],
-        imgSrc:     ["'self'", "data:", "res.cloudinary.com"],
-        connectSrc: ["'self'"],
-        fontSrc:    ["'self'", "fonts.gstatic.com"],
-      },
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc:  ["'self'", "'unsafe-inline'"],
+      styleSrc:   ["'self'", "'unsafe-inline'"],
+      imgSrc:     ["'self'", "data:", "res.cloudinary.com"],
+      connectSrc: ["'self'"],
+      fontSrc:    ["'self'", "fonts.gstatic.com"],
+      objectSrc:  ["'none'"],
+      frameSrc:   ["'none'"],
+      baseUri:    ["'self'"],
+      formAction: ["'self'"],
     },
-  })
+  },
+})
 
   await fastify.register(fastifyCors, {
     origin: env.FRONTEND_URL,
