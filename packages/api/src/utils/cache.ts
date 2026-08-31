@@ -1,15 +1,18 @@
 import type { Redis } from "ioredis"
 
+/** TTLs in seconds. */
 export const TTL = {
-  PROJECTS_LIST: 60,
-  PROJECT_DETAIL: 60,
-  ANALYTICS: 60,
+  PROJECTS_LIST: 60,   // 1 min — invalidated on publish/update/delete
+  PROJECT_DETAIL: 60,  // 1 min — invalidated on update/delete
+  ANALYTICS: 60,       // 1 min — aggregated dashboard stats
+  FEEDBACK_STATS: 120, // 2 min — slower-changing per-project stats
 } as const
 
 export const CacheKey = {
   projectsList: (): string => "projects:list",
   projectDetail: (slug: string): string => `projects:detail:${slug}`,
   analytics: (): string => "analytics:dashboard",
+  feedbackStats: (slug: string): string => `feedback:stats:${slug}`,
 } as const
 
 export async function getOrSet<T>(

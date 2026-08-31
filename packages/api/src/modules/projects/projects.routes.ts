@@ -11,14 +11,11 @@ import { env } from "../../env.js"
 const projectsRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
   const service = new ProjectsService(fastify)
 
+  // * Skip CSRF in dev/test; enforce in production
   const csrfPreHandler =
-    env.NODE_ENV === "test"
-      ? (
-          _request: unknown,
-          _reply: unknown,
-          done: (err?: Error | null) => void
-        ) => done()
-      : fastify.csrfProtection
+    env.NODE_ENV === "production"
+      ? fastify.csrfProtection
+      : (_request: unknown, _reply: unknown, done: (err?: Error | null) => void) => done()
 
   // ── Public ──────────────────────────────────────────────────────────────
 
@@ -159,9 +156,7 @@ const projectsRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
     },
     async (request, reply) => {
       await service.delete(request.params.id)
-      return reply
-        .status(200)
-        .send(ok({ deleted: true }, request.correlationId))
+      return reply.status(200).send(ok({ deleted: true }, request.correlationId))
     }
   )
 }

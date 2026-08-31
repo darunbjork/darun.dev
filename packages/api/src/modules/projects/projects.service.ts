@@ -1,4 +1,3 @@
-
 import type { FastifyInstance } from "fastify"
 import type {
   Project,
@@ -10,7 +9,7 @@ import {
   ConflictError,
   ValidationError,
 } from "../../utils/errors.js"
-import { CacheKey, TTL, invalidate } from "../../utils/cache.js"
+import { CacheKey, TTL, getOrSet, invalidate } from "../../utils/cache.js"
 
 const SLUG_REGEX = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 
@@ -18,51 +17,37 @@ export class ProjectsService {
   constructor(private readonly fastify: FastifyInstance) {}
 
   async list(): Promise<Project[]> {
-  const cacheKey = CacheKey.projectsList()
-  const cached = await this.fastify.redis.get(cacheKey)
-  if (cached !== null) {
-    return JSON.parse(cached) as Project[]
+    return getOrSet(
+      this.fastify.redis,
+      CacheKey.projectsList(),
+      TTL.PROJECTS_LIST,
+      async () => {
+        const projects = await this.fastify.prisma.project.findMany({
+          where: { published: true },
+          include: { images: { orderBy: { order: "asc" } } },
+          orderBy: { order: "asc" },
+        })
+        return projects.map((p) => this.mapToPublic(p))
+      }
+    )
   }
 
-  const projects = await this.fastify.prisma.project.findMany({
-    where: { published: true },
-    include: { images: { orderBy: { order: "asc" } } },
-    orderBy: { order: "asc" },
-  })
-
-  const result = projects.map((p) => this.mapToPublic(p))
-
-  await this.fastify.redis.setex(
-    cacheKey,
-    TTL.PROJECTS_LIST,
-    JSON.stringify(result)
-  )
-  return result
-}
-
   async getBySlug(slug: string): Promise<Project> {
-    const cacheKey = CacheKey.projectDetail(slug)
-    const cached = await this.fastify.redis.get(cacheKey)
-    if (cached !== null) {
-      return JSON.parse(cached) as Project
-    }
-
-    const project = await this.fastify.prisma.project.findFirst({
-      where: { slug, published: true },
-      include: { images: { orderBy: { order: "asc" } } },
-    })
-
-    if (project === null) {
-      throw new NotFoundError("Project")
-    }
-
-    const result = this.mapToPublic(project)
-    await this.fastify.redis.setex(
-      cacheKey,
+    return getOrSet(
+      this.fastify.redis,
+      CacheKey.projectDetail(slug),
       TTL.PROJECT_DETAIL,
-      JSON.stringify(result)
+      async () => {
+        const project = await this.fastify.prisma.project.findFirst({
+          where: { slug, published: true },
+          include: { images: { orderBy: { order: "asc" } } },
+        })
+        if (project === null) {
+          throw new NotFoundError("Project")
+        }
+        return this.mapToPublic(project)
+      }
     )
-    return result
   }
 
   async listAll(): Promise<Project[]> {
@@ -220,19 +205,18 @@ export class ProjectsService {
     createdAt: Date
     updatedAt: Date
     images?: Array<{
-    id: string
-    url: string
-    publicId: string
-    width: number | null
-    height: number | null
-    format: string | null
-    bytes: number | null
-    alt: string | null
-    order: number
-    createdAt: Date
-}>
+      id: string
+      url: string
+      publicId: string
+      width: number | null
+      height: number | null
+      format: string | null
+      bytes: number | null
+      alt: string | null
+      order: number
+      createdAt: Date
+    }>
   }): Project {
-
     return {
       id: project.id,
       slug: project.slug,
@@ -258,16 +242,16 @@ export class ProjectsService {
       createdAt: project.createdAt.toISOString(),
       updatedAt: project.updatedAt.toISOString(),
       images: (project.images ?? []).map((img) => ({
-      id: img.id,
-      url: img.url,
-      publicId: img.publicId,
-      width: img.width,
-      height: img.height,
-      format: img.format,
-      bytes: img.bytes,
-      alt: img.alt,
-      order: img.order,
-      createdAt: img.createdAt.toISOString(),
+        id: img.id,
+        url: img.url,
+        publicId: img.publicId,
+        width: img.width,
+        height: img.height,
+        format: img.format,
+        bytes: img.bytes,
+        alt: img.alt,
+        order: img.order,
+        createdAt: img.createdAt.toISOString(),
       })),
     }
   }
