@@ -39,19 +39,22 @@ export interface Project {
 }
 
 export interface CreateProjectInput {
-  slug:        string;
-  title:       string;
-  description: string | null;
-  techStack:   string[];
-  problem:     string | null;
-  solution:    string | null;
-  impact:      string | null;
-  learnings:   string | null;
-  badge:       string | null;
-  order:       number;
-  featured:    boolean;
-  repoUrl:     string | null;
-  liveUrl:     string | null;
+  slug: string
+  title: string
+  description: string | null
+  coverUrl: string | null
+  coverPublicId: string | null
+  techStack: string[]
+  problem: string | null
+  solution: string | null
+  impact: string | null
+  learnings: string | null
+  badge: string | null
+  order: number
+  featured: boolean
+  published: boolean
+  repoUrl: string | null
+  liveUrl: string | null
 }
 
 export interface UpdateProjectInput extends Partial<CreateProjectInput> {
