@@ -2,7 +2,7 @@ import { vi, type Mock } from "vitest"
 import type { PrismaClient } from "../../generated/prisma/client.js"
 
 type DeepMocked<T> = {
-  [P in keyof T]: T[P] extends (...args: any[]) => any
+  [P in keyof T]: T[P] extends Function
     ? Mock
     : T[P] extends object
       ? DeepMocked<T[P]>

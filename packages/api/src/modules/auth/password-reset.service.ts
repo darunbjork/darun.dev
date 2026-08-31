@@ -23,7 +23,6 @@ export class PasswordResetService {
     })
 
     const rawToken = randomBytes(32).toString("hex")
-    console.log("RESET TOKEN (dev only):", rawToken)
     const tokenHash = hashToken(rawToken)
     const expiresAt = new Date(Date.now() + FIFTEEN_MINUTES_MS)
 

@@ -51,18 +51,27 @@ export class AuthService {
   }
 
   async createAdmin(email: string, password: string): Promise<void> {
-    const normalised = email.toLowerCase().trim()
-    const existing = await this.fastify.prisma.admin.findUnique({
-      where: { email: normalised },
-    })
-    if (existing !== null) {
-      throw new ConflictError("Admin with this email")
-    }
-    const passwordHash = await hashPassword(password)
-    await this.fastify.prisma.admin.create({
-      data: { email: normalised, passwordHash },
-    })
+  const normalised = email.toLowerCase().trim()
+
+  // Check if ANY admin exists (first-admin bootstrap only)
+  const existingAdminCount = await this.fastify.prisma.admin.count()
+  if (existingAdminCount > 0) {
+    throw new ConflictError("Admin registration is disabled")
   }
+
+  const existing = await this.fastify.prisma.admin.findUnique({
+    where: { email: normalised },
+  })
+
+  if (existing !== null) {
+    throw new ConflictError("Admin with this email")
+  }
+
+  const passwordHash = await hashPassword(password)
+  await this.fastify.prisma.admin.create({
+    data: { email: normalised, passwordHash },
+  })
+}
 
   verifyToken(token: string): JwtPayload {
     try {
