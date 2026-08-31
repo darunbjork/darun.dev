@@ -18,26 +18,27 @@ export class ProjectsService {
   constructor(private readonly fastify: FastifyInstance) {}
 
   async list(): Promise<Project[]> {
-    const cacheKey = CacheKey.projectsList()
-    const cached = await this.fastify.redis.get(cacheKey)
-    if (cached !== null) {
-      return JSON.parse(cached) as Project[]
-    }
-
-    const projects = await this.fastify.prisma.project.findMany({
-      where: { published: true },
-      include: { images: { orderBy: { order: "asc" } } },
-      orderBy: { order: "asc" },
-    })
-
-    const result = projects.map((p) => this.mapToPublic(p))
-    await this.fastify.redis.setex(
-      cacheKey,
-      TTL.PROJECTS_LIST,
-      JSON.stringify(result)
-    )
-    return result
+  const cacheKey = CacheKey.projectsList()
+  const cached = await this.fastify.redis.get(cacheKey)
+  if (cached !== null) {
+    return JSON.parse(cached) as Project[]
   }
+
+  const projects = await this.fastify.prisma.project.findMany({
+    where: { published: true },
+    include: { images: { orderBy: { order: "asc" } } },
+    orderBy: { order: "asc" },
+  })
+
+  const result = projects.map((p) => this.mapToPublic(p))
+
+  await this.fastify.redis.setex(
+    cacheKey,
+    TTL.PROJECTS_LIST,
+    JSON.stringify(result)
+  )
+  return result
+}
 
   async getBySlug(slug: string): Promise<Project> {
     const cacheKey = CacheKey.projectDetail(slug)
