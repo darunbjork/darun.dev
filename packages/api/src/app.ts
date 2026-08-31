@@ -48,42 +48,47 @@ export async function buildApp(): Promise<FastifyInstance> {
     },
   })
 
-await fastify.register(fastifyCors, {
-  origin: [env.FRONTEND_URL], // ! array → only this origin gets the header
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-})
+  // 2. CORS — only allowed origin
+  await fastify.register(fastifyCors, {
+    origin: [env.FRONTEND_URL],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  })
 
+  // 3. Cookie plugin
   await fastify.register(fastifyCookie, {
     secret: env.JWT_SECRET,
   })
 
-  // ! 4. CSRF protection
+  // 4. CSRF protection (works in production)
   await fastify.register(fastifyCsrf, {
+    // @ts-ignore - secret is required but not in types for this version
+    secret: env.JWT_SECRET,
     cookieOpts: {
-      httpOnly: false, // * must be readable by JS for double-submit
+      signed: true,
+      httpOnly: false,
       sameSite: "strict",
       secure: env.NODE_ENV === "production",
     },
   })
 
-  // * 5–6. Infrastructure (MUST be before rate-limit)
+  // 5-6. Infrastructure (before rate-limit)
   await fastify.register(prismaPlugin)
   await fastify.register(redisPlugin)
 
+  // 7. Rate limiting
   await fastify.register(fastifyRateLimit, {
     global: true,
     max: 100,
     timeWindow: "1 minute",
   })
 
+  // 8. Multipart
   await fastify.register(fastifyMultipart, {
-    limits: {
-      fileSize: 10 * 1024 * 1024,
-      files: 5,
-    },
+    limits: { fileSize: 10 * 1024 * 1024, files: 5 },
   })
 
+  // 9. Swagger
   await fastify.register(fastifySwagger, {
     openapi: {
       info: {
@@ -93,11 +98,7 @@ await fastify.register(fastifyCors, {
       },
       components: {
         securitySchemes: {
-          cookieAuth: {
-            type: "apiKey",
-            in: "cookie",
-            name: "token",
-          },
+          cookieAuth: { type: "apiKey", in: "cookie", name: "token" },
         },
       },
     },
@@ -108,12 +109,23 @@ await fastify.register(fastifyCors, {
     uiConfig: { deepLinking: true },
   })
 
-  // ? Correlation ID on every request
-  fastify.addHook("onRequest", correlationId)
+  // CSRF token endpoint (frontend fetches this to get the cookie)
+  fastify.get(
+    "/api/v1/csrf",
+    { preHandler: [fastify.csrfProtection] },
+    async (_request, reply) => {
+      return reply.send({
+        success: true,
+        data: { message: "CSRF cookie set" },
+      })
+    }
+  )
 
-  // ! Global error handler
+  // Global hooks
+  fastify.addHook("onRequest", correlationId)
   fastify.setErrorHandler(errorHandler)
 
+  // Routes
   await fastify.register(healthRoutes)
   await fastify.register(authRoutes)
   await fastify.register(analyticsRoutes)
