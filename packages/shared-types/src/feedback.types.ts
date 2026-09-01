@@ -3,7 +3,7 @@ export interface FeedbackInput {
   projectSlug: string
   rating:      1 | 2 | 3 | 4 | 5
   like:        boolean
-  comment:     string // * min 10 chars — enforced at service level
+  comment:     string 
 }
 
 export interface Feedback {
