@@ -18,6 +18,7 @@ import { healthRoutes } from "./modules/health/health.routes.js"
 import { authRoutes } from "./modules/auth/auth.routes.js"
 import { analyticsRoutes } from "./modules/analytics/analytics.routes.js"
 import { projectsRoutes } from "./modules/projects/projects.routes.js"
+import { mediaRoutes } from "./modules/media/media.routes.js"
 
 export async function buildApp(): Promise<FastifyInstance> {
   const fastify = Fastify({
@@ -109,7 +110,7 @@ export async function buildApp(): Promise<FastifyInstance> {
     uiConfig: { deepLinking: true },
   })
 
-  // CSRF token endpoint (frontend fetches this to get the cookie)
+  // ! CSRF token endpoint (frontend fetches this to get the cookie)
   fastify.get(
     "/api/v1/csrf",
     { preHandler: [fastify.csrfProtection] },
@@ -121,15 +122,15 @@ export async function buildApp(): Promise<FastifyInstance> {
     }
   )
 
-  // Global hooks
+  // ! Global hooks
   fastify.addHook("onRequest", correlationId)
   fastify.setErrorHandler(errorHandler)
 
-  // Routes
   await fastify.register(healthRoutes)
   await fastify.register(authRoutes)
   await fastify.register(analyticsRoutes)
   await fastify.register(projectsRoutes)
+  await fastify.register(mediaRoutes)
 
   return fastify
 }
