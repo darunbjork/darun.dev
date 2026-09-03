@@ -8,7 +8,6 @@ const analyticsRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => 
   const visitorService = new VisitorService(fastify)
   const analyticsService = new AnalyticsService(fastify)
 
-  // ── POST /api/v1/visitors — register / refresh fingerprint
   fastify.post(
     "/api/v1/visitors",
     {
@@ -19,7 +18,12 @@ const analyticsRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => 
             type: "object",
             properties: {
               success: { type: "boolean" },
-              data: { type: "object" },
+              data: {
+                type: "object",
+                properties: {
+                  visitorId: { type: "string" },
+                },
+              },
               error: { type: ["string", "null"] },
               correlationId: { type: "string" },
             },
@@ -38,7 +42,6 @@ const analyticsRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => 
     }
   )
 
-  // ── POST /api/v1/projects/:slug/view — record view 
   fastify.post<{
     Params: { slug: string }
     Body: { visitorId: string }
@@ -64,51 +67,15 @@ const analyticsRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => 
         request.body.visitorId,
         request.params.slug
       )
-
       return reply.status(200).send(ok(result, request.correlationId))
     }
   )
 
-  // ── GET /api/v1/analytics — admin dashboard stats (cached 60s) ──
   fastify.get(
     "/api/v1/analytics",
     {
       preHandler: [authGuard],
       config: { rateLimit: { max: 30, timeWindow: "1 minute" } },
-      schema: {
-        response: {
-          200: {
-            type: "object",
-            properties: {
-              success: { type: "boolean" },
-              data: {
-                type: "object",
-                properties: {
-                  totalVisitors: { type: "number" },
-                  totalViews: { type: "number" },
-                  totalFeedback: { type: "number" },
-                  chatsToday: { type: "number" },
-                  activeRecruiters: { type: "number" },
-                  positiveSentiment: { type: "number" },
-                  topProjects: {
-                    type: "array",
-                    items: {
-                      type: "object",
-                      properties: {
-                        slug: { type: "string" },
-                        title: { type: "string" },
-                        views: { type: "number" },
-                      },
-                    },
-                  },
-                },
-              },
-              error: { type: ["string", "null"] },
-              correlationId: { type: "string" },
-            },
-          },
-        },
-      },
     },
     async (request, reply) => {
       const data = await analyticsService.getDashboardStats()
