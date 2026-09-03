@@ -1,0 +1,242 @@
+{
+  "version": "1.1.0",
+  "lastUpdated": "2026-09-03",
+  "profile": {
+    "name": "Darun Mustafa",
+    "title": "Full-Stack Developer | AI Engineering",
+    "location": "Stockholm, Sweden",
+    "github": "https://github.com/darunbjork",
+    "email": "darunbjork@gmail.com",
+    "portfolio": "https://darun.dev",
+    "bio": "Full-stack developer building production-grade systems in React, TypeScript, Node.js, PostgreSQL, and Docker — with a consistent focus on auth security, API contract design, and real-time data. Specializing in production LLM integration: RAG pipelines, structured prompt validation, and AI-grounded backend architecture.",
+    "education": {
+      "school": "CareerFoundry",
+      "track": "Full-Stack Web Development Certificate",
+      "period": "Jun 2023 – Aug 2024",
+      "lia": "Not applicable",
+      "note": "Self-directed development since Aug 2024 — 5+ production projects on GitHub"
+    }
+  },
+  "stack": {
+    "languages": ["TypeScript", "JavaScript"],
+    "backend": [
+      "Node.js",
+      "Fastify",
+      "Express",
+      "Prisma",
+      "PostgreSQL",
+      "pgvector",
+      "Redis",
+      "WebSockets",
+      "MQTT",
+      "JWT/RBAC",
+      "Swagger/OpenAPI"
+    ],
+    "ai": [
+      "Gemini API",
+      "RAG pipelines",
+      "pgvector hybrid search",
+      "BM25 keyword search",
+      "Reciprocal Rank Fusion",
+      "ReAct agent loops",
+      "Prompt Engineering",
+      "WebSocket streaming"
+    ],
+    "frontend": [
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS",
+      "Zustand",
+      "Axios",
+      "Vite",
+      "GSAP",
+      "TanStack Query"
+    ],
+    "infra": [
+      "Docker",
+      "GitHub Actions",
+      "Render",
+      "Netlify",
+      "OpenTelemetry",
+      "Prometheus",
+      "Grafana",
+      "Nginx"
+    ],
+    "testing": ["Jest", "Vitest", "Artillery", "Playwright"]
+  },
+  "projects": [
+    {
+      "slug": "research-assistant-platform",
+      "title": "Research Assistant Platform",
+      "description": "Production-grade RAG + AI agent system. Upload documents, ask questions, stream agent reasoning steps in real time.",
+      "techStack": [
+        "Node.js",
+        "TypeScript",
+        "Fastify",
+        "PostgreSQL",
+        "pgvector",
+        "Redis",
+        "Gemini API",
+        "Docker",
+        "Prometheus",
+        "Grafana"
+      ],
+      "highlights": [
+        "640+ Jest unit tests with 82% line coverage enforced in CI",
+        "Sub-800ms P95 latency on RAG queries",
+        "Hybrid search: pgvector cosine similarity + BM25 tsvector + Reciprocal Rank Fusion",
+        "Self-correcting ReAct agent loop with RAG Triad quality scoring and automatic retry",
+        "Real-time WebSocket streaming of agent reasoning steps",
+        "12-panel Grafana observability dashboard with OpenTelemetry tracing and Prometheus metrics"
+      ],
+      "repoUrl": "https://github.com/darunbjork/research-assistant-platform",
+      "liveUrl": ""
+    },
+    {
+      "slug": "darun-dev-portfolio",
+      "title": "darun.dev Portfolio Platform",
+      "description": "Production portfolio with Fastify backend, Prisma, Redis cache, admin auth, visitor analytics, feedback system, and Gemini-powered AI chat.",
+      "techStack": [
+        "Node.js",
+        "Fastify",
+        "Prisma",
+        "PostgreSQL",
+        "Redis",
+        "Gemini API",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Docker",
+        "GitHub Actions"
+      ],
+      "highlights": [
+        "pnpm + Turborepo monorepo with shared types package",
+        "Argon2id password hashing + HttpOnly JWT + CSRF double-submit protection",
+        "Magic-byte image validation with Cloudinary URL-only storage",
+        "Visitor fingerprinting with SHA-256 and unique project view tracking",
+        "Structured Gemini chat with Zod-validated JSON output",
+        "portfolio-context.json as single source of truth for AI responses"
+      ],
+      "repoUrl": "https://github.com/darunbjork",
+      "liveUrl": "https://darun.dev"
+    },
+    {
+      "slug": "smart-home-automation-api",
+      "title": "Smart Home Automation API",
+      "description": "Full real-time IoT control system with MQTT device commands, multi-tenant RBAC, and Socket.io state broadcasting.",
+      "techStack": [
+        "Node.js",
+        "TypeScript",
+        "MongoDB",
+        "MQTT",
+        "Socket.io",
+        "JWT/RBAC",
+        "Docker",
+        "GitHub Actions",
+        "Swagger"
+      ],
+      "highlights": [
+        "Full IoT real-time loop: MQTT handles device commands, Socket.io fans state to all clients in under 30ms",
+        "Closed-loop simulator validates the full device to API to client flow",
+        "Tenant-isolated RBAC at middleware layer — cross-tenant data access is structurally blocked",
+        "Multi-platform Docker deploy: linux/amd64 + linux/arm64 via GitHub Actions CI",
+        "Live on Render with full Swagger/OpenAPI documentation"
+      ],
+      "repoUrl": "https://github.com/darunbjork/smart-home-automation-api",
+      "liveUrl": "https://smart-home-automation-api.onrender.com"
+    },
+    {
+      "slug": "devquiz-ai-platform",
+      "title": "DevQuiz — AI Quiz Platform",
+      "description": "AI-powered quiz platform using Gemini API with structured prompt pipelines, output validation, and resumable PostgreSQL-persisted sessions.",
+      "techStack": [
+        "React",
+        "TypeScript",
+        "Gemini API",
+        "Bun",
+        "Fastify",
+        "PostgreSQL",
+        "FastAPI",
+        "Docker"
+      ],
+      "highlights": [
+        "Structured prompt pipelines with output validation cut off-format Gemini responses by ~85%",
+        "Micro-step prompt schemas enforce reliable JSON output from LLM",
+        "PostgreSQL-persisted quiz state tied to JWT accounts for zero-loss session resume",
+        "FastAPI Python service for AI model integration alongside Node.js backend"
+      ],
+      "repoUrl": "https://github.com/darunbjork/DevQuiz",
+      "liveUrl": ""
+    }
+  ],
+  "experience": [
+    {
+      "title": "Independent Full-Stack Developer",
+      "company": "Self-directed",
+      "location": "Stockholm, Sweden",
+      "period": "Jun 2023 – Present",
+      "highlights": [
+        "Shipped 5+ full-stack applications end-to-end — REST APIs, authentication, file handling, and CI/CD on every project",
+        "Built JWT + RBAC auth systems across 3 projects — zero auth bugs post-launch",
+        "Enforced API contracts with OpenAPI/Swagger on every backend",
+        "Structured prompt engineering reduced off-format AI responses by ~85%",
+        "Built RAG platform with pgvector hybrid retrieval and self-correcting agent loop",
+        "Instrumented full observability with OpenTelemetry and 12-panel Grafana dashboard"
+      ]
+    },
+    {
+      "title": "Personal Assistant",
+      "company": "Stockholm",
+      "location": "Stockholm, Sweden",
+      "period": "2018 – 2024",
+      "highlights": [
+        "6 years providing daily personal care and support with regulatory-standard documentation reviewed by government authorities"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "q": "When are you available for work?",
+      "a": "I am immediately available and actively seeking full-time employment in Stockholm and remotely."
+    },
+    {
+      "q": "What is your strongest technical skill?",
+      "a": "Building production AI systems end-to-end — especially RAG pipelines with evaluation, caching, observability, and self-correcting agent loops."
+    },
+    {
+      "q": "Do you have experience with testing?",
+      "a": "Yes — 640+ Jest tests at 82% line coverage on the Research Assistant Platform, plus Vitest integration tests, Artillery load testing, and Playwright E2E."
+    },
+    {
+      "q": "Where are you based?",
+      "a": "Stockholm, Sweden. Open to on-site, hybrid, and fully remote roles."
+    },
+    {
+      "q": "What is your experience level?",
+      "a": "I have been building full-stack production applications since June 2023 — over 2 years of hands-on development with 5+ live projects on GitHub."
+    },
+    {
+      "q": "Do you have a degree in computer science?",
+      "a": "I hold a Full-Stack Web Development Certificate from CareerFoundry (2023–2024). My practical experience is demonstrated through 5+ production projects, 2,480+ GitHub contributions, and real deployed systems."
+    },
+    {
+      "q": "What makes you different from other junior developers?",
+      "a": "I build AI-integrated production systems — not just CRUD apps. My Research Assistant Platform has 640+ tests, sub-800ms P95 latency, and full observability. I treat engineering quality as non-negotiable."
+    },
+    {
+      "q": "Are you open to relocation?",
+      "a": "I am based in Stockholm and prefer to stay here, but I am open to hybrid and remote roles across Sweden and Europe."
+    },
+    {
+      "q": "Do you need visa sponsorship?",
+      "a": "No — I am legally authorized to work in Sweden."
+    }
+  ],
+  "guardrails": {
+    "salary": "I'd prefer to discuss compensation directly in a conversation — happy to align on expectations early.",
+    "unknownTechnology": "That's not in my current stack, but I pick up new technologies quickly — I've independently learned MQTT, pgvector, RAG architecture, and ReAct agents from scratch.",
+    "availability": "I am immediately available and actively seeking employment in Stockholm and remotely. Please reach out via darunbjork@gmail.com or LinkedIn.",
+    "education": "I hold a CareerFoundry Full-Stack Web Development Certificate and have been building production applications independently since June 2023. My work speaks through my GitHub and live projects.",
+    "personalInfo": "I can only share professional information. For anything personal, please reach out directly."
+  }
+}
