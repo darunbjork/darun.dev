@@ -20,6 +20,7 @@ import { analyticsRoutes } from "./modules/analytics/analytics.routes.js"
 import { projectsRoutes } from "./modules/projects/projects.routes.js"
 import { mediaRoutes } from "./modules/media/media.routes.js"
 import { feedbackRoutes } from "./modules/feedback/feedback.routes.js"
+import { chatRoutes } from "./modules/chat/chat.routes.js"
 
 export async function buildApp(): Promise<FastifyInstance> {
   const fastify = Fastify({
@@ -133,6 +134,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await fastify.register(projectsRoutes)
   await fastify.register(mediaRoutes)
   await fastify.register(feedbackRoutes)
+  await fastify.register(chatRoutes)
 
   return fastify
 }
