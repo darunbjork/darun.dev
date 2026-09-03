@@ -79,4 +79,26 @@ describe("Chat session lifecycle", () => {
     expect(response.statusCode).toBe(200)
     expect(response.json<{ success: boolean }>().success).toBe(true)
   })
+
+  it("ends session even when there are few messages (no notes required)", async () => {
+    const start = await app.inject({
+      method: "POST",
+      url: "/api/v1/chat/session/start",
+      payload: {},
+    })
+    const sessionId = start.json<{ data: { sessionId: string } }>().data.sessionId
+
+    const end = await app.inject({
+      method: "POST",
+      url: "/api/v1/chat/session/end",
+      payload: { sessionId },
+    })
+
+    expect(end.statusCode).toBe(200)
+
+    const row = await app.prisma.chatSession.findUnique({
+      where: { id: sessionId },
+    })
+    expect(row?.endedAt).not.toBeNull()
+  })
 })

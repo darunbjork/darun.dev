@@ -159,56 +159,45 @@ export class ChatService {
         : null,
     }
   }
+private async generateNotes(
+  sessionId: string,
+  messages: Array<{ role: string; content: string }>
+): Promise<void> {
+  const transcript = messages
+    .map((m) => `${m.role}: ${m.content}`)
+    .join("\n")
 
-  private async generateNotes(
-    sessionId: string,
-    messages: Array<{ role: string; content: string }>
-  ): Promise<void> {
-    const transcript = messages
-      .map((m) => `${m.role}: ${m.content}`)
-      .join("\n")
-
-    const notesPrompt = `Analyze this portfolio site chat transcript and extract structured notes.
+  const notesPrompt = `Analyze this portfolio site chat transcript and extract structured notes.
 
 TRANSCRIPT:
 ${transcript}
 
 Respond ONLY with the required JSON (reply can be a short ack; put the analysis in notes).`
 
-    try {
-      const result = await this.gemini.generateReply(
-        notesPrompt,
-        [],
-        CONTEXT_JSON,
-        CONTEXT_VERSION
-      )
+  try {
+    const result = await this.gemini.generateReply(
+      notesPrompt,
+      [],
+      CONTEXT_JSON,
+      CONTEXT_VERSION
+    )
 
-      await this.fastify.prisma.chatNotes.upsert({
-        where: { sessionId },
-        update: {
-          summary: result.notes.summary,
-          nextSteps: result.notes.nextSteps ?? undefined,
-          painPoints: result.notes.painPoints ?? undefined,
-        },
-        create: {
-          sessionId,
-          summary: result.notes.summary,
-          nextSteps: result.notes.nextSteps ?? undefined,
-          painPoints: result.notes.painPoints ?? undefined,
-        },
-      })
-    } catch {
-      // Non-fatal — session already ended
-      this.fastify.log.warn({ sessionId }, "Note generation failed — non-fatal")
-    }
+    await this.fastify.prisma.chatNotes.upsert({
+      where: { sessionId },
+      update: {
+        summary: result.notes.summary,
+        nextSteps: result.notes.nextSteps ?? [],  
+        painPoints: result.notes.painPoints ?? [], 
+      },
+      create: {
+        sessionId,
+        summary: result.notes.summary,
+        nextSteps: result.notes.nextSteps ?? [],
+        painPoints: result.notes.painPoints ?? [],
+      },
+    })
+  } catch {
+    // Non-fatal — session already ended
+    this.fastify.log.warn({ sessionId }, "Note generation failed — non-fatal")
   }
-
-  /** Exposed for admin hot-reload later */
-  getContextVersion(): string {
-    return CONTEXT_VERSION
-  }
-
-  getContextJson(): string {
-    return CONTEXT_JSON
-  }
-}
+}}
