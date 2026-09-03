@@ -54,7 +54,22 @@ export interface GeminiStructuredOutput {
   }
 }
 
-export interface SessionWithTranscript extends ChatSession {
-  messages: ChatMessage[]
-  notes:    ChatNotes | null
+export interface SessionWithTranscript {
+  id: string
+  visitorId: string | null
+  userType: string
+  startedAt: string
+  endedAt: string | null
+  sentimentScore: number | null
+  messages: Array<{
+    id: string
+    role: string
+    content: string
+    timestamp: string
+  }>
+  notes: {
+    summary: string | null
+    nextSteps: unknown
+    painPoints: unknown
+  } | null
 }
