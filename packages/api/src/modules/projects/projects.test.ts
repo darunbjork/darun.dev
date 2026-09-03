@@ -33,7 +33,7 @@ describe("GET /api/v1/projects", () => {
   })
 
   expect(response.statusCode).toBe(200)
-  const body = response.json<any>()
+  const body = response.json<{ success: boolean; data: unknown[] }>()
   expect(body.success).toBe(true)
   expect(Array.isArray(body.data)).toBe(true)
 })
