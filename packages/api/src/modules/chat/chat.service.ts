@@ -1,8 +1,10 @@
+// packages/api/src/modules/chat/chat.service.ts
 import { readFileSync } from "fs"
 import { join, dirname } from "path"
 import { fileURLToPath } from "url"
 import type { FastifyInstance } from "fastify"
 import { GeminiService } from "./gemini.service.js"
+import { scoreSentiment } from "./sentiment.service.js"
 import { sanitizeChatMessage } from "../../utils/sanitize.js"
 import type {
   StartSessionResponse,
@@ -114,15 +116,32 @@ export class ChatService {
       throw new NotFoundError("Chat session")
     }
 
+    // 1) Mark ended FIRST (always succeeds)
     await this.fastify.prisma.chatSession.update({
       where: { id: sessionId },
       data: { endedAt: new Date() },
     })
 
+    // 2) Best-effort sentiment scoring (never fails the session)
+    const visitorMessages = session.messages
+      .filter((m) => m.role === "user")
+      .map((m) => m.content)
+      .join("\n")
+
+    const sentimentScore = await scoreSentiment(visitorMessages)
+    if (sentimentScore !== null) {
+      await this.fastify.prisma.chatSession.update({
+        where: { id: sessionId },
+        data: { sentimentScore },
+      })
+    }
+
+    // 3) Best-effort notes generation (only if enough messages)
     if (session.messages.length > 2) {
       await this.generateNotes(sessionId, session.messages)
     }
   }
+
 
   async getTranscript(sessionId: string): Promise<SessionWithTranscript> {
     const session = await this.fastify.prisma.chatSession.findUnique({
