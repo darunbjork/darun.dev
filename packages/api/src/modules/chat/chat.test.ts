@@ -102,3 +102,70 @@ describe("Chat session lifecycle", () => {
     expect(row?.endedAt).not.toBeNull()
   })
 })
+
+describe("userType persistence (live Gemini tests — skipped)", () => {
+  it.skip("updates session.userType after a successful message when Gemini is available", async () => {
+    const start = await app.inject({
+      method: "POST",
+      url: "/api/v1/chat/session/start",
+      payload: {},
+    })
+    const sessionId = start.json<{ data: { sessionId: string } }>().data.sessionId
+
+    const msg = await app.inject({
+      method: "POST",
+      url: "/api/v1/chat/message",
+      payload: {
+        sessionId,
+        content: "I am a recruiter — when is your LIA internship window?",
+      },
+    })
+
+    expect(msg.statusCode).toBe(200)
+    const body = msg.json<{
+      success: boolean
+      data: { reply: string; userType: string }
+    }>()
+    expect(body.success).toBe(true)
+    expect([
+      "Unknown",
+      "Recruiter",
+      "Developer",
+      "Client",
+      "Other",
+    ]).toContain(body.data.userType)
+
+    const session = await app.prisma.chatSession.findUnique({
+      where: { id: sessionId },
+    })
+    expect(session?.userType).toBe(body.data.userType)
+  })
+
+  it.skip("refuses unknown topics without inventing stack details (live)", async () => {
+    const start = await app.inject({
+      method: "POST",
+      url: "/api/v1/chat/session/start",
+      payload: {},
+    })
+    const sessionId = start.json<{ data: { sessionId: string } }>().data.sessionId
+
+    const msg = await app.inject({
+      method: "POST",
+      url: "/api/v1/chat/message",
+      payload: {
+        sessionId,
+        content: "What is Darun's experience with COBOL mainframes?",
+      },
+    })
+
+    expect(msg.statusCode).toBe(200)
+    const reply = msg.json<{ data: { reply: string } }>().data.reply.toLowerCase()
+
+    expect(reply.includes("cobol")).toBe(false)
+    expect(
+      reply.includes("don't have that detail") ||
+        reply.includes("not in my current stack") ||
+        reply.includes("interview")
+    ).toBe(true)
+  })
+})
