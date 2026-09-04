@@ -103,8 +103,8 @@ describe("Chat session lifecycle", () => {
   })
 })
 
-describe("userType persistence (live Gemini tests — skipped)", () => {
-  it.skip("updates session.userType after a successful message when Gemini is available", async () => {
+describe("userType persistence (live Gemini tests)", () => {
+  it("updates session.userType after a successful message when Gemini is available", async () => {
     const start = await app.inject({
       method: "POST",
       url: "/api/v1/chat/session/start",
@@ -141,7 +141,7 @@ describe("userType persistence (live Gemini tests — skipped)", () => {
     expect(session?.userType).toBe(body.data.userType)
   })
 
-  it.skip("refuses unknown topics without inventing stack details (live)", async () => {
+  it("refuses unknown topics without inventing stack details (live)", async () => {
     const start = await app.inject({
       method: "POST",
       url: "/api/v1/chat/session/start",
