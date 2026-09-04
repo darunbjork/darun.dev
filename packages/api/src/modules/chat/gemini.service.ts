@@ -7,7 +7,7 @@ import { AppError } from "../../utils/errors.js"
 const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY)
 
 const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
+  model: "gemini-3.6-flash",
   generationConfig: {
     temperature: 0.3,
     responseMimeType: "application/json",
@@ -49,7 +49,9 @@ export class GeminiService {
     try {
       const result = await model.generateContent(fullPrompt)
       rawOutput = result.response.text()
-    } catch {
+    } catch (error) {
+      // Log the actual error to help debug (API key, model, quota, etc.)
+      console.error("Gemini API error:", error)
       throw new AppError(
         "AI service temporarily unavailable",
         503,

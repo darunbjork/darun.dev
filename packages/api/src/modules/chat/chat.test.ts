@@ -13,6 +13,9 @@ afterAll(async () => {
   await app.close()
 })
 
+// Only run live Gemini tests when a real key is present (starts with "AIza")
+const isRealGeminiKey = !!process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY.startsWith("AIza")
+
 describe("Chat session lifecycle", () => {
   it("starts a session and returns sessionId", async () => {
     const response = await app.inject({
@@ -103,8 +106,15 @@ describe("Chat session lifecycle", () => {
   })
 })
 
-describe("userType persistence (live Gemini tests — skipped)", () => {
-  it.skip("updates session.userType after a successful message when Gemini is available", async () => {
+describe("userType persistence (live Gemini tests)", () => {
+  if (!isRealGeminiKey) {
+    it("skips live Gemini tests without a real API key", () => {
+      expect(true).toBe(true)
+    })
+    return
+  }
+
+  it("updates session.userType after a successful message when Gemini is available", async () => {
     const start = await app.inject({
       method: "POST",
       url: "/api/v1/chat/session/start",
@@ -141,7 +151,7 @@ describe("userType persistence (live Gemini tests — skipped)", () => {
     expect(session?.userType).toBe(body.data.userType)
   })
 
-  it.skip("refuses unknown topics without inventing stack details (live)", async () => {
+  it("refuses unknown topics without inventing stack details (live)", async () => {
     const start = await app.inject({
       method: "POST",
       url: "/api/v1/chat/session/start",
