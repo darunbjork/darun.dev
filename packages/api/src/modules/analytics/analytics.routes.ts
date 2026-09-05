@@ -82,6 +82,19 @@ const analyticsRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => 
       return reply.status(200).send(ok(data, request.correlationId))
     }
   )
+
+fastify.get(
+  "/api/v1/admin/analytics/sessions",
+  {
+    preHandler: [authGuard],
+    config: { rateLimit: { max: 30, timeWindow: "1 minute" } },
+  },
+  async (request, reply) => {
+    const data = await analyticsService.getSessionAnalytics()
+    return reply.status(200).send(ok(data, request.correlationId))
+  }
+)
+
 }
 
 export { analyticsRoutes }

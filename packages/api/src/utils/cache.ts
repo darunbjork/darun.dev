@@ -13,6 +13,7 @@ export const CacheKey = {
   projectDetail: (slug: string): string => `projects:detail:${slug}`,
   analytics: (): string => "analytics:dashboard",
   feedbackStats: (slug: string): string => `feedback:stats:${slug}`,
+  sessionAnalytics: (): string => "analytics:sessions",
 } as const
 
 export async function getOrSet<T>(

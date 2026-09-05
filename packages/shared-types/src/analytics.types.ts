@@ -20,3 +20,16 @@ export interface ProjectViewSeries {
     views: number
   }>
 }
+
+export interface SentimentBucket {
+  bucket: "negative" | "neutral" | "positive" | "unknown"
+  count: number
+}
+
+export interface SessionAnalytics {
+  totalSessions: number
+  endedSessions: number
+  avgSentiment: number | null
+  sentimentDistribution: SentimentBucket[]
+  byUserType: Array<{ userType: string; count: number }>
+}
