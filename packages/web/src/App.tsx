@@ -1,46 +1,33 @@
-import { useEffect, useState } from "react"
-import { getData } from "./lib/api.js"
-
-interface HealthPayload {
-  status: string
-  services?: { db?: string; redis?: string }
-}
+import { useProjects } from "./hooks/useProjects.js"
 
 export function App(): React.JSX.Element {
-  const [health, setHealth] = useState<HealthPayload | null>(null)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    let cancelled = false
-    void (async () => {
-      try {
-        const data = await getData<HealthPayload>("/health")
-        if (!cancelled) { setHealth(data); setError(null) }
-      } catch (err) {
-        if (!cancelled) setError(err instanceof Error ? err.message : "Health check failed")
-      }
-    })()
-    return () => { cancelled = true }
-  }, [])
+  const { projects, isLoading, isError, error } = useProjects()
 
   return (
-    <div style={{ padding: "2rem", maxWidth: 640 }}>
-      <h1 style={{ marginBottom: "0.5rem" }}>
+    <div style={{ padding: "2rem", maxWidth: 720 }}>
+      <h1>
         darun<span style={{ color: "#7c3aed" }}>.dev</span>
       </h1>
-      <p style={{ color: "#64748b" }}>Frontend Day 43 — API link check</p>
-      {error && <p style={{ color: "#f87171" }}>Error: {error}</p>}
-      {!error && !health && <p>Backend status: checking…</p>}
-      {health && (
-        <div>
-          <p>Backend status: <strong style={{ color: "#a78bfa" }}>{health.status}</strong></p>
-          {health.services && (
-            <ul style={{ color: "#64748b" }}>
-              <li>db: {health.services.db ?? "n/a"}</li>
-              <li>redis: {health.services.redis ?? "n/a"}</li>
-            </ul>
+      <p style={{ color: "#64748b" }}>useProjects()</p>
+
+      {isLoading && <p>Loading projects…</p>}
+      {isError && (
+        <p style={{ color: "#f87171" }}>
+          {error?.message ?? "Failed to load projects"}
+        </p>
+      )}
+      {!isLoading && !isError && (
+        <ul>
+          {(projects ?? []).map((p) => (
+            <li key={p.id}>
+              <strong>{p.title}</strong>{" "}
+              <span style={{ color: "#64748b" }}>({p.slug})</span>
+            </li>
+          ))}
+          {(projects ?? []).length === 0 && (
+            <li style={{ color: "#64748b" }}>No published projects yet.</li>
           )}
-        </div>
+        </ul>
       )}
     </div>
   )
