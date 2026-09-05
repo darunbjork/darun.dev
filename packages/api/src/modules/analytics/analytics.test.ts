@@ -21,6 +21,7 @@ beforeAll(async () => {
 
 afterEach(async () => {
   await app.redis.del(CacheKey.analytics())
+  await app.redis.del(CacheKey.sessionAnalytics()) 
 })
 
 describe("GET /api/v1/analytics", () => {
@@ -72,5 +73,36 @@ describe("GET /api/v1/analytics", () => {
 
     const cached = await app.redis.get(CacheKey.analytics())
     expect(cached).not.toBeNull()
+  })
+})
+
+describe("GET /api/v1/admin/analytics/sessions", () => {
+  it("returns 401 for session analytics without auth", async () => {
+    const response = await app.inject({
+      method: "GET",
+      url: "/api/v1/admin/analytics/sessions",
+    })
+    expect(response.statusCode).toBe(401)
+  })
+
+  it("returns session analytics shape for admin", async () => {
+    const response = await app.inject({
+      method: "GET",
+      url: "/api/v1/admin/analytics/sessions",
+      cookies: { token: adminToken },
+    })
+    expect(response.statusCode).toBe(200)
+    const body = response.json<{
+      data: {
+        totalSessions: number
+        endedSessions: number
+        avgSentiment: number | null
+        sentimentDistribution: unknown[]
+        byUserType: unknown[]
+      }
+    }>()
+    expect(typeof body.data.totalSessions).toBe("number")
+    expect(Array.isArray(body.data.sentimentDistribution)).toBe(true)
+    expect(Array.isArray(body.data.byUserType)).toBe(true)
   })
 })
