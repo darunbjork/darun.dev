@@ -179,3 +179,21 @@ describe("userType persistence (live Gemini tests)", () => {
     ).toBe(true)
   })
 })
+
+describe("Admin chat routes", () => {
+  it("rejects unauthenticated session list", async () => {
+    const res = await app.inject({
+      method: "GET",
+      url: "/api/v1/admin/chat/sessions",
+    })
+    expect(res.statusCode).toBe(401)
+  })
+
+  it("rejects unauthenticated context reload", async () => {
+    const res = await app.inject({
+      method: "POST",
+      url: "/api/v1/admin/chat/context/reload",
+    })
+    expect(res.statusCode).toBe(401)
+  })
+})
