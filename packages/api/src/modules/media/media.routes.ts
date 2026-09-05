@@ -17,8 +17,7 @@ const envelopeSchema = {
 
 const mediaRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
   const mediaService = new MediaService(fastify)
-
-  // ! Skip CSRF in dev/test; enforce in production
+  
   const csrfPreHandler =
     env.NODE_ENV === "production"
       ? fastify.csrfProtection

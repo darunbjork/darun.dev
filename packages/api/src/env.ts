@@ -26,7 +26,7 @@ const envSchema = z.object({
   RESEND_FROM:    z.string().email(),
 
   FRONTEND_URL: z.string().url(),
-  ADMIN_EMAIL:    z.string().email(), // ! must be lowercase
+  ADMIN_EMAIL:    z.string().email(),
   ADMIN_PASSWORD: z.string().min(12),
 
   SENTRY_DSN:          z.string().url().optional(),

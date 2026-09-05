@@ -52,7 +52,6 @@ const chatRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
     }
   )
 
-  // POST /api/v1/chat/session/end
   fastify.post<{
     Body: { sessionId: string }
   }>(

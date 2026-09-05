@@ -25,7 +25,6 @@ describe("GET /health", () => {
     expect(body.data.status).toBe("ok")
     expect(body.data.services.db).toBe("ok")
     expect(body.data.services.redis).toBe("ok")
-    // timestamp must be a valid ISO string
     expect(new Date(body.data.timestamp).toISOString()).toBe(body.data.timestamp)
   })
 
