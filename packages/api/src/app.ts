@@ -34,7 +34,6 @@ export async function buildApp(): Promise<FastifyInstance> {
     },
   })
 
-  // 1. Security headers
   await fastify.register(fastifyHelmet, {
     contentSecurityPolicy: {
       directives: {
@@ -52,19 +51,16 @@ export async function buildApp(): Promise<FastifyInstance> {
     },
   })
 
-  // 2. CORS — only allowed origin
   await fastify.register(fastifyCors, {
     origin: [env.FRONTEND_URL],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   })
 
-  // 3. Cookie plugin
   await fastify.register(fastifyCookie, {
     secret: env.JWT_SECRET,
   })
 
-  // 4. CSRF protection (works in production)
   await fastify.register(fastifyCsrf, {
     // @ts-ignore - secret is required but not in types for this version
     secret: env.JWT_SECRET,
@@ -76,23 +72,19 @@ export async function buildApp(): Promise<FastifyInstance> {
     },
   })
 
-  // 5-6. Infrastructure (before rate-limit)
   await fastify.register(prismaPlugin)
   await fastify.register(redisPlugin)
 
-  // 7. Rate limiting
   await fastify.register(fastifyRateLimit, {
     global: true,
     max: 100,
     timeWindow: "1 minute",
   })
 
-  // 8. Multipart
   await fastify.register(fastifyMultipart, {
     limits: { fileSize: 10 * 1024 * 1024, files: 5 },
   })
 
-  // 9. Swagger
   await fastify.register(fastifySwagger, {
     openapi: {
       info: {

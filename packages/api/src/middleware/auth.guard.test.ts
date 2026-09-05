@@ -9,7 +9,6 @@ let app: FastifyInstance
 
 beforeAll(async () => {
   app = await buildApp()
-  // ! Add test route BEFORE calling ready()
   app.get(
     "/test-protected",
     { preHandler: [authGuard] },

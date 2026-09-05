@@ -53,7 +53,6 @@ export class AuthService {
   async createAdmin(email: string, password: string): Promise<void> {
   const normalised = email.toLowerCase().trim()
 
-  // Check if ANY admin exists (first-admin bootstrap only)
   const existingAdminCount = await this.fastify.prisma.admin.count()
   if (existingAdminCount > 0) {
     throw new ConflictError("Admin registration is disabled")

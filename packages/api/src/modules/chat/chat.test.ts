@@ -13,7 +13,6 @@ afterAll(async () => {
   await app.close()
 })
 
-// Only run live Gemini tests when a real key is present (starts with "AIza")
 const isRealGeminiKey = !!process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY.startsWith("AIza")
 
 describe("Chat session lifecycle", () => {

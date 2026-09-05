@@ -94,7 +94,6 @@ private async computeSessionAnalytics(): Promise<SessionAnalytics> {
       ? null
       : scores.reduce((a, b) => a + b, 0) / scores.length
 
-  // Initialize distribution buckets
   const distribution: SentimentBucket[] = [
     { bucket: "negative", count: 0 },
     { bucket: "neutral", count: 0 },
@@ -102,13 +101,11 @@ private async computeSessionAnalytics(): Promise<SessionAnalytics> {
     { bucket: "unknown", count: 0 },
   ]
 
-  // Update unknown bucket
   const unknownBucket = distribution.find((b) => b.bucket === "unknown")
   if (unknownBucket) {
     unknownBucket.count = totalSessions - scores.length
   }
 
-  // Bucket each score safely
   for (const score of scores) {
     const bucketName =
       score < -0.2 ? "negative" : score <= 0.2 ? "neutral" : "positive"

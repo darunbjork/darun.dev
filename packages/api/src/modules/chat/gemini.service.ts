@@ -50,7 +50,6 @@ export class GeminiService {
       const result = await model.generateContent(fullPrompt)
       rawOutput = result.response.text()
     } catch (error) {
-      // Log the actual error to help debug (API key, model, quota, etc.)
       console.error("Gemini API error:", error)
       throw new AppError(
         "AI service temporarily unavailable",

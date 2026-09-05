@@ -9,7 +9,6 @@ const chatAdminRoutes: FastifyPluginAsync = async (
 ) => {
   const chatService = new ChatService(fastify)
 
-  // * Skip CSRF in dev/test; enforce in production
   const csrfPreHandler =
     env.NODE_ENV === "production"
       ? fastify.csrfProtection

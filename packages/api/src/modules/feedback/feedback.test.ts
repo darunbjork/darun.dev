@@ -31,7 +31,6 @@ beforeAll(async () => {
     url: "/api/v1/visitors",
   })
   visitorId = visitorRes.json<{ data: { visitorId: string } }>().data.visitorId
-  // In beforeAll, after registering visitor:
   console.log("Visitor ID:", visitorId)
 })
 

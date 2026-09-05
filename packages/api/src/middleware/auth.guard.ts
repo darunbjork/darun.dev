@@ -25,7 +25,6 @@ export function authGuard(
     request.adminId = payload.adminId
     done()
   } catch {
-    // * Token expired or tampered — clear the invalid cookie
     reply.clearCookie("token", { path: "/" })
     done(new UnauthorizedError("Session expired — please log in again"))
   }
