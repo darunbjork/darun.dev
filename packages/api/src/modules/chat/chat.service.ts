@@ -1,4 +1,3 @@
-// packages/api/src/modules/chat/chat.service.ts
 import { readFileSync } from "fs"
 import { join, dirname } from "path"
 import { fileURLToPath } from "url"
@@ -15,12 +14,22 @@ import { NotFoundError, AppError } from "../../utils/errors.js"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-const CONTEXT = JSON.parse(
-  readFileSync(join(__dirname, "portfolio-context.json"), "utf-8")
-) as { version: string; [key: string]: unknown }
+function loadContext(): {
+  version: string
+  json: string
+  data: Record<string, unknown>
+} {
+  const data = JSON.parse(
+    readFileSync(join(__dirname, "portfolio-context.json"), "utf-8")
+  ) as { version: string; [key: string]: unknown }
+  return {
+    version: data.version,
+    json: JSON.stringify(data),
+    data,
+  }
+}
 
-const CONTEXT_JSON = JSON.stringify(CONTEXT)
-const CONTEXT_VERSION = CONTEXT.version
+let contextState = loadContext()
 
 export class ChatService {
   private readonly gemini = new GeminiService()
@@ -36,7 +45,6 @@ export class ChatService {
         userType: "Unknown",
       },
     })
-
     return { sessionId: session.id }
   }
 
@@ -54,10 +62,7 @@ export class ChatService {
       },
     })
 
-    if (session === null) {
-      throw new NotFoundError("Chat session")
-    }
-
+    if (session === null) throw new NotFoundError("Chat session")
     if (session.endedAt !== null) {
       throw new AppError("Session already ended", 400, "SESSION_ENDED")
     }
@@ -71,7 +76,6 @@ export class ChatService {
       data: { sessionId, role: "user", content },
     })
 
-    // messages were fetched desc → reverse for chronological history
     const history = session.messages
       .slice()
       .reverse()
@@ -80,16 +84,12 @@ export class ChatService {
     const result = await this.gemini.generateReply(
       content,
       history,
-      CONTEXT_JSON,
-      CONTEXT_VERSION
+      contextState.json,          
+      contextState.version        
     )
 
     const assistantMsg = await this.fastify.prisma.chatMessage.create({
-      data: {
-        sessionId,
-        role: "assistant",
-        content: result.reply,
-      },
+      data: { sessionId, role: "assistant", content: result.reply },
     })
 
     await this.fastify.prisma.chatSession.update({
@@ -107,27 +107,20 @@ export class ChatService {
   async endSession(sessionId: string): Promise<void> {
     const session = await this.fastify.prisma.chatSession.findUnique({
       where: { id: sessionId },
-      include: {
-        messages: { orderBy: { timestamp: "asc" } },
-      },
+      include: { messages: { orderBy: { timestamp: "asc" } } },
     })
 
-    if (session === null) {
-      throw new NotFoundError("Chat session")
-    }
+    if (session === null) throw new NotFoundError("Chat session")
 
-    // 1) Mark ended FIRST (always succeeds)
     await this.fastify.prisma.chatSession.update({
       where: { id: sessionId },
       data: { endedAt: new Date() },
     })
 
-    // 2) Best-effort sentiment scoring (never fails the session)
     const visitorMessages = session.messages
       .filter((m) => m.role === "user")
       .map((m) => m.content)
       .join("\n")
-
     const sentimentScore = await scoreSentiment(visitorMessages)
     if (sentimentScore !== null) {
       await this.fastify.prisma.chatSession.update({
@@ -136,25 +129,18 @@ export class ChatService {
       })
     }
 
-    // 3) Best-effort notes generation (only if enough messages)
     if (session.messages.length > 2) {
       await this.generateNotes(sessionId, session.messages)
     }
   }
 
-
   async getTranscript(sessionId: string): Promise<SessionWithTranscript> {
     const session = await this.fastify.prisma.chatSession.findUnique({
       where: { id: sessionId },
-      include: {
-        messages: { orderBy: { timestamp: "asc" } },
-        notes: true,
-      },
+      include: { messages: { orderBy: { timestamp: "asc" } }, notes: true },
     })
 
-    if (session === null) {
-      throw new NotFoundError("Chat session")
-    }
+    if (session === null) throw new NotFoundError("Chat session")
 
     return {
       id: session.id,
@@ -178,45 +164,86 @@ export class ChatService {
         : null,
     }
   }
-private async generateNotes(
-  sessionId: string,
-  messages: Array<{ role: string; content: string }>
-): Promise<void> {
-  const transcript = messages
-    .map((m) => `${m.role}: ${m.content}`)
-    .join("\n")
 
-  const notesPrompt = `Analyze this portfolio site chat transcript and extract structured notes.
+  async listSessions(filter?: { userType?: string }) {
+    const sessions = await this.fastify.prisma.chatSession.findMany({
+      where: filter?.userType ? { userType: filter.userType } : undefined,
+      orderBy: { startedAt: "desc" },
+      take: 100,
+      include: {
+        _count: { select: { messages: true } },
+        notes: { select: { id: true } },
+      },
+    })
+
+    return sessions.map((s) => ({
+      id: s.id,
+      visitorId: s.visitorId,
+      userType: s.userType,
+      startedAt: s.startedAt.toISOString(),
+      endedAt: s.endedAt?.toISOString() ?? null,
+      sentimentScore: s.sentimentScore,
+      messageCount: s._count.messages,
+      hasNotes: s.notes !== null,
+    }))
+  }
+
+  reloadContext(): { version: string } {
+    contextState = loadContext()
+    return { version: contextState.version }
+  }
+
+  getContext(): Record<string, unknown> {
+    return contextState.data
+  }
+
+  getContextVersion(): string {
+    return contextState.version
+  }
+
+  getContextJson(): string {
+    return contextState.json
+  }
+
+  private async generateNotes(
+    sessionId: string,
+    messages: Array<{ role: string; content: string }>
+  ): Promise<void> {
+    const transcript = messages
+      .map((m) => `${m.role}: ${m.content}`)
+      .join("\n")
+
+    const notesPrompt = `Analyze this portfolio site chat transcript and extract structured notes.
 
 TRANSCRIPT:
 ${transcript}
 
 Respond ONLY with the required JSON (reply can be a short ack; put the analysis in notes).`
 
-  try {
-    const result = await this.gemini.generateReply(
-      notesPrompt,
-      [],
-      CONTEXT_JSON,
-      CONTEXT_VERSION
-    )
+    try {
+      const result = await this.gemini.generateReply(
+        notesPrompt,
+        [],
+        contextState.json,
+        contextState.version
+      )
 
-    await this.fastify.prisma.chatNotes.upsert({
-      where: { sessionId },
-      update: {
-        summary: result.notes.summary,
-        nextSteps: result.notes.nextSteps ?? [],  
-        painPoints: result.notes.painPoints ?? [], 
-      },
-      create: {
-        sessionId,
-        summary: result.notes.summary,
-        nextSteps: result.notes.nextSteps ?? [],
-        painPoints: result.notes.painPoints ?? [],
-      },
-    })
-  } catch {
-    // Non-fatal — session already ended
-    this.fastify.log.warn({ sessionId }, "Note generation failed — non-fatal")
+      await this.fastify.prisma.chatNotes.upsert({
+        where: { sessionId },
+        update: {
+          summary: result.notes.summary,
+          nextSteps: result.notes.nextSteps ?? [],
+          painPoints: result.notes.painPoints ?? [],
+        },
+        create: {
+          sessionId,
+          summary: result.notes.summary,
+          nextSteps: result.notes.nextSteps ?? [],
+          painPoints: result.notes.painPoints ?? [],
+        },
+      })
+    } catch {
+      this.fastify.log.warn({ sessionId }, "Note generation failed — non-fatal")
+    }
   }
-}}
+}
