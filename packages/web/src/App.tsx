@@ -7,6 +7,7 @@ import { GlassCard } from "@/components/glass-card"
 import { ChatPanel } from "@/components/chat/chat-panel"
 import { ChatFloatingButton } from "@/components/chat/chat-floating-button"
 import { ChatDashboardPage } from "@/pages/chat-dashboard"
+import { AnalyticsPage } from "@/pages/analytics"
 
 function HomePage(): React.JSX.Element {
   return (
@@ -49,6 +50,7 @@ export function App(): React.JSX.Element {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/admin/chat" element={<ChatDashboardPage />} />
+          <Route path="/admin/analytics" element={<AnalyticsPage />} />
         </Routes>
       </div>
     </BrowserRouter>
