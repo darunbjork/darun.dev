@@ -1,6 +1,7 @@
 import { GlassCard } from "@/components/glass-card"
 import type { ProjectAnalytics } from "@/hooks/useAnalytics"
 
+// TODO: Add a chart for views over time, and a chart for ratings over time. This will require a new API endpoint to fetch the data, and a new hook to fetch the data. The charts can be implemented using a library like Chart.js or Recharts.
 function Metric({ label, value, accent }: { label: string; value: string | number; accent: string }): React.JSX.Element {
   return (
     <div>
