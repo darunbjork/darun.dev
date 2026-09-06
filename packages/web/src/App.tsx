@@ -4,7 +4,21 @@ import { StatsSection } from "@/components/stats-section"
 import { ProjectGrid } from "@/components/project-grid"
 import { GlassCard } from "@/components/glass-card"
 import { useChat } from "@/hooks/useChat"
+import { ChatPanel } from "@/components/chat/chat-panel"
 
+function ChatOpenButton(): React.JSX.Element {
+  const { open, isOpen } = useChat()
+  if (isOpen) return <></>
+  return (
+    <button
+      type="button"
+      className="fixed bottom-6 right-6 z-80 rounded-full bg-(--iris) px-4 py-3 text-sm text-white shadow-lg"
+      onClick={open}
+    >
+      Chat
+    </button>
+  )
+}
 
 function ChatDebug(): React.JSX.Element {
   const chat = useChat()
@@ -69,6 +83,8 @@ export function App(): React.JSX.Element {
       <Hero />
       <StatsSection />
       <ChatDebug /> 
+      <ChatOpenButton />
+      <ChatPanel />
 
       <section id="projects" className="mx-auto max-w-6xl px-6 pb-24">
         <h2 className="mb-6 text-2xl font-semibold">Projects</h2>
