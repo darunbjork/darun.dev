@@ -7,12 +7,11 @@ export interface ApiEnvelope<T> {
   correlationId: string
 }
 
-const API_URL: string =
-  import.meta.env.VITE_API_URL ?? "http://localhost:3000"
+const API_URL: string = import.meta.env.VITE_API_URL || ""
 
 export const api: AxiosInstance = axios.create({
   baseURL: API_URL,
-  timeout: 10_000,
+  timeout: 60_000,
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 })

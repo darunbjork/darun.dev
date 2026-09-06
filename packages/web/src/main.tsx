@@ -1,7 +1,8 @@
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { App } from "./App.js"
+import { ChatProvider } from "@/components/chat/chat-provider"
+import { App } from "./App"
 import "./styles/global.css"
 
 const queryClient = new QueryClient({
@@ -16,7 +17,9 @@ if (!rootEl) throw new Error("Root element #root not found")
 createRoot(rootEl).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <ChatProvider>
+        <App />
+      </ChatProvider>
     </QueryClientProvider>
   </StrictMode>
 )

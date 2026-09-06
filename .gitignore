@@ -21,4 +21,4 @@ packages/api/src/generated/prisma/
 *.log
 
 #docs
-docs
+docscookies.txt
