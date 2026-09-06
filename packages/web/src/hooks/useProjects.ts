@@ -4,7 +4,7 @@ import {
   useQueryClient,
   type UseQueryResult,
 } from "@tanstack/react-query"
-import { getData, api, type ApiEnvelope } from "../lib/api.js"
+import { getData, api, type ApiEnvelope } from "@/lib/api"
 import type { Project } from "@darun/shared-types"
 
 export const projectKeys = {
