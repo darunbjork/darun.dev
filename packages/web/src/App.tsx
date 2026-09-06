@@ -2,14 +2,16 @@ import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
 import { GlassCard } from "@/components/glass-card"
 import { useProjects } from "./hooks/useProjects.js"
+import { StatsSection } from "@/components/stats-section"
 
 export function App(): React.JSX.Element {
   const { projects, isLoading } = useProjects()
 
   return (
-    <div className="min-h-screen bg-(--void)] text-(--text)]">
+     <div className="min-h-screen bg-(--void)] text-(--text)]">
       <Navbar />
       <Hero />
+      <StatsSection />
 
       <section id="projects" className="mx-auto max-w-6xl px-6 pb-24">
         <h2 className="mb-6 text-2xl font-semibold">Projects</h2>
