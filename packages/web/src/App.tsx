@@ -1,41 +1,44 @@
+import { Navbar } from "@/components/navbar"
+import { Hero } from "@/components/hero"
 import { GlassCard } from "@/components/glass-card"
-import { Button } from "@/components/ui/button"
 import { useProjects } from "./hooks/useProjects.js"
 
 export function App(): React.JSX.Element {
   const { projects, isLoading } = useProjects()
 
   return (
-    <div className="min-h-screen bg-(--void)] text-(--text)] p-8">
-      <h1 className="text-3xl font-semibold mb-6">
-        darun<span className="text-(--iris)]">.dev</span>
-      </h1>
+    <div className="min-h-screen bg-(--void)] text-(--text)]">
+      <Navbar />
+      <Hero />
 
-      <div className="grid gap-4 max-w-xl">
+      <section id="projects" className="mx-auto max-w-6xl px-6 pb-24">
+        <h2 className="mb-6 text-2xl font-semibold">Projects</h2>
         <GlassCard className="p-6" glow="iris">
-          <h2 className="text-lg font-medium mb-2">Iris glass</h2>
-          <p className="text-(--muted)] text-sm mb-4">
-            Primary accent surface for featured blocks.
-          </p>
-          <Button type="button">Continue</Button>
-        </GlassCard>
-
-        <GlassCard className="p-6" glow="ember" elevated>
-          <h2 className="text-lg font-medium mb-2">Ember elevated</h2>
-          <p className="text-(--muted)] text-sm">
+          <p className="text-(--muted)]">
             {isLoading
-              ? "Loading projects…"
-              : `${projects?.length ?? 0} published projects`}
+              ? "Loading…"
+              : `${projects?.length ?? 0} published projects (grid lands Day 49)`}
           </p>
         </GlassCard>
+      </section>
 
+      <section id="about" className="mx-auto max-w-6xl px-6 pb-24">
         <GlassCard className="p-6">
-          <h2 className="text-lg font-medium mb-2">Default glass</h2>
-          <p className="text-(--muted)] text-sm">
-            Neutral surface — no glow.
+          <h2 className="mb-2 text-xl font-medium">About</h2>
+          <p className="text-sm text-(--muted)]">
+            Placeholder — deeper about copy can land with content polish.
           </p>
         </GlassCard>
-      </div>
+      </section>
+
+      <section id="contact" className="mx-auto max-w-6xl px-6 pb-24">
+        <GlassCard className="p-6" glow="ember">
+          <h2 className="mb-2 text-xl font-medium">Contact</h2>
+          <p className="text-sm text-(--muted)]">
+            Reach out via the portfolio chat (Phase 6) or email listed in context.
+          </p>
+        </GlassCard>
+      </section>
     </div>
   )
 }
