@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Disallow admin surfaces
+Disallow: /admin/
+
+Sitemap: https://darun.dev/sitemap.xml

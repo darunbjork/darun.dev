@@ -8,8 +8,15 @@ import { ChatPanel } from "@/components/chat/chat-panel"
 import { ChatFloatingButton } from "@/components/chat/chat-floating-button"
 import { ChatDashboardPage } from "@/pages/chat-dashboard"
 import { AnalyticsPage } from "@/pages/analytics"
+import { Seo } from "@/components/seo"
+import { AdminProjectsPage } from "@/pages/admin-projects"
 
 function HomePage(): React.JSX.Element {
+  <Seo
+  title="Full-Stack AI Engineer"
+  description="Darun Mustafa — production TypeScript, Fastify, RAG systems, Stockholm."
+  path="/"
+/>
   return (
     <>
       <Navbar />
@@ -51,6 +58,7 @@ export function App(): React.JSX.Element {
           <Route path="/" element={<HomePage />} />
           <Route path="/admin/chat" element={<ChatDashboardPage />} />
           <Route path="/admin/analytics" element={<AnalyticsPage />} />
+          <Route path="/admin/projects" element={<AdminProjectsPage />} />
         </Routes>
       </div>
     </BrowserRouter>
