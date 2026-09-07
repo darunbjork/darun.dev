@@ -1,8 +1,15 @@
+import { memo } from "react"
 import type { Project } from "@darun/shared-types"
 import { GlassCard } from "@/components/glass-card"
 import { Badge } from "@/components/ui/badge"
 
-export function ProjectCard({ project, onSelect }: { project: Project; onSelect: (project: Project) => void }): React.JSX.Element {
+function ProjectCardComponent({
+  project,
+  onSelect,
+}: {
+  project: Project
+  onSelect: (project: Project) => void
+}): React.JSX.Element {
   const stack = project.techStack ?? []
 
   return (
@@ -10,7 +17,7 @@ export function ProjectCard({ project, onSelect }: { project: Project; onSelect:
       glow="iris"
       role="button"
       tabIndex={0}
-      className="cursor-pointer transition-all hover:border-(--iris)]/50"
+      className="cursor-pointer transition-all hover:border-(--iris)/50"
       onClick={() => onSelect(project)}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -19,24 +26,43 @@ export function ProjectCard({ project, onSelect }: { project: Project; onSelect:
         }
       }}
     >
-      <div className="aspect-video overflow-hidden rounded-t-2xl bg-(--void)]">
+      <div className="aspect-video overflow-hidden rounded-t-2xl bg-(--void)">
         {project.coverUrl !== null && project.coverUrl.length > 0 ? (
-          <img src={project.coverUrl} alt={project.title} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+          <img
+            src={project.coverUrl}
+            alt={project.title}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+            decoding="async"
+            width={640}
+            height={360}
+          />
         ) : (
-          <div className="flex h-full items-center justify-center font-mono text-xs text-(--muted)]">no cover</div>
+          <div className="flex h-full items-center justify-center font-mono text-xs text-(--muted)">
+            no cover
+          </div>
         )}
       </div>
 
       <div className="p-4">
-        <h3 className="mb-1 font-semibold text-(--text)]">{project.title}</h3>
-        <p className="mb-3 line-clamp-2 text-sm text-(--muted)]">{project.description ?? "No description yet."}</p>
+        <h3 className="mb-1 font-semibold text-(--text)">{project.title}</h3>
+        <p className="mb-3 line-clamp-2 text-sm text-(--muted)">
+          {project.description ?? "No description yet."}
+        </p>
         <div className="flex flex-wrap items-center gap-2">
           {stack.slice(0, 3).map((tech) => (
-            <Badge key={tech} variant="secondary">{tech}</Badge>
+            <Badge key={tech} variant="secondary">
+              {tech}
+            </Badge>
           ))}
-          <span className="ml-auto font-mono text-xs text-(--muted)]">{project.views} views</span>
+          <span className="ml-auto font-mono text-xs text-(--muted)">
+            {project.views} views
+          </span>
         </div>
       </div>
     </GlassCard>
   )
 }
+
+export const ProjectCard = memo(ProjectCardComponent)
+ProjectCard.displayName = "ProjectCard"
