@@ -1,0 +1,33 @@
+app = "darun-api"
+primary_region = "ams"
+
+[build]
+  dockerfile = "packages/api/Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+  PORT = 8080
+
+[[services]]
+  http_checks = []
+  internal_port = 8080
+  processes = ["app"]
+  protocol = "tcp"
+
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    interval = 15000
+    timeout = 2000
+
+[[regions]]
+  # Add multiple regions for low latency worldwide
+  name = "ams"      # Amsterdam
+  name = "sea"    # Seattle (US West)
+  name = "hkg"    # Hong Kong (Asia)
