@@ -15,6 +15,7 @@
     "pnpm": ">=9.0.0"
   },
   "devDependencies": {
+    "dotenv-cli": "^11.0.0",
     "turbo": "^2.10.11"
   }
 }
