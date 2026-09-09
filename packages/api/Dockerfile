@@ -16,29 +16,27 @@ COPY packages/api packages/api
 
 RUN pnpm --filter=@darun/shared-types build
 
-# prisma generate needs a dummy URL at build time
 ENV DATABASE_URL="postgresql://placeholder:placeholder@localhost:5432/placeholder"
 RUN pnpm --filter=@darun/api exec prisma generate
 RUN pnpm --filter=@darun/api build
 
-# Ensure portfolio context is in dist
+# Copy portfolio context
 RUN mkdir -p packages/api/dist/modules/chat \
-  && cp packages/api/src/modules/chat/portfolio-context.json \
-  packages/api/dist/modules/chat/portfolio-context.json \
-  || true
+  && cp packages/api/src/modules/chat/portfolio-context.json packages/api/dist/modules/chat/portfolio-context.json 2>/dev/null || true
 
-# Self-contained production package
+# Self-contained deploy
 RUN pnpm --filter=@darun/api deploy --prod /app/deploy
 
-# Copy dist and prisma into deploy (in case deploy didn't include them)
+# Ensure dist and prisma are inside the deploy folder
 RUN cp -R packages/api/dist /app/deploy/dist \
   && mkdir -p /app/deploy/prisma \
   && cp -R packages/api/prisma /app/deploy/prisma \
   && cp packages/api/prisma.config.ts /app/deploy/prisma.config.ts 2>/dev/null || true
 
+# ----- PRODUCTION STAGE -----
 FROM node:22-alpine
 
-WORKDIR /app
+WORKDIR /app   # <<< CRITICAL: NOT /app/packages/api
 
 ENV NODE_ENV=production
 ENV PORT=8080
@@ -47,4 +45,5 @@ COPY --from=builder /app/deploy ./
 
 EXPOSE 8080
 
+# Entry point is now relative to /app
 CMD ["node", "dist/app.js"]
