@@ -8,3 +8,4 @@ packages/*/coverage
 .env
 *.log
 .DS_Store
+.env.production
