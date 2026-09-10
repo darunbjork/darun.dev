@@ -11,7 +11,14 @@ const envSchema = z.object({
   PORT:      z.coerce.number().default(3000),
 
   DATABASE_URL: z.string().url().startsWith("postgresql://"),
-  REDIS_URL:    z.string().url().startsWith("redis://"),
+
+  // Accept both redis:// (local) and rediss:// (Upstash TLS)
+  REDIS_URL: z
+    .string()
+    .regex(
+      /^rediss?:\/\//,
+      "REDIS_URL must start with redis:// or rediss://"
+    ),
 
   JWT_SECRET:     z.string().min(32, "JWT_SECRET must be at least 32 characters"),
   JWT_EXPIRES_IN: z.string().default("7d"),
