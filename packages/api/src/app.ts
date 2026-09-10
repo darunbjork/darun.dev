@@ -1,5 +1,6 @@
 import Fastify from "fastify"
 import type { FastifyInstance } from "fastify"
+import { fileURLToPath } from "node:url"            
 import fastifyHelmet from "@fastify/helmet"
 import fastifyCors from "@fastify/cors"
 import fastifyCookie from "@fastify/cookie"
@@ -117,16 +118,16 @@ export async function buildApp(): Promise<FastifyInstance> {
     }
   )
 
-// ! Fly.io multi‑region replay
-fastify.addHook('onRequest', (req, reply, done) => {
-  const region = req.headers['fly-region']
-  if (region && region !== process.env.FLY_REGION) {
-    reply.header('fly-replay', `region=${region}`)
-    reply.send()
-    return
-  }
-  done()
-})
+  // ! Fly.io multi‑region replay
+  fastify.addHook("onRequest", (req, reply, done) => {
+    const region = req.headers["fly-region"]
+    if (region && region !== process.env.FLY_REGION) {
+      reply.header("fly-replay", `region=${region}`)
+      reply.send()
+      return
+    }
+    done()
+  })
 
   // ! Global hooks
   fastify.addHook("onRequest", correlationId)
@@ -143,7 +144,12 @@ fastify.addHook('onRequest', (req, reply, done) => {
   return fastify
 }
 
-if (process.argv[1] === new URL(import.meta.url).pathname) {
+// ─────────────────────────────────────────────────────────────
+// Entry point – correct detection whether run via tsx or `node dist/app.js`
+// ─────────────────────────────────────────────────────────────
+const isMainModule = process.argv[1] === fileURLToPath(import.meta.url)
+
+if (isMainModule) {
   const app = await buildApp()
   await app.listen({ port: env.PORT, host: "0.0.0.0" })
   app.log.info(`Server listening on port ${env.PORT}`)
