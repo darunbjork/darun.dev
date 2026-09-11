@@ -120,27 +120,13 @@ export async function buildApp(): Promise<FastifyInstance> {
   })
 
   // ! CSRF token endpoint (frontend fetches this to get the cookie)
-  fastify.get(
-    "/api/v1/csrf",
-    { preHandler: [fastify.csrfProtection] },
-    async (_request, reply) => {
-      return reply.send({
-        success: true,
-        data: { message: "CSRF cookie set" },
-      })
-    }
-  )
-
-  // // ! Fly.io multi‑region replay
-  // fastify.addHook("onRequest", (req, reply, done) => {
-  //   const region = req.headers["fly-region"]
-  //   if (region && region !== process.env.FLY_REGION) {
-  //     reply.header("fly-replay", `region=${region}`)
-  //     reply.send()
-  //     return
-  //   }
-  //   done()
-  // })
+fastify.get("/api/v1/csrf", async (_request, reply) => {
+  const token = await reply.generateCsrf()
+  return reply.send({
+    success: true,
+    data: { csrfToken: token },
+  })
+})
 
   // ! Global hooks
   fastify.addHook("onRequest", correlationId)
