@@ -23,14 +23,6 @@ primary_region = "ams"
     method = "GET"
     path = "/health"
 
-  # TCP check — opens a raw socket to the port
-  [[http_service.checks]]
-    interval = "10s"
-    timeout = "5s"
-    grace_period = "30s"
-    type = "tcp"
-    port = 8080
-
 [[vm]]
   size = "shared-cpu-1x"
   memory = "1gb"

@@ -118,16 +118,16 @@ export async function buildApp(): Promise<FastifyInstance> {
     }
   )
 
-  // ! Fly.io multi‑region replay
-  fastify.addHook("onRequest", (req, reply, done) => {
-    const region = req.headers["fly-region"]
-    if (region && region !== process.env.FLY_REGION) {
-      reply.header("fly-replay", `region=${region}`)
-      reply.send()
-      return
-    }
-    done()
-  })
+  // // ! Fly.io multi‑region replay
+  // fastify.addHook("onRequest", (req, reply, done) => {
+  //   const region = req.headers["fly-region"]
+  //   if (region && region !== process.env.FLY_REGION) {
+  //     reply.header("fly-replay", `region=${region}`)
+  //     reply.send()
+  //     return
+  //   }
+  //   done()
+  // })
 
   // ! Global hooks
   fastify.addHook("onRequest", correlationId)
