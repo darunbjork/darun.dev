@@ -11,15 +11,15 @@ primary_region = "ams"
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = "stop"
+  auto_stop_machines = "off"      # ← never stop (24/7 availability)
   auto_start_machines = true
   min_machines_running = 1
   processes = ["app"]
 
   [[http_service.checks]]
     interval = "15s"
-    timeout = "2s"
-    grace_period = "30s"
+    timeout = "5s"                # ← more lenient
+    grace_period = "45s"          # ← more time for cold start
     method = "GET"
     path = "/health"
 
