@@ -99,6 +99,14 @@ export class MediaService {
       },
     })
 
+    // ! If the project has no cover yet, use this image as the cover
+    if (project.coverUrl === null || project.coverUrl.length === 0) {
+      await this.fastify.prisma.project.update({
+        where: { id: projectId },
+        data: { coverUrl: uploadResult.secure_url },
+      })
+    }
+
     await invalidate(
       this.fastify.redis,
       CacheKey.projectsList(),
@@ -121,7 +129,7 @@ export class MediaService {
   async deleteImage(imageId: string, projectId: string): Promise<void> {
     const image = await this.fastify.prisma.projectImage.findFirst({
       where: { id: imageId, projectId },
-      include: { project: { select: { slug: true } } },
+      include: { project: { select: { slug: true, coverUrl: true } } },
     })
 
     if (image === null) {
@@ -130,6 +138,18 @@ export class MediaService {
 
     await cloudinary.uploader.destroy(image.publicId)
     await this.fastify.prisma.projectImage.delete({ where: { id: imageId } })
+
+    // ! If the deleted image was the cover, promote the next image (or clear)
+    if (image.project.coverUrl === image.url) {
+      const next = await this.fastify.prisma.projectImage.findFirst({
+        where: { projectId },
+        orderBy: { order: "asc" },
+      })
+      await this.fastify.prisma.project.update({
+        where: { id: projectId },
+        data: { coverUrl: next?.url ?? null },
+      })
+    }
 
     await invalidate(
       this.fastify.redis,
@@ -165,7 +185,7 @@ export class MediaService {
         throw new ValidationError(`Image ${id} does not belong to this project`)
       }
     }
-    
+
     await this.fastify.prisma.$transaction(
       orderedIds.map((id, index) =>
         this.fastify.prisma.projectImage.update({
@@ -174,6 +194,18 @@ export class MediaService {
         })
       )
     )
+
+    // ! Re-sync coverUrl to the new first image
+    const firstImage = await this.fastify.prisma.projectImage.findFirst({
+      where: { projectId },
+      orderBy: { order: "asc" },
+    })
+    if (firstImage !== null) {
+      await this.fastify.prisma.project.update({
+        where: { id: projectId },
+        data: { coverUrl: firstImage.url },
+      })
+    }
 
     await invalidate(
       this.fastify.redis,

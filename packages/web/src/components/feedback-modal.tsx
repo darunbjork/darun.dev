@@ -63,6 +63,16 @@ export function FeedbackModal({
     }
   })
 
+  // ! Friendly copy for the "already submitted" (409) case
+  const errorMessage = ((): string => {
+    if (!isError) return ""
+    const raw = error?.message ?? ""
+    if (raw.includes("409") || raw.toLowerCase().includes("already")) {
+      return "You've already submitted feedback for this project."
+    }
+    return raw || "Could not submit feedback"
+  })()
+
   return (
     <div
       className="fixed inset-0 z-70 flex items-end justify-center bg-black/60 p-4 backdrop-blur-sm sm:items-center"
@@ -172,9 +182,7 @@ export function FeedbackModal({
             </div>
 
             {isError && (
-              <p className="text-sm text-red-400">
-                {error?.message ?? "Could not submit feedback"}
-              </p>
+              <p className="text-sm text-red-400">{errorMessage}</p>
             )}
 
             <div className="flex gap-2">

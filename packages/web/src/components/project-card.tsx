@@ -12,6 +12,12 @@ function ProjectCardComponent({
 }): React.JSX.Element {
   const stack = project.techStack ?? []
 
+  // ! Fallback: if coverUrl is empty, use the first uploaded image
+  const cover =
+    project.coverUrl !== null && project.coverUrl.length > 0
+      ? project.coverUrl
+      : (project.images?.[0]?.url ?? null)
+
   return (
     <GlassCard
       glow="iris"
@@ -27,9 +33,9 @@ function ProjectCardComponent({
       }}
     >
       <div className="aspect-video overflow-hidden rounded-t-2xl bg-(--void)">
-        {project.coverUrl !== null && project.coverUrl.length > 0 ? (
+        {cover !== null && cover.length > 0 ? (
           <img
-            src={project.coverUrl}
+            src={cover}
             alt={project.title}
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
