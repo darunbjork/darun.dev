@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
 import { StatsSection } from "@/components/stats-section"
@@ -26,11 +26,33 @@ const AdminProjectsPage = lazy(() =>
     default: m.AdminProjectsPage,
   }))
 )
+const AdminProjectFormPage = lazy(() =>
+  import("@/pages/admin-project-form").then((m) => ({
+    default: m.AdminProjectFormPage,
+  }))
+)
 
 function RouteFallback(): React.JSX.Element {
   return (
     <div className="flex min-h-[40vh] items-center justify-center text-sm text-(--muted)">
       Loading…
+    </div>
+  )
+}
+
+function NotFoundPage(): React.JSX.Element {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-(--void) px-4 text-center">
+      <div>
+        <h1 className="text-4xl font-bold text-(--text)">404</h1>
+        <p className="mt-2 text-sm text-(--muted)">Page not found</p>
+        <a
+          href="/"
+          className="mt-4 inline-block rounded-lg bg-(--iris) px-4 py-2 text-sm text-white"
+        >
+          Go home
+        </a>
+      </div>
     </div>
   )
 }
@@ -84,11 +106,31 @@ export function App(): React.JSX.Element {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
+
+            {/* ! Redirect bare /admin to /admin/projects */}
+            <Route path="/admin" element={<Navigate to="/admin/projects" replace />} />
+
             <Route
               path="/admin/projects"
               element={
                 <RequireAuth>
                   <AdminProjectsPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin/projects/new"
+              element={
+                <RequireAuth>
+                  <AdminProjectFormPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin/projects/:id"
+              element={
+                <RequireAuth>
+                  <AdminProjectFormPage />
                 </RequireAuth>
               }
             />
@@ -108,6 +150,9 @@ export function App(): React.JSX.Element {
                 </RequireAuth>
               }
             />
+
+            {/* ! Catch-all 404 */}
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       </div>
