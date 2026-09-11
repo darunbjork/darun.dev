@@ -52,11 +52,24 @@ export async function buildApp(): Promise<FastifyInstance> {
     },
   })
 
-  await fastify.register(fastifyCors, {
-    origin: [env.FRONTEND_URL],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-  })
+ await fastify.register(fastifyCors, {
+  origin: (origin, cb) => {
+    // Allow: server-to-server (no origin), local dev, and any *.pages.dev preview
+    if (!origin) return cb(null, true)
+
+    const allowed =
+      origin === env.FRONTEND_URL ||
+      origin === "https://darun-dev.pages.dev" ||
+      origin === "https://darun.dev" ||
+      origin === "https://www.darun.dev" ||
+      origin === "http://localhost:5173" ||
+      /^https:\/\/[a-z0-9-]+\.darun-dev\.pages\.dev$/.test(origin)
+
+    cb(null, allowed)
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+})
 
   await fastify.register(fastifyCookie, {
     secret: env.JWT_SECRET,
