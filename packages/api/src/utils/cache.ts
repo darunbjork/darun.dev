@@ -6,6 +6,8 @@ export const TTL = {
   PROJECT_DETAIL: 60,  // 1 min — invalidated on update/delete
   ANALYTICS: 60,       // 1 min — aggregated dashboard stats
   FEEDBACK_STATS: 120, // 2 min — slower-changing per-project stats
+  GITHUB_PROFILE: 900, // 15 min
+  GITHUB_REPOS:   900, // 15 min
 } as const
 
 export const CacheKey = {
@@ -14,6 +16,8 @@ export const CacheKey = {
   analytics: (): string => "analytics:dashboard",
   feedbackStats: (slug: string): string => `feedback:stats:${slug}`,
   sessionAnalytics: (): string => "analytics:sessions",
+  githubProfile: (username: string): string => `github:profile:${username}`,
+  githubRepos:   (username: string): string => `github:repos:${username}`,
 } as const
 
 export async function getOrSet<T>(

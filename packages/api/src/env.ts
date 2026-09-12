@@ -28,6 +28,8 @@ const envSchema = z.object({
   CLOUDINARY_API_SECRET: z.string().min(1),
 
   GEMINI_API_KEY: z.string().min(1),
+  GITHUB_TOKEN:    z.string().optional(),
+  GITHUB_USERNAME: z.string().default("darunbjork"),
 
   RESEND_API_KEY: z.string().min(1),
   RESEND_FROM:    z.string().email(),
