@@ -1,12 +1,13 @@
 import type { FastifyInstance, FastifyPluginAsync } from "fastify"
+import { env } from "../../env.js"
 import { AuthService } from "./auth.service.js"
 import { ok } from "../../utils/response.js"
 import { PasswordResetService } from "./password-reset.service.js"
 
 const COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "strict" as const,
+  secure: env.NODE_ENV === "production",
+  sameSite: env.NODE_ENV === "production" ? ("none" as const) : ("lax" as const),
   path: "/",
   maxAge: 7 * 24 * 60 * 60,
 }

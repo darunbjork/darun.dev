@@ -81,7 +81,7 @@ export async function buildApp(): Promise<FastifyInstance> {
     cookieOpts: {
       signed: true,
       httpOnly: false,
-      sameSite: "strict",
+      sameSite: env.NODE_ENV === "production" ? "none" : "lax",
       secure: env.NODE_ENV === "production",
     },
   })
