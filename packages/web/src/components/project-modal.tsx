@@ -7,8 +7,15 @@ import { AnalyticsPanel } from "@/components/analytics-panel"
 import { useProjectAnalytics } from "@/hooks/useAnalytics"
 import { Button } from "@/components/ui/button"
 import { FeedbackModal } from "@/components/feedback-modal"
+import { GithubBadges } from "@/components/github-badges"
 
-export function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }): React.JSX.Element {
+export function ProjectModal({
+  project,
+  onClose,
+}: {
+  project: Project
+  onClose: () => void
+}): React.JSX.Element {
   const { analytics } = useProjectAnalytics(project)
   const [showFeedback, setShowFeedback] = useState(false)
 
@@ -58,8 +65,15 @@ export function ProjectModal({ project, onClose }: { project: Project; onClose: 
 
         <div className="mt-4 flex flex-wrap gap-2">
           {(project.techStack ?? []).map((t) => (
-            <Badge key={t} variant="secondary">{t}</Badge>
+            <Badge key={t} variant="secondary">
+              {t}
+            </Badge>
           ))}
+        </div>
+
+        {/* ! GitHub live badges */}
+        <div className="mt-2">
+          <GithubBadges project={project} />
         </div>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2">

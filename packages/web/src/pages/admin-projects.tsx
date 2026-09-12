@@ -10,6 +10,7 @@ import {
   useUpdateProject,
 } from "@/hooks/useAdminProjects"
 import { cn } from "@/lib/utils"
+import { GithubImportPanel } from "@/components/github-import-panel"
 
 export function AdminProjectsPage(): React.JSX.Element {
   const { projects, isLoading, isError, error, refetch } = useAdminProjects()
@@ -42,6 +43,9 @@ export function AdminProjectsPage(): React.JSX.Element {
           </Button>
         </div>
       </div>
+
+      {/* ! GitHub import panel — collapses by default, "Browse repos" expands it */}
+      <GithubImportPanel />
 
       {isError && (
         <GlassCard className="mb-4 p-4 text-sm text-red-400">

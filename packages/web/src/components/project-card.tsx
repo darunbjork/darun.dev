@@ -2,6 +2,7 @@ import { memo } from "react"
 import type { Project } from "@darun/shared-types"
 import { GlassCard } from "@/components/glass-card"
 import { Badge } from "@/components/ui/badge"
+import { GithubBadges } from "@/components/github-badges"
 
 function ProjectCardComponent({
   project,
@@ -55,6 +56,12 @@ function ProjectCardComponent({
         <p className="mb-3 line-clamp-2 text-sm text-(--muted)">
           {project.description ?? "No description yet."}
         </p>
+
+        {/* ! GitHub live badges — renders only when project.repoUrl matches a repo */}
+        <div className="mb-2">
+          <GithubBadges project={project} />
+        </div>
+
         <div className="flex flex-wrap items-center gap-2">
           {stack.slice(0, 3).map((tech) => (
             <Badge key={tech} variant="secondary">
