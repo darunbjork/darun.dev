@@ -26,3 +26,9 @@ docs/
 docscookies.txt
 day63-review.md
 
+# Prisma agent skills (AI tooling hints, not project code)
+packages/api/.agents/
+packages/api/.claude/
+packages/api/.windsurf/
+packages/api/skills-lock.json
+

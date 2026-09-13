@@ -91,3 +91,8 @@ export type ChatMessage = Prisma.ChatMessageModel
  * 
  */
 export type ChatNotes = Prisma.ChatNotesModel
+/**
+ * Model PortfolioEmbedding
+ * 
+ */
+export type PortfolioEmbedding = Prisma.PortfolioEmbeddingModel
