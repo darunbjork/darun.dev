@@ -170,3 +170,14 @@ model ChatNotes {
 
   @@map("chat_notes")
 }
+
+model PortfolioEmbedding {
+  id        String                      @id @default(cuid())
+  content   String
+  source    String
+  metadata  Json?
+  embedding Unsupported("vector(768)")?
+  createdAt DateTime                    @default(now())
+
+  @@map("portfolio_embeddings")
+}

@@ -60,7 +60,8 @@ export const ModelName = {
   Feedback: 'Feedback',
   ChatSession: 'ChatSession',
   ChatMessage: 'ChatMessage',
-  ChatNotes: 'ChatNotes'
+  ChatNotes: 'ChatNotes',
+  PortfolioEmbedding: 'PortfolioEmbedding'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -220,6 +221,17 @@ export const ChatNotesScalarFieldEnum = {
 } as const
 
 export type ChatNotesScalarFieldEnum = (typeof ChatNotesScalarFieldEnum)[keyof typeof ChatNotesScalarFieldEnum]
+
+
+export const PortfolioEmbeddingScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  source: 'source',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type PortfolioEmbeddingScalarFieldEnum = (typeof PortfolioEmbeddingScalarFieldEnum)[keyof typeof PortfolioEmbeddingScalarFieldEnum]
 
 
 export const SortOrder = {

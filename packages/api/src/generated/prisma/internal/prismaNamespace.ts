@@ -406,7 +406,8 @@ export const ModelName = {
   Feedback: 'Feedback',
   ChatSession: 'ChatSession',
   ChatMessage: 'ChatMessage',
-  ChatNotes: 'ChatNotes'
+  ChatNotes: 'ChatNotes',
+  PortfolioEmbedding: 'PortfolioEmbedding'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -422,7 +423,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "admin" | "passwordResetToken" | "project" | "projectImage" | "visitor" | "projectView" | "feedback" | "chatSession" | "chatMessage" | "chatNotes"
+    modelProps: "admin" | "passwordResetToken" | "project" | "projectImage" | "visitor" | "projectView" | "feedback" | "chatSession" | "chatMessage" | "chatNotes" | "portfolioEmbedding"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1166,6 +1167,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PortfolioEmbedding: {
+      payload: Prisma.$PortfolioEmbeddingPayload<ExtArgs>
+      fields: Prisma.PortfolioEmbeddingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PortfolioEmbeddingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioEmbeddingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PortfolioEmbeddingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioEmbeddingPayload>
+        }
+        findFirst: {
+          args: Prisma.PortfolioEmbeddingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioEmbeddingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PortfolioEmbeddingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioEmbeddingPayload>
+        }
+        findMany: {
+          args: Prisma.PortfolioEmbeddingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioEmbeddingPayload>[]
+        }
+        create: {
+          args: Prisma.PortfolioEmbeddingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioEmbeddingPayload>
+        }
+        createMany: {
+          args: Prisma.PortfolioEmbeddingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PortfolioEmbeddingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioEmbeddingPayload>[]
+        }
+        delete: {
+          args: Prisma.PortfolioEmbeddingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioEmbeddingPayload>
+        }
+        update: {
+          args: Prisma.PortfolioEmbeddingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioEmbeddingPayload>
+        }
+        deleteMany: {
+          args: Prisma.PortfolioEmbeddingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PortfolioEmbeddingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PortfolioEmbeddingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioEmbeddingPayload>[]
+        }
+        upsert: {
+          args: Prisma.PortfolioEmbeddingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioEmbeddingPayload>
+        }
+        aggregate: {
+          args: Prisma.PortfolioEmbeddingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePortfolioEmbedding>
+        }
+        groupBy: {
+          args: Prisma.PortfolioEmbeddingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PortfolioEmbeddingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PortfolioEmbeddingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PortfolioEmbeddingCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1346,6 +1421,17 @@ export const ChatNotesScalarFieldEnum = {
 } as const
 
 export type ChatNotesScalarFieldEnum = (typeof ChatNotesScalarFieldEnum)[keyof typeof ChatNotesScalarFieldEnum]
+
+
+export const PortfolioEmbeddingScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  source: 'source',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type PortfolioEmbeddingScalarFieldEnum = (typeof PortfolioEmbeddingScalarFieldEnum)[keyof typeof PortfolioEmbeddingScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1632,6 +1718,7 @@ export type GlobalOmitConfig = {
   chatSession?: Prisma.ChatSessionOmit
   chatMessage?: Prisma.ChatMessageOmit
   chatNotes?: Prisma.ChatNotesOmit
+  portfolioEmbedding?: Prisma.PortfolioEmbeddingOmit
 }
 
 /* Types for Logging */
