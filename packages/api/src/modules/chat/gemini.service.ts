@@ -10,7 +10,7 @@ const ai = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY })
 const MODEL = "gemini-3.6-flash"
 
 const GeminiOutputSchema = z.object({
-  reply: z.string().min(1).max(2000),
+  reply: z.string().min(1).max(4000),
   userType: z.enum(["Unknown", "Recruiter", "Developer", "Client", "Other"]),
   notes: z.object({
     summary: z.string().nullable(),
@@ -69,6 +69,17 @@ export class GeminiService {
         `Gemini JSON parse failure (context: ${contextVersion}):`,
         rawOutput
       )
+
+      const trimmed = rawOutput.trimEnd()
+      if (trimmed.length > 0 && !trimmed.endsWith("}")) {
+        return {
+          reply:
+            "That answer got cut off before I could finish it. Try asking about a specific project, or narrow the question so I can give a tighter response.",
+          userType: "Unknown",
+          notes: { summary: null, nextSteps: null, painPoints: null },
+        }
+      }
+
       throw new AppError("AI response format error", 500, "AI_PARSE_ERROR")
     }
 
