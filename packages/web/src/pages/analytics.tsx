@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import {
   BarChart,
   Bar,
@@ -8,6 +9,7 @@ import {
   Cell,
 } from "recharts"
 import { GlassCard } from "@/components/glass-card"
+import { Button } from "@/components/ui/button"
 import {
   useDashboardStats,
   useSessionAnalytics,
@@ -53,10 +55,17 @@ export function AnalyticsPage() {
 
   return (
     <div className="mx-auto min-h-screen max-w-6xl bg-(--void) px-6 py-10 text-(--text)">
-      <h1 className="text-2xl font-semibold">Analytics</h1>
-      <p className="mb-8 text-sm text-(--muted)">
-        Admin dashboard — requires authenticated session
-      </p>
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-semibold">Analytics</h1>
+          <p className="text-sm text-(--muted)">
+            Admin dashboard — requires authenticated session
+          </p>
+        </div>
+        <Button type="button" variant="secondary" asChild>
+          <Link to="/admin/projects">← Back to projects</Link>
+        </Button>
+      </div>
 
       {(statsError || sessionsError) && (
         <GlassCard className="mb-6 p-4 text-sm text-red-400">

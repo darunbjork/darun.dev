@@ -5,6 +5,7 @@ import { GlassCard } from "@/components/glass-card"
 import { Badge } from "@/components/ui/badge"
 import { AnalyticsPanel } from "@/components/analytics-panel"
 import { useProjectAnalytics } from "@/hooks/useAnalytics"
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock"
 import { Button } from "@/components/ui/button"
 import { FeedbackModal } from "@/components/feedback-modal"
 import { GithubBadges } from "@/components/github-badges"
@@ -19,16 +20,15 @@ export function ProjectModal({
   const { analytics } = useProjectAnalytics(project)
   const [showFeedback, setShowFeedback] = useState(false)
 
+  useBodyScrollLock(true)
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose()
     }
     window.addEventListener("keydown", onKey)
-    const prev = document.body.style.overflow
-    document.body.style.overflow = "hidden"
     return () => {
       window.removeEventListener("keydown", onKey)
-      document.body.style.overflow = prev
     }
   }, [onClose])
 
