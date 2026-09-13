@@ -155,7 +155,11 @@ export function createIngestService(app: FastifyInstance) {
     }[] = []
 
     for (const project of projects) {
-      projectResults.push(await ingestProject(project.slug))
+      try {
+        projectResults.push(await ingestProject(project.slug))
+      } catch (err) {
+        app.log.warn({ err, slug: project.slug }, "Project ingest failed, skipping")
+      }
     }
 
     const readmeResults: {
@@ -168,7 +172,12 @@ export function createIngestService(app: FastifyInstance) {
     for (const project of projects) {
       const fullName = parseGithubFullName(project.repoUrl)
       if (fullName === null) continue
-      readmeResults.push(await ingestReadme(fullName))
+
+      try {
+        readmeResults.push(await ingestReadme(fullName))
+      } catch (err) {
+        app.log.warn({ err, fullName }, "README ingest failed, skipping")
+      }
     }
 
     return {
