@@ -21,6 +21,12 @@ import {
   MESSAGE_MAX_CHARS,
   estimateTokens,
 } from "./cost-limits.js"
+import { retrieveChunks } from "../rag/retrieve.js"
+import {
+  buildHybridContext,
+  formatRagChunks,
+  formatSqlProjects,
+} from "../rag/prompt.js"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -126,20 +132,50 @@ export class ChatService {
       .reverse()
       .map((m) => ({ role: m.role, content: m.content }))
 
-    const promptText = [
-      contextState.json,
-      history.map((m) => `${m.role}: ${m.content}`).join("\n"),
-      content,
-    ].join("\n")
+    let chunks: Awaited<ReturnType<typeof retrieveChunks>> = []
+    try {
+      chunks = await retrieveChunks(this.fastify, content, 5)
+    } catch (err) {
+      this.fastify.log.warn({ err }, "RAG retrieve failed — continuing without chunks")
+    }
+
+    const projects = await this.fastify.prisma.project.findMany({
+      where: { published: true },
+      orderBy: [{ featured: "desc" }, { order: "asc" }, { updatedAt: "desc" }],
+      take: 20,
+      select: {
+        title: true,
+        slug: true,
+        description: true,
+        problem: true,
+        solution: true,
+        impact: true,
+        learnings: true,
+        techStack: true,
+        repoUrl: true,
+        liveUrl: true,
+        featured: true,
+      },
+    })
+
+    const historyBlock = history.map((m) => `${m.role}: ${m.content}`).join("\n")
+
+    const hybridContext = buildHybridContext({
+      system: contextState.json,
+      sqlContext: formatSqlProjects(projects),
+      rag: formatRagChunks(chunks),
+      historyBlock,
+      userMessage: content,
+    })
 
     const result = await this.gemini.generateReply(
       content,
       history,
-      contextState.json,
+      hybridContext,
       contextState.version
     )
 
-    const inputTokens = estimateTokens(promptText)
+    const inputTokens = estimateTokens(hybridContext)
     const outputTokens = estimateTokens(result.reply)
 
     await recordTokenUsage(this.fastify, {
