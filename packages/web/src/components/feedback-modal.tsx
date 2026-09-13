@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { X, ThumbsUp, ThumbsDown } from "lucide-react"
 import { GlassCard } from "@/components/glass-card"
 import { Button } from "@/components/ui/button"
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock"
 import { useVisitorFeedback } from "@/hooks/useVisitorFeedback"
 import { cn } from "@/lib/utils"
 
@@ -42,16 +43,15 @@ export function FeedbackModal({
   const like = useWatch({ control, name: "like" })
   const rating = useWatch({ control, name: "rating" })
 
+  useBodyScrollLock(true)
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent): void => {
       if (e.key === "Escape") onClose()
     }
     window.addEventListener("keydown", onKey)
-    const prev = document.body.style.overflow
-    document.body.style.overflow = "hidden"
     return () => {
       window.removeEventListener("keydown", onKey)
-      document.body.style.overflow = prev
     }
   }, [onClose])
 

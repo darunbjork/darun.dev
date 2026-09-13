@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import { GlassCard } from "@/components/glass-card"
 import { Button } from "@/components/ui/button"
 import {
@@ -35,9 +36,14 @@ export function ChatDashboardPage(): React.JSX.Element {
             Admin review — requires authenticated API session
           </p>
         </div>
-        <Button type="button" variant="secondary" onClick={refetch}>
-          Refresh
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button type="button" variant="secondary" asChild>
+            <Link to="/admin/projects">← Back to projects</Link>
+          </Button>
+          <Button type="button" variant="secondary" onClick={refetch}>
+            Refresh
+          </Button>
+        </div>
       </div>
 
       <div className="mb-4 flex flex-wrap gap-2">
