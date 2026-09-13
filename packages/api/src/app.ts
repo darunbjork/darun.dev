@@ -24,6 +24,7 @@ import { feedbackRoutes } from "./modules/feedback/feedback.routes.js"
 import { chatRoutes } from "./modules/chat/chat.routes.js"
 import { chatAdminRoutes } from "./modules/chat/chat.admin.routes.js"
 import githubRoutes from "./modules/github/github.routes.js"
+import { ingestRoutes } from "./modules/rag/ingest.routes.js"
 
 export async function buildApp(): Promise<FastifyInstance> {
   const fastify = Fastify({
@@ -142,6 +143,7 @@ fastify.get("/api/v1/csrf", async (_request, reply) => {
   await fastify.register(chatRoutes)
   await fastify.register(chatAdminRoutes)
   await fastify.register(githubRoutes)
+  await fastify.register(ingestRoutes)
   return fastify
 }
 

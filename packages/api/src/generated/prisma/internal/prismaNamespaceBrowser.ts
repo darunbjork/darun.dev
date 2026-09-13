@@ -61,7 +61,8 @@ export const ModelName = {
   ChatSession: 'ChatSession',
   ChatMessage: 'ChatMessage',
   ChatNotes: 'ChatNotes',
-  PortfolioEmbedding: 'PortfolioEmbedding'
+  PortfolioEmbedding: 'PortfolioEmbedding',
+  CvDocument: 'CvDocument'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -232,6 +233,18 @@ export const PortfolioEmbeddingScalarFieldEnum = {
 } as const
 
 export type PortfolioEmbeddingScalarFieldEnum = (typeof PortfolioEmbeddingScalarFieldEnum)[keyof typeof PortfolioEmbeddingScalarFieldEnum]
+
+
+export const CvDocumentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  version: 'version',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CvDocumentScalarFieldEnum = (typeof CvDocumentScalarFieldEnum)[keyof typeof CvDocumentScalarFieldEnum]
 
 
 export const SortOrder = {

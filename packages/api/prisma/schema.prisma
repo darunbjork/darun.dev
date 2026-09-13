@@ -181,3 +181,15 @@ model PortfolioEmbedding {
 
   @@map("portfolio_embeddings")
 }
+
+model CvDocument {
+  id        String   @id @default(cuid())
+  content   String
+  version   Int      @default(1)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isActive])
+  @@map("cv_documents")
+}
