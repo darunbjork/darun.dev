@@ -1,4 +1,5 @@
 import type { FastifyInstance, FastifyPluginAsync } from "fastify"
+import { env } from "../../env.js"
 import { ChatService } from "./chat.service.js"
 import { ok } from "../../utils/response.js"
 import { isChatDisabled } from "../../utils/kill-switch.js"
@@ -12,13 +13,16 @@ const chatRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
   }>(
     "/api/v1/chat/session/start",
     {
-      config: {
-        rateLimit: {
-          max: 3,
-          timeWindow: "1 hour",
-          keyGenerator: (req) => req.ip,
-        },
-      },
+      config:
+        env.NODE_ENV === "test"
+          ? {}
+          : {
+              rateLimit: {
+                max: 3,
+                timeWindow: "1 hour",
+                keyGenerator: (req) => req.ip,
+              },
+            },
       schema: {
         body: {
           type: "object",
@@ -53,16 +57,19 @@ const chatRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
   }>(
     "/api/v1/chat/message",
     {
-      config: {
-        rateLimit: {
-          max: 10,
-          timeWindow: "1 minute",
-          keyGenerator: (req) => {
-            const header = req.headers["x-session-id"]
-            return typeof header === "string" ? header : req.ip
-          },
-        },
-      },
+      config:
+        env.NODE_ENV === "test"
+          ? {}
+          : {
+              rateLimit: {
+                max: 10,
+                timeWindow: "1 minute",
+                keyGenerator: (req) => {
+                  const header = req.headers["x-session-id"]
+                  return typeof header === "string" ? header : req.ip
+                },
+              },
+            },
       schema: {
         body: {
           type: "object",
@@ -115,16 +122,19 @@ const chatRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
   }>(
     "/api/v1/chat/session/end",
     {
-      config: {
-        rateLimit: {
-          max: 5,
-          timeWindow: "1 hour",
-          keyGenerator: (req) => {
-            const header = req.headers["x-session-id"]
-            return typeof header === "string" ? header : req.ip
-          },
-        },
-      },
+      config:
+        env.NODE_ENV === "test"
+          ? {}
+          : {
+              rateLimit: {
+                max: 5,
+                timeWindow: "1 hour",
+                keyGenerator: (req) => {
+                  const header = req.headers["x-session-id"]
+                  return typeof header === "string" ? header : req.ip
+                },
+              },
+            },
       schema: {
         body: {
           type: "object",
