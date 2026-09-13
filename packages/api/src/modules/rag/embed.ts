@@ -1,37 +1,67 @@
-import { GoogleGenerativeAI } from "@google/generative-ai"
+import { GoogleGenAI } from "@google/genai"
 import { env } from "../../env.js"
 
-const MODEL = "text-embedding-004"
+const MODEL = "gemini-embedding-001"
 const EXPECTED_DIM = 768
 
-let cachedClient: GoogleGenerativeAI | null = null
+let cachedClient: GoogleGenAI | null = null
 
-function client(): GoogleGenerativeAI {
+function client(): GoogleGenAI {
   if (env.GEMINI_API_KEY.length === 0) {
     throw new Error("GEMINI_API_KEY is required for embeddings")
   }
   if (cachedClient === null) {
-    cachedClient = new GoogleGenerativeAI(env.GEMINI_API_KEY)
+    cachedClient = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY })
   }
   return cachedClient
 }
 
 export async function embedText(text: string): Promise<number[]> {
-  const genAI = client()
-  const model = genAI.getGenerativeModel({ model: MODEL })
+  const ai = client()
 
-  // ! v0.24.x API — explicit Content object form
-  const result = await model.embedContent({
-    content: { role: "user", parts: [{ text }] },
+  const response = await ai.models.embedContent({
+    model: MODEL,
+    contents: text,
+    config: {
+      outputDimensionality: EXPECTED_DIM,
+      taskType: "RETRIEVAL_DOCUMENT",
+    },
   })
 
-  const values = result.embedding.values
-  if (values.length !== EXPECTED_DIM) {
+  const values = response.embeddings?.[0]?.values
+  if (values === undefined || values.length !== EXPECTED_DIM) {
     throw new Error(
-      `Unexpected embedding size: ${values.length} (expected ${EXPECTED_DIM})`
+      `Unexpected embedding size: ${values?.length ?? "undefined"} (expected ${EXPECTED_DIM})`
     )
   }
-  return values
+
+  // ! gemini-embedding-001 does NOT L2-normalize sub-3072 outputs.
+  // Required for cosine similarity to behave correctly.
+  const norm = Math.sqrt(values.reduce((sum, v) => sum + v * v, 0))
+  if (norm === 0) throw new Error("Zero-norm embedding returned")
+  return values.map((v) => v / norm)
+}
+
+export async function embedQuery(text: string): Promise<number[]> {
+  const ai = client()
+
+  const response = await ai.models.embedContent({
+    model: MODEL,
+    contents: text,
+    config: {
+      outputDimensionality: EXPECTED_DIM,
+      taskType: "RETRIEVAL_QUERY",
+    },
+  })
+
+  const values = response.embeddings?.[0]?.values
+  if (values === undefined || values.length !== EXPECTED_DIM) {
+    throw new Error(`Unexpected embedding size: ${values?.length ?? "undefined"}`)
+  }
+
+  const norm = Math.sqrt(values.reduce((sum, v) => sum + v * v, 0))
+  if (norm === 0) throw new Error("Zero-norm embedding returned")
+  return values.map((v) => v / norm)
 }
 
 export async function embedTexts(texts: string[]): Promise<number[][]> {

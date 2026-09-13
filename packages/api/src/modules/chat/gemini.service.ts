@@ -1,20 +1,13 @@
-import { GoogleGenerativeAI } from "@google/generative-ai"
+import { GoogleGenAI } from "@google/genai"
 import { z } from "zod"
 import { env } from "../../env.js"
 import type { GeminiStructuredOutput } from "@darun/shared-types"
 import { AppError } from "../../utils/errors.js"
 import { MAX_OUTPUT_TOKENS } from "./cost-limits.js"
 
-const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY)
+const ai = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY })
 
-const model = genAI.getGenerativeModel({
-  model: "gemini-3.6-flash",
-  generationConfig: {
-    maxOutputTokens: MAX_OUTPUT_TOKENS,
-    temperature: 0.3,
-    responseMimeType: "application/json",
-  },
-})
+const MODEL = "gemini-3.6-flash"
 
 const GeminiOutputSchema = z.object({
   reply: z.string().min(1).max(2000),
@@ -49,8 +42,16 @@ export class GeminiService {
     let rawOutput: string
 
     try {
-      const result = await model.generateContent(fullPrompt)
-      rawOutput = result.response.text()
+      const result = await ai.models.generateContent({
+        model: MODEL,
+        contents: fullPrompt,
+        config: {
+          maxOutputTokens: MAX_OUTPUT_TOKENS,
+          temperature: 0.3,
+          responseMimeType: "application/json",
+        },
+      })
+      rawOutput = result.text ?? ""
     } catch (error) {
       console.error("Gemini API error:", error)
       throw new AppError(

@@ -1,16 +1,10 @@
-import { GoogleGenerativeAI } from "@google/generative-ai"
+import { GoogleGenAI } from "@google/genai"
 import { z } from "zod"
 import { env } from "../../env.js"
 
-const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY)
+const ai = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY })
 
-const model = genAI.getGenerativeModel({
-  model: "gemini-3.6-flash",
-  generationConfig: {
-    temperature: 0.1,
-    responseMimeType: "application/json",
-  },
-})
+const MODEL = "gemini-3.6-flash"
 
 const SentimentSchema = z.object({
   score: z.number().min(-1).max(1),
@@ -34,10 +28,19 @@ ${transcript}
 
 Respond ONLY with JSON: { "score": 0.0, "reason": "brief explanation" }`
 
-    const result = await model.generateContent(prompt)
-    const raw = result.response.text()
-    const parsed = SentimentSchema.safeParse(JSON.parse(raw))
+    const result = await ai.models.generateContent({
+      model: MODEL,
+      contents: prompt,
+      config: {
+        temperature: 0.1,
+        responseMimeType: "application/json",
+      },
+    })
 
+    const raw = result.text
+    if (raw === undefined || raw.length === 0) return null
+
+    const parsed = SentimentSchema.safeParse(JSON.parse(raw))
     return parsed.success ? parsed.data.score : null
   } catch {
     return null

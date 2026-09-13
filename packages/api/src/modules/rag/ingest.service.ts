@@ -31,35 +31,25 @@ export function createIngestService(app: FastifyInstance) {
     async ingestProject(
       slug: string
     ): Promise<{ source: string; slug: string; ingested: number }> {
-      void app
-      return {
-        source: "project",
-        slug,
-        ingested: 0,
-      }
+      return { source: "project", slug, ingested: 0 }
     },
 
     async ingestReadme(
       fullName: string
     ): Promise<{ source: string; fullName: string; ingested: number }> {
-      void app
-      return {
-        source: "readme",
-        fullName,
-        ingested: 0,
-      }
+      return { source: "readme", fullName, ingested: 0 }
     },
 
     async ingestAll(): Promise<{
-      cv: { source: string; ingested: number }
+      cv: { source: string; deleted: number; inserted: number }
       project: { source: string; slug: string; ingested: number }[]
       readme: { source: string; fullName: string; ingested: number }[]
     }> {
-      void app
+      const cvResult = await this.ingestCv()
       return {
-        cv: { source: "cv", ingested: 0 },
-        project: [],
-        readme: [],
+        cv: cvResult,
+        project: [], 
+        readme: [], 
       }
     },
   }
