@@ -407,7 +407,8 @@ export const ModelName = {
   ChatSession: 'ChatSession',
   ChatMessage: 'ChatMessage',
   ChatNotes: 'ChatNotes',
-  PortfolioEmbedding: 'PortfolioEmbedding'
+  PortfolioEmbedding: 'PortfolioEmbedding',
+  CvDocument: 'CvDocument'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -423,7 +424,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "admin" | "passwordResetToken" | "project" | "projectImage" | "visitor" | "projectView" | "feedback" | "chatSession" | "chatMessage" | "chatNotes" | "portfolioEmbedding"
+    modelProps: "admin" | "passwordResetToken" | "project" | "projectImage" | "visitor" | "projectView" | "feedback" | "chatSession" | "chatMessage" | "chatNotes" | "portfolioEmbedding" | "cvDocument"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1241,6 +1242,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CvDocument: {
+      payload: Prisma.$CvDocumentPayload<ExtArgs>
+      fields: Prisma.CvDocumentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CvDocumentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CvDocumentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CvDocumentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CvDocumentPayload>
+        }
+        findFirst: {
+          args: Prisma.CvDocumentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CvDocumentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CvDocumentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CvDocumentPayload>
+        }
+        findMany: {
+          args: Prisma.CvDocumentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CvDocumentPayload>[]
+        }
+        create: {
+          args: Prisma.CvDocumentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CvDocumentPayload>
+        }
+        createMany: {
+          args: Prisma.CvDocumentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CvDocumentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CvDocumentPayload>[]
+        }
+        delete: {
+          args: Prisma.CvDocumentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CvDocumentPayload>
+        }
+        update: {
+          args: Prisma.CvDocumentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CvDocumentPayload>
+        }
+        deleteMany: {
+          args: Prisma.CvDocumentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CvDocumentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CvDocumentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CvDocumentPayload>[]
+        }
+        upsert: {
+          args: Prisma.CvDocumentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CvDocumentPayload>
+        }
+        aggregate: {
+          args: Prisma.CvDocumentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCvDocument>
+        }
+        groupBy: {
+          args: Prisma.CvDocumentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CvDocumentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CvDocumentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CvDocumentCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1432,6 +1507,18 @@ export const PortfolioEmbeddingScalarFieldEnum = {
 } as const
 
 export type PortfolioEmbeddingScalarFieldEnum = (typeof PortfolioEmbeddingScalarFieldEnum)[keyof typeof PortfolioEmbeddingScalarFieldEnum]
+
+
+export const CvDocumentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  version: 'version',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CvDocumentScalarFieldEnum = (typeof CvDocumentScalarFieldEnum)[keyof typeof CvDocumentScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1719,6 +1806,7 @@ export type GlobalOmitConfig = {
   chatMessage?: Prisma.ChatMessageOmit
   chatNotes?: Prisma.ChatNotesOmit
   portfolioEmbedding?: Prisma.PortfolioEmbeddingOmit
+  cvDocument?: Prisma.CvDocumentOmit
 }
 
 /* Types for Logging */

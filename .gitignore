@@ -32,3 +32,11 @@ packages/api/.claude/
 packages/api/.windsurf/
 packages/api/skills-lock.json
 
+
+# Test artifacts
+cookies.txt
+test-ingest.sh
+
+# Local CV source — never commit
+packages/api/scripts/.cv.local
+packages/api/src/data/cv.md

@@ -96,3 +96,8 @@ export type ChatNotes = Prisma.ChatNotesModel
  * 
  */
 export type PortfolioEmbedding = Prisma.PortfolioEmbeddingModel
+/**
+ * Model CvDocument
+ * 
+ */
+export type CvDocument = Prisma.CvDocumentModel
