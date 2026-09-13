@@ -36,7 +36,10 @@ export async function postChatMessage(
   const res = await api.post<ApiEnvelope<SendMessageResult>>(
     "/api/v1/chat/message",
     { sessionId, content },
-    { timeout: 60_000 }
+    {
+      timeout: 60_000,
+      headers: { "x-session-id": sessionId },
+    }
   )
   if (!res.data.success) {
     throw new Error(res.data.error ?? "Failed to send message")
@@ -48,7 +51,10 @@ export async function postEndSession(sessionId: string): Promise<void> {
   const res = await api.post<ApiEnvelope<{ ended: boolean }>>(
     "/api/v1/chat/session/end",
     { sessionId },
-    { timeout: 60_000 }
+    {
+      timeout: 60_000,
+      headers: { "x-session-id": sessionId },
+    }
   )
   if (!res.data.success) {
     throw new Error(res.data.error ?? "Failed to end session")

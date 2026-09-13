@@ -3,12 +3,14 @@ import { z } from "zod"
 import { env } from "../../env.js"
 import type { GeminiStructuredOutput } from "@darun/shared-types"
 import { AppError } from "../../utils/errors.js"
+import { MAX_OUTPUT_TOKENS } from "./cost-limits.js"
 
 const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY)
 
 const model = genAI.getGenerativeModel({
   model: "gemini-3.6-flash",
   generationConfig: {
+    maxOutputTokens: MAX_OUTPUT_TOKENS,
     temperature: 0.3,
     responseMimeType: "application/json",
   },

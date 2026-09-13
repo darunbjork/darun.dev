@@ -11,6 +11,16 @@ import type {
   SessionWithTranscript,
 } from "@darun/shared-types"
 import { NotFoundError, AppError } from "../../utils/errors.js"
+import {
+  checkTokenBudget,
+  recordTokenUsage,
+  estimateMessageBudget,
+} from "../../utils/token-budget.js"
+import {
+  MAX_OUTPUT_TOKENS,
+  MESSAGE_MAX_CHARS,
+  estimateTokens,
+} from "./cost-limits.js"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -50,7 +60,8 @@ export class ChatService {
 
   async sendMessage(
     sessionId: string,
-    rawContent: string
+    rawContent: string,
+    ip = "unknown"
   ): Promise<SendMessageResponse> {
     const session = await this.fastify.prisma.chatSession.findUnique({
       where: { id: sessionId },
@@ -72,6 +83,40 @@ export class ChatService {
       throw new AppError("Message cannot be empty", 400, "EMPTY_MESSAGE")
     }
 
+    if (content.length > MESSAGE_MAX_CHARS) {
+      const err = new Error(
+        `Message too long (max ${MESSAGE_MAX_CHARS} characters)`
+      ) as Error & { statusCode?: number }
+      err.statusCode = 400
+      throw err
+    }
+
+    const estimated = estimateMessageBudget(content)
+    const budget = await checkTokenBudget(this.fastify, {
+      sessionId,
+      ip,
+      estimatedTokens: estimated,
+    })
+
+    if (!budget.allowed) {
+      this.fastify.log.warn({
+        event: "budget_exceeded",
+        sessionId,
+        ip,
+        reason: budget.reason,
+        used: budget.used,
+        limit: budget.limit,
+      })
+      const status = budget.reason === "global" ? 503 : 429
+      const message =
+        budget.reason === "global"
+          ? "Chat is at capacity. Try again tomorrow."
+          : "Message limit reached. Start a new session or try later."
+      const err = new Error(message) as Error & { statusCode?: number }
+      err.statusCode = status
+      throw err
+    }
+
     await this.fastify.prisma.chatMessage.create({
       data: { sessionId, role: "user", content },
     })
@@ -81,12 +126,27 @@ export class ChatService {
       .reverse()
       .map((m) => ({ role: m.role, content: m.content }))
 
+    const promptText = [
+      contextState.json,
+      history.map((m) => `${m.role}: ${m.content}`).join("\n"),
+      content,
+    ].join("\n")
+
     const result = await this.gemini.generateReply(
       content,
       history,
-      contextState.json,          
-      contextState.version        
+      contextState.json,
+      contextState.version
     )
+
+    const inputTokens = estimateTokens(promptText)
+    const outputTokens = estimateTokens(result.reply)
+
+    await recordTokenUsage(this.fastify, {
+      sessionId,
+      ip,
+      tokens: inputTokens + outputTokens,
+    })
 
     const assistantMsg = await this.fastify.prisma.chatMessage.create({
       data: { sessionId, role: "assistant", content: result.reply },
