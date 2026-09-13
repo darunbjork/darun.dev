@@ -1,5 +1,5 @@
 export const MESSAGE_MAX_CHARS = 2000
-export const MAX_OUTPUT_TOKENS = 800
+export const MAX_OUTPUT_TOKENS = 1500
 export const MAX_RAG_CONTEXT_CHARS = 12_000
 export const MAX_PROMPT_CHARS = 24_000
 

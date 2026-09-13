@@ -4,6 +4,7 @@ import {
   TOKEN_TTL,
   estimateTokens,
   utcDateKey,
+  MAX_OUTPUT_TOKENS
 } from "../modules/chat/cost-limits.js"
 
 export type BudgetTier = "session" | "ip" | "global"
@@ -108,5 +109,5 @@ export async function recordTokenUsage(
 }
 
 export function estimateMessageBudget(userText: string): number {
-  return estimateTokens(userText) + 800
+  return estimateTokens(userText) + MAX_OUTPUT_TOKENS
 }

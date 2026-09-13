@@ -110,6 +110,7 @@ ${contextJson}
 --- CONTEXT END ---
 
 Tone: Direct, technical, confident. No marketing language.
+Keep replies under 400 words. If the answer is long, prefer a compact bulleted summary over prose.
 
 Respond ONLY with this exact JSON structure. No markdown. No extra text:
 {
