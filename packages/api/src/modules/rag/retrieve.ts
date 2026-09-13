@@ -1,5 +1,5 @@
 import type { FastifyInstance } from "fastify"
-import { embedText, toVectorLiteral } from "./embed.js"
+import { embedQuery, toVectorLiteral } from "./embed.js"
 
 export type RetrievedChunk = {
   content: string
@@ -12,7 +12,7 @@ export async function retrieveChunks(
   queryText: string,
   k = 5
 ): Promise<RetrievedChunk[]> {
-  const values = await embedText(queryText)
+  const values = await embedQuery(queryText)
   const vectorStr = toVectorLiteral(values)
 
   const rows = await app.prisma.$queryRawUnsafe<
