@@ -4,11 +4,13 @@ import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
 import { StatsSection } from "@/components/stats-section"
 import { ProjectGrid } from "@/components/project-grid"
+import { TestimonialsSection } from "@/components/testimonials-section"
 import { GlassCard } from "@/components/glass-card"
 import { Seo } from "@/components/seo"
 import { ChatFloatingButton } from "@/components/chat/chat-floating-button"
 import { RequireAuth } from "@/components/require-auth"
 import { LoginPage } from "@/pages/login"
+import { AdminFeedbackPage } from "@/pages/admin-feedback"
 
 const ChatPanel = lazy(() =>
   import("@/components/chat/chat-panel").then((m) => ({ default: m.ChatPanel }))
@@ -72,6 +74,7 @@ function HomePage(): React.JSX.Element {
         <section id="projects" className="mx-auto max-w-6xl px-6 pb-24">
           <h2 className="mb-6 text-2xl font-semibold">Projects</h2>
           <ProjectGrid />
+          <TestimonialsSection />
         </section>
         <section id="about" className="mx-auto max-w-6xl px-6 pb-24">
           <GlassCard className="p-6">
@@ -147,6 +150,14 @@ export function App(): React.JSX.Element {
               element={
                 <RequireAuth>
                   <ChatDashboardPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin/feedback"
+              element={
+                <RequireAuth>
+                  <AdminFeedbackPage />
                 </RequireAuth>
               }
             />

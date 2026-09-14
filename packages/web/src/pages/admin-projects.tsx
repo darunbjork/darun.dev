@@ -35,6 +35,9 @@ export function AdminProjectsPage(): React.JSX.Element {
           <Button type="button" variant="secondary" asChild>
             <Link to="/admin/chat">Chat</Link>
           </Button>
+          <Button type="button" variant="secondary" asChild>
+            <Link to="/admin/feedback">Feedback</Link>
+          </Button>
           <Button type="button" onClick={refetch}>
             Refresh
           </Button>
@@ -44,7 +47,6 @@ export function AdminProjectsPage(): React.JSX.Element {
         </div>
       </div>
 
-      {/* ! GitHub import panel — collapses by default, "Browse repos" expands it */}
       <GithubImportPanel />
 
       {isError && (

@@ -42,7 +42,8 @@ Respond ONLY with JSON: { "score": 0.0, "reason": "brief explanation" }`
 
     const parsed = SentimentSchema.safeParse(JSON.parse(raw))
     return parsed.success ? parsed.data.score : null
-  } catch {
+  } catch (err) {
+    console.error("sentiment.service failure:", err)
     return null
   }
 }
