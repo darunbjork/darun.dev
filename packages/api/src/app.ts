@@ -26,6 +26,8 @@ import { chatAdminRoutes } from "./modules/chat/chat.admin.routes.js"
 import githubRoutes from "./modules/github/github.routes.js"
 import { ingestRoutes } from "./modules/rag/ingest.routes.js"
 import { feedbackAdminRoutes } from "./modules/feedback/feedback.admin.routes.js"
+import { rawBodyPlugin } from "./plugins/raw-body.js"
+import { githubWebhookRoutes } from "./modules/github/github-webhook.routes.js"
 
 export async function buildApp(): Promise<FastifyInstance> {
   const fastify = Fastify({
@@ -146,6 +148,8 @@ fastify.get("/api/v1/csrf", async (_request, reply) => {
   await fastify.register(githubRoutes)
   await fastify.register(ingestRoutes)
   await fastify.register(feedbackAdminRoutes)
+  await fastify.register(rawBodyPlugin)
+  await fastify.register(githubWebhookRoutes)
   return fastify
 }
 
