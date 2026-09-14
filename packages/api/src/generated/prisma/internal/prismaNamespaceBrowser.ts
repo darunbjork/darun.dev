@@ -181,6 +181,7 @@ export const FeedbackScalarFieldEnum = {
   rating: 'rating',
   like: 'like',
   comment: 'comment',
+  approved: 'approved',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   projectId: 'projectId'

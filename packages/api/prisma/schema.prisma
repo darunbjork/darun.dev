@@ -123,6 +123,7 @@ model Feedback {
   rating      Int // 1–5
   like        Boolean
   comment     String
+  approved    Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   project     Project? @relation(fields: [projectId], references: [id])
