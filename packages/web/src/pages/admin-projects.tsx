@@ -38,6 +38,9 @@ export function AdminProjectsPage(): React.JSX.Element {
           <Button type="button" variant="secondary" asChild>
             <Link to="/admin/feedback">Feedback</Link>
           </Button>
+          <Button type="button" variant="secondary" asChild>
+            <Link to="/admin/job-watchers">Job watchers</Link>
+          </Button>
           <Button type="button" onClick={refetch}>
             Refresh
           </Button>

@@ -408,7 +408,8 @@ export const ModelName = {
   ChatMessage: 'ChatMessage',
   ChatNotes: 'ChatNotes',
   PortfolioEmbedding: 'PortfolioEmbedding',
-  CvDocument: 'CvDocument'
+  CvDocument: 'CvDocument',
+  JobWatcher: 'JobWatcher'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -424,7 +425,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "admin" | "passwordResetToken" | "project" | "projectImage" | "visitor" | "projectView" | "feedback" | "chatSession" | "chatMessage" | "chatNotes" | "portfolioEmbedding" | "cvDocument"
+    modelProps: "admin" | "passwordResetToken" | "project" | "projectImage" | "visitor" | "projectView" | "feedback" | "chatSession" | "chatMessage" | "chatNotes" | "portfolioEmbedding" | "cvDocument" | "jobWatcher"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1316,6 +1317,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    JobWatcher: {
+      payload: Prisma.$JobWatcherPayload<ExtArgs>
+      fields: Prisma.JobWatcherFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JobWatcherFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWatcherPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JobWatcherFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWatcherPayload>
+        }
+        findFirst: {
+          args: Prisma.JobWatcherFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWatcherPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JobWatcherFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWatcherPayload>
+        }
+        findMany: {
+          args: Prisma.JobWatcherFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWatcherPayload>[]
+        }
+        create: {
+          args: Prisma.JobWatcherCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWatcherPayload>
+        }
+        createMany: {
+          args: Prisma.JobWatcherCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JobWatcherCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWatcherPayload>[]
+        }
+        delete: {
+          args: Prisma.JobWatcherDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWatcherPayload>
+        }
+        update: {
+          args: Prisma.JobWatcherUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWatcherPayload>
+        }
+        deleteMany: {
+          args: Prisma.JobWatcherDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JobWatcherUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JobWatcherUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWatcherPayload>[]
+        }
+        upsert: {
+          args: Prisma.JobWatcherUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWatcherPayload>
+        }
+        aggregate: {
+          args: Prisma.JobWatcherAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJobWatcher>
+        }
+        groupBy: {
+          args: Prisma.JobWatcherGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobWatcherGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JobWatcherCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobWatcherCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1522,6 +1597,19 @@ export const CvDocumentScalarFieldEnum = {
 export type CvDocumentScalarFieldEnum = (typeof CvDocumentScalarFieldEnum)[keyof typeof CvDocumentScalarFieldEnum]
 
 
+export const JobWatcherScalarFieldEnum = {
+  id: 'id',
+  ats: 'ats',
+  companySlug: 'companySlug',
+  displayName: 'displayName',
+  enabled: 'enabled',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JobWatcherScalarFieldEnum = (typeof JobWatcherScalarFieldEnum)[keyof typeof JobWatcherScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1643,6 +1731,20 @@ export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMode
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'AtsSource'
+ */
+export type EnumAtsSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AtsSource'>
+    
+
+
+/**
+ * Reference to a field of type 'AtsSource[]'
+ */
+export type ListEnumAtsSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AtsSource[]'>
     
 
 /**
@@ -1808,6 +1910,7 @@ export type GlobalOmitConfig = {
   chatNotes?: Prisma.ChatNotesOmit
   portfolioEmbedding?: Prisma.PortfolioEmbeddingOmit
   cvDocument?: Prisma.CvDocumentOmit
+  jobWatcher?: Prisma.JobWatcherOmit
 }
 
 /* Types for Logging */

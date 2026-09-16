@@ -194,3 +194,23 @@ model CvDocument {
   @@index([isActive])
   @@map("cv_documents")
 }
+
+enum AtsSource {
+  greenhouse
+  lever
+  ashby
+}
+
+model JobWatcher {
+  id          String    @id @default(cuid())
+  ats         AtsSource
+  companySlug String
+  displayName String?
+  enabled     Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([ats, companySlug])
+  @@index([enabled])
+  @@map("job_watchers")
+}

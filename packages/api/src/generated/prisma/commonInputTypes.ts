@@ -307,6 +307,23 @@ export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedFloatNullableFilter<$PrismaModel>
 }
 
+export type EnumAtsSourceFilter<$PrismaModel = never> = {
+  equals?: $Enums.AtsSource | Prisma.EnumAtsSourceFieldRefInput<$PrismaModel>
+  in?: $Enums.AtsSource[] | Prisma.ListEnumAtsSourceFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AtsSource[] | Prisma.ListEnumAtsSourceFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAtsSourceFilter<$PrismaModel> | $Enums.AtsSource
+}
+
+export type EnumAtsSourceWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AtsSource | Prisma.EnumAtsSourceFieldRefInput<$PrismaModel>
+  in?: $Enums.AtsSource[] | Prisma.ListEnumAtsSourceFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AtsSource[] | Prisma.ListEnumAtsSourceFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAtsSourceWithAggregatesFilter<$PrismaModel> | $Enums.AtsSource
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAtsSourceFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAtsSourceFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -562,6 +579,23 @@ export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedFloatNullableFilter<$PrismaModel>
   _min?: Prisma.NestedFloatNullableFilter<$PrismaModel>
   _max?: Prisma.NestedFloatNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumAtsSourceFilter<$PrismaModel = never> = {
+  equals?: $Enums.AtsSource | Prisma.EnumAtsSourceFieldRefInput<$PrismaModel>
+  in?: $Enums.AtsSource[] | Prisma.ListEnumAtsSourceFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AtsSource[] | Prisma.ListEnumAtsSourceFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAtsSourceFilter<$PrismaModel> | $Enums.AtsSource
+}
+
+export type NestedEnumAtsSourceWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AtsSource | Prisma.EnumAtsSourceFieldRefInput<$PrismaModel>
+  in?: $Enums.AtsSource[] | Prisma.ListEnumAtsSourceFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AtsSource[] | Prisma.ListEnumAtsSourceFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAtsSourceWithAggregatesFilter<$PrismaModel> | $Enums.AtsSource
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAtsSourceFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAtsSourceFilter<$PrismaModel>
 }
 
 
