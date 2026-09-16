@@ -76,19 +76,64 @@ function HomePage(): React.JSX.Element {
           <ProjectGrid />
           <TestimonialsSection />
         </section>
-        <section id="about" className="mx-auto max-w-6xl px-6 pb-24">
-          <GlassCard className="p-6">
-            <h2 className="mb-2 text-xl font-medium">About</h2>
-            <p className="text-sm text-(--muted)">
-              Full-Stack AI Engineer based in Stockholm.
+        <section id="about" className="mx-auto max-w-6xl px-6 py-16">
+          <GlassCard className="p-8">
+            <h2 className="mb-2 text-2xl font-semibold text-(--text)">About</h2>
+            <p className="mb-6 font-mono text-sm text-(--iris-soft)">
+              Full-stack AI engineer · Stockholm · Open to roles
             </p>
+            <div className="space-y-4 text-(--muted)">
+              <p>
+                I build production AI systems end-to-end — from vector search pipelines
+                to the auth layer that protects them. Currently shipping{" "}
+                <span className="text-(--text)">darun.dev</span>, a portfolio platform
+                with hybrid RAG chat, admin CMS, and self-maintaining embeddings driven
+                by GitHub webhooks.
+              </p>
+              <p>
+                Previously: full-stack work across React, Fastify, PostgreSQL, and
+                Gemini AI. I care about the boring parts — CSRF, token budgets,
+                idempotent migrations, webhook signature verification — because those
+                are what separate a demo from something that survives contact with
+                production.
+              </p>
+            </div>
           </GlassCard>
         </section>
-        <section id="contact" className="mx-auto max-w-6xl px-6 pb-24">
-          <GlassCard className="p-6" glow="ember">
-            <h2 className="mb-2 text-xl font-medium">Contact</h2>
-            <p className="text-sm text-(--muted)">
-              Open the chat button to ask about projects or availability.
+        <section id="contact" className="mx-auto max-w-6xl px-6 py-16">
+          <GlassCard glow="ember" className="p-8">
+            <h2 className="mb-3 text-2xl font-semibold text-(--text)">Let's talk</h2>
+            <p className="mb-8 max-w-2xl text-(--muted)">
+              Open to full-stack and AI engineering roles in Stockholm, plus selected
+              contract work. Usually respond within a day.
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href="mailto:darunbjork@gmail.com?subject=Hello%20from%20your%20portfolio"
+                className="inline-flex items-center gap-2 rounded-full bg-(--iris) px-5 py-2.5 font-mono text-sm text-white transition hover:bg-(--iris-soft)"
+              >
+                darunbjork@gmail.com
+              </a>
+              <a
+                href="https://www.linkedin.com/in/darun-mustafa/"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-(--border) px-5 py-2.5 font-mono text-sm text-(--text) transition hover:border-(--iris-soft)"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="https://github.com/darunbjork"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-(--border) px-5 py-2.5 font-mono text-sm text-(--text) transition hover:border-(--iris-soft)"
+              >
+                GitHub
+              </a>
+            </div>
+            <p className="mt-8 text-xs text-(--muted)">
+              Or use the chat in the bottom-right — it's a live RAG demo over my CV
+              and project READMEs. Try: <em>"What has Darun shipped recently?"</em>
             </p>
           </GlassCard>
         </section>

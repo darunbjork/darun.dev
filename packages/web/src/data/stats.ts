@@ -1,12 +1,28 @@
 export interface StatItem {
-  value: number
+  value: number | null
   label: string
   suffix?: string
+  compute?: "publishedProjects" | "uniqueTechnologies"
 }
 
 export const stats: StatItem[] = [
-  { value: 5, label: "Production Projects", suffix: "+" },
-  { value: 12_000, label: "Lines of Code", suffix: "+" },
-  { value: 99, label: "Lighthouse Score", suffix: "" },
-  { value: 24, label: "Hours to Ship MVP", suffix: "" },
+  {
+    value: null,
+    label: "Published projects",
+    compute: "publishedProjects",
+  },
+  {
+    value: null,
+    label: "Technologies across projects",
+    compute: "uniqueTechnologies",
+  },
+  {
+    value: 3,
+    label: "Years building",
+    suffix: "+",
+  },
+  {
+    value: 3,
+    label: "Services in production",
+  },
 ]
