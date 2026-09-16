@@ -43,11 +43,15 @@ export function createJobsService(app: FastifyInstance) {
     )
   }
 
-  async function searchAts(what: string): Promise<JobListing[]> {
+  async function searchAts(
+    what: string,
+    atsFilter: Array<"greenhouse" | "lever" | "ashby">,
+  ): Promise<JobListing[]> {
     const enabled = await watchers.listEnabled()
-    if (enabled.length === 0) return []
+    const relevant = enabled.filter((w) => atsFilter.includes(w.ats))
+    if (relevant.length === 0) return []
 
-    const all = await fetchAllAtsJobs(app, enabled)
+    const all = await fetchAllAtsJobs(app, relevant)
     if (!what) return all
 
     // Simple case-insensitive filter on title + description for ATS results.
@@ -85,11 +89,12 @@ export function createJobsService(app: FastifyInstance) {
         )
       }
 
-      const wantsAts = sources.some(
-        (s) => s === "greenhouse" || s === "lever" || s === "ashby",
+      const atsSources = sources.filter(
+        (s): s is "greenhouse" | "lever" | "ashby" =>
+          s === "greenhouse" || s === "lever" || s === "ashby",
       )
-      if (wantsAts) {
-        tasks.push(searchAts(opts.what))
+      if (atsSources.length > 0) {
+        tasks.push(searchAts(opts.what, atsSources))
       }
 
       const results = await Promise.all(tasks)
