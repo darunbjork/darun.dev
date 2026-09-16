@@ -11,6 +11,7 @@ import { ChatFloatingButton } from "@/components/chat/chat-floating-button"
 import { RequireAuth } from "@/components/require-auth"
 import { LoginPage } from "@/pages/login"
 import { AdminFeedbackPage } from "@/pages/admin-feedback"
+import { AdminJobWatchersPage } from "@/pages/admin-job-watchers"
 
 const ChatPanel = lazy(() =>
   import("@/components/chat/chat-panel").then((m) => ({ default: m.ChatPanel }))
@@ -203,6 +204,14 @@ export function App(): React.JSX.Element {
               element={
                 <RequireAuth>
                   <AdminFeedbackPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin/job-watchers"
+              element={
+                <RequireAuth>
+                  <AdminJobWatchersPage />
                 </RequireAuth>
               }
             />

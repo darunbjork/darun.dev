@@ -1,4 +1,4 @@
-export type JobSource = "adzuna" | "greenhouse" | "lever" | "ashby"
+export type JobSource = "adzuna" | "greenhouse" | "lever" | "ashby" | "jobtech"
 
 export type JobListing = {
   id: string

@@ -101,3 +101,8 @@ export type PortfolioEmbedding = Prisma.PortfolioEmbeddingModel
  * 
  */
 export type CvDocument = Prisma.CvDocumentModel
+/**
+ * Model JobWatcher
+ * 
+ */
+export type JobWatcher = Prisma.JobWatcherModel

@@ -9,7 +9,10 @@
 * 🟢 You can import this file directly.
 */
 
+export const AtsSource = {
+  greenhouse: 'greenhouse',
+  lever: 'lever',
+  ashby: 'ashby'
+} as const
 
-
-// This file is empty because there are no enums in the schema.
-export {}
+export type AtsSource = (typeof AtsSource)[keyof typeof AtsSource]

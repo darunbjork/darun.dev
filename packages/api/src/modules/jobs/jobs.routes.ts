@@ -1,7 +1,16 @@
 import type { FastifyInstance, FastifyPluginAsync } from "fastify"
 import { authGuard } from "../../middleware/auth.guard.js"
+import { ok } from "../../utils/response.js"
 import { createJobsService } from "./jobs.service.js"
 import { EUROPEAN_ADZUNA_COUNTRIES } from "./jobs.client.js"
+import type { JobSource } from "./jobs.types.js"
+
+const VALID_SOURCES: readonly JobSource[] = [
+  "adzuna",
+  "greenhouse",
+  "lever",
+  "ashby",
+]
 
 const jobsRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
   const jobs = createJobsService(fastify)
@@ -12,6 +21,7 @@ const jobsRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
       what?: string
       where?: string
       page?: string
+      sources?: string
     }
   }>(
     "/api/v1/admin/jobs/search",
@@ -22,66 +32,47 @@ const jobsRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
         querystring: {
           type: "object",
           properties: {
-            countries: {
-              type: "string",
-              maxLength: 60,
-              description:
-                "Comma-separated country codes. Defaults to all European Adzuna countries.",
-            },
+            countries: { type: "string", maxLength: 60 },
             what: { type: "string", minLength: 1, maxLength: 120 },
             where: { type: "string", maxLength: 120 },
             page: { type: "string", pattern: "^[0-9]+$" },
-          },
-        },
-        response: {
-          200: {
-            type: "object",
-            properties: {
-              success: { type: "boolean" },
-              data: {
-                type: "array",
-                items: { type: "object", additionalProperties: true },
-              },
-              meta: {
-                type: "object",
-                properties: {
-                  countries: {
-                    type: "array",
-                    items: { type: "string" },
-                  },
-                },
-              },
-              error: { type: "null" },
-              correlationId: { type: "string" },
-            },
+            sources: { type: "string", maxLength: 60 },
           },
         },
       },
     },
     async (request, reply) => {
-      const raw = request.query.countries?.trim()
-      const countries = raw
-        ? raw
-            .split(",")
-            .map((country) => country.trim().toLowerCase())
-            .filter(Boolean)
+      const rawCountries = request.query.countries?.trim()
+      const countries = rawCountries
+        ? rawCountries.split(",").map((c) => c.trim().toLowerCase()).filter(Boolean)
         : [...EUROPEAN_ADZUNA_COUNTRIES]
 
-      const data = await jobs.searchAdzuna({
+      const rawSources = request.query.sources?.trim()
+      const sources = rawSources
+        ? (rawSources
+            .split(",")
+            .map((s) => s.trim().toLowerCase())
+            .filter((s): s is JobSource =>
+              (VALID_SOURCES as readonly string[]).includes(s),
+            ))
+        : [...VALID_SOURCES]
+
+      const data = await jobs.search({
         countries,
         what: request.query.what ?? "typescript developer",
         where: request.query.where,
         page: Number(request.query.page ?? "1") || 1,
+        sources,
       })
 
       return reply.status(200).send({
         success: true,
         data,
-        meta: { countries },
+        meta: { countries, sources },
         error: null,
         correlationId: request.correlationId,
       })
-    }
+    },
   )
 }
 
