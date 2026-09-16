@@ -31,6 +31,8 @@ const envSchema = z.object({
   GITHUB_TOKEN:    z.string().optional(),
   GITHUB_USERNAME: z.string().default("darunbjork"),
   GITHUB_WEBHOOK_SECRET: z.string().min(16).optional(),
+  ADZUNA_APP_ID: z.string().min(1).optional(),
+  ADZUNA_APP_KEY: z.string().min(1).optional(),
 
   RESEND_API_KEY: z.string().min(1),
   RESEND_FROM:    z.string().email(),
