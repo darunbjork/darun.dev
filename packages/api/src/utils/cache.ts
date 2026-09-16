@@ -8,6 +8,7 @@ export const TTL = {
   FEEDBACK_STATS: 120, // 2 min — slower-changing per-project stats
   GITHUB_PROFILE: 900, // 15 min
   GITHUB_REPOS:   900, // 15 min
+  JOBS_SEARCH: 60 * 60, // 1 hour
 } as const
 
 export const CacheKey = {
@@ -18,6 +19,12 @@ export const CacheKey = {
   sessionAnalytics: (): string => "analytics:sessions",
   githubProfile: (username: string): string => `github:profile:${username}`,
   githubRepos:   (username: string): string => `github:repos:${username}`,
+  adzunaSearch: (p: {
+    countries: string
+    what: string
+    where: string
+    page: number
+  }): string => `jobs:adzuna:${p.countries}:${p.what}:${p.where}:${p.page}`,
 } as const
 
 export async function getOrSet<T>(
