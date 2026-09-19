@@ -4,13 +4,11 @@ import { Seo } from "@/components/seo"
 import { GlassCard } from "@/components/glass-card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import {
-  JobDetailModal,
-  getScoreBadgeClass,
-} from "@/components/job-detail-modal"
+import { JobDetailModal } from "@/components/job-detail-modal"
 import { useJobSearch } from "@/hooks/useJobSearch"
-import { cn } from "@/lib/utils"
+import { getScoreBadgeClass } from "@/lib/job-score"
 import type { JobSource, ScoredJob } from "@/lib/jobs-api"
+import { cn } from "@/lib/utils"
 
 const COUNTRIES: { code: string; label: string }[] = [
   { code: "gb", label: "UK" },
