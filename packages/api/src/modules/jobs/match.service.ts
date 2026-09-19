@@ -43,6 +43,9 @@ const STOPWORDS = new Set<string>([
   "expert","associate","intern","entry","mid","levels","level","high","low",
   "our","being","well","forward","looking","join","joining","helping","help",
   "focused","hands","team","culture","values","mission","vision","impact",
+  "location","locations","platform","platforms","product","products",
+  "customer","customers","user","users","business","businesses",
+  "market","markets","solution","solutions","process","processes",
 ])
 
 export type ScoredJobListing = JobListing & {
@@ -125,10 +128,9 @@ export function createMatchService(app: FastifyInstance) {
           const descHits = descMatched.size
           const weighted = titleHits * 3 + descHits
 
-          // 12 weighted unique hits = 100. Forces the top scorer to be a
-          // genuinely skill-dense job, not just any posting that mentions
-          // "react" ten times.
-          const cap = 12
+          // 16 weighted unique hits = 100. Requires a genuinely dense skill
+          // match — roughly 4+ unique title skills plus multiple desc hits.
+          const cap = 16
           const raw = Math.min(100, Math.round((weighted / cap) * 100))
 
           return {
