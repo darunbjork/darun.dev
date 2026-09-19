@@ -10,16 +10,22 @@ async function fetchOne(
   app: FastifyInstance,
 ): Promise<JobListing[]> {
   try {
+    let jobs: JobListing[] = []
     if (watcher.ats === "greenhouse") {
-      return await fetchGreenhouseJobs(watcher.companySlug)
+      jobs = await fetchGreenhouseJobs(watcher.companySlug)
+    } else if (watcher.ats === "lever") {
+      jobs = await fetchLeverJobs(watcher.companySlug)
+    } else if (watcher.ats === "ashby") {
+      jobs = await fetchAshbyJobs(watcher.companySlug)
+    } else {
+      return []
     }
-    if (watcher.ats === "lever") {
-      return await fetchLeverJobs(watcher.companySlug)
-    }
-    if (watcher.ats === "ashby") {
-      return await fetchAshbyJobs(watcher.companySlug)
-    }
-    return []
+
+    app.log.info(
+      { ats: watcher.ats, slug: watcher.companySlug, count: jobs.length },
+      "ats fetch result",
+    )
+    return jobs
   } catch (err) {
     app.log.warn(
       { err, ats: watcher.ats, slug: watcher.companySlug },
