@@ -1,10 +1,8 @@
 import type { FastifyInstance } from "fastify"
-import { GoogleGenAI } from "@google/genai"
 import { z } from "zod"
-import { env } from "../../env.js"
 import { AppError } from "../../utils/errors.js"
+import { callGemini } from "../../utils/gemini-client.js"
 
-const MODEL = "gemini-3.6-flash"
 const MAX_JD_CHARS = 10_000
 
 const PitchResponseSchema = z.object({
@@ -25,8 +23,6 @@ const PitchResponseSchema = z.object({
 })
 
 export type PitchResponse = z.infer<typeof PitchResponseSchema>
-
-const ai = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY })
 
 export class PitchService {
   constructor(private readonly fastify: FastifyInstance) {}
@@ -103,16 +99,16 @@ export class PitchService {
 
     let rawOutput: string
     try {
-      const result = await ai.models.generateContent({
-        model: MODEL,
-        contents: prompt,
-        config: {
-          maxOutputTokens: 3000,
-          temperature: 0.4,
-          responseMimeType: "application/json",
-        },
+      const result = await callGemini(prompt, {
+        maxOutputTokens: 3000,
+        temperature: 0.4,
+        responseMimeType: "application/json",
       })
-      rawOutput = result.text ?? ""
+      rawOutput = result.text
+      this.fastify.log.info(
+        { model: result.model, attempts: result.attempts },
+        "pitch gemini ok",
+      )
     } catch (err) {
       this.fastify.log.error({ err }, "pitch gemini call failed")
       throw new AppError("Pitch service unavailable", 503, "PITCH_UNAVAILABLE")
