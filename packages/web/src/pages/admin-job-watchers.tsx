@@ -1,16 +1,18 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { toast } from "sonner"
 import { Seo } from "@/components/seo"
 import { GlassCard } from "@/components/glass-card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { ConfirmDialog } from "@/components/ui/confirm-dialog"
 import {
   useJobWatchers,
   useCreateJobWatcher,
   useSetJobWatcherEnabled,
   useDeleteJobWatcher,
 } from "@/hooks/useJobWatchers"
-import type { AtsSource } from "@/lib/job-watchers-api"
+import type { AtsSource, JobWatcher } from "@/lib/job-watchers-api"
 
 const ATS_OPTIONS: AtsSource[] = ["greenhouse", "lever", "ashby"]
 
@@ -23,6 +25,7 @@ export function AdminJobWatchersPage(): React.JSX.Element {
   const [ats, setAts] = useState<AtsSource>("greenhouse")
   const [companySlug, setCompanySlug] = useState<string>("")
   const [displayName, setDisplayName] = useState<string>("")
+  const [pendingDelete, setPendingDelete] = useState<JobWatcher | null>(null)
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault()
@@ -34,9 +37,13 @@ export function AdminJobWatchersPage(): React.JSX.Element {
         displayName: displayName.trim() || undefined,
       },
       {
-        onSuccess: () => {
+        onSuccess: (w) => {
+          toast.success(`Added ${w.ats}/${w.companySlug}`)
           setCompanySlug("")
           setDisplayName("")
+        },
+        onError: (err) => {
+          toast.error(err instanceof Error ? err.message : "Failed to add watcher")
         },
       },
     )
@@ -99,11 +106,6 @@ export function AdminJobWatchersPage(): React.JSX.Element {
             {create.isPending ? "Adding…" : "Add"}
           </Button>
         </form>
-        {create.isError && (
-          <p className="mt-2 text-xs text-red-400">
-            {create.error instanceof Error ? create.error.message : "Failed to add"}
-          </p>
-        )}
       </GlassCard>
 
       {isLoading && <p className="text-sm text-(--muted)">Loading…</p>}
@@ -134,7 +136,23 @@ export function AdminJobWatchersPage(): React.JSX.Element {
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                onClick={() => toggle.mutate({ id: w.id, enabled: !w.enabled })}
+                onClick={() =>
+                  toggle.mutate(
+                    { id: w.id, enabled: !w.enabled },
+                    {
+                      onSuccess: (updated) => {
+                        toast.success(
+                          updated.enabled
+                            ? `Enabled ${updated.ats}/${updated.companySlug}`
+                            : `Disabled ${updated.ats}/${updated.companySlug}`,
+                        )
+                      },
+                      onError: (err) => {
+                        toast.error(err instanceof Error ? err.message : "Failed to update")
+                      },
+                    },
+                  )
+                }
                 disabled={toggle.isPending}
                 className={
                   w.enabled
@@ -146,11 +164,7 @@ export function AdminJobWatchersPage(): React.JSX.Element {
               </button>
               <button
                 type="button"
-                onClick={() => {
-                  if (window.confirm(`Delete watcher ${w.ats}/${w.companySlug}?`)) {
-                    del.mutate(w.id)
-                  }
-                }}
+                onClick={() => setPendingDelete(w)}
                 disabled={del.isPending}
                 className="text-xs text-red-400 hover:underline"
               >
@@ -160,6 +174,33 @@ export function AdminJobWatchersPage(): React.JSX.Element {
           </GlassCard>
         ))}
       </div>
+
+      <ConfirmDialog
+        open={pendingDelete !== null}
+        title="Delete watcher"
+        description={
+          pendingDelete !== null
+            ? `Remove ${pendingDelete.ats}/${pendingDelete.companySlug}? Jobs from this board will stop appearing in search results.`
+            : ""
+        }
+        confirmLabel="Delete"
+        destructive
+        isPending={del.isPending}
+        onConfirm={() => {
+          if (pendingDelete === null) return
+          const target = pendingDelete
+          del.mutate(target.id, {
+            onSuccess: () => {
+              toast.success(`Deleted ${target.ats}/${target.companySlug}`)
+              setPendingDelete(null)
+            },
+            onError: (err) => {
+              toast.error(err instanceof Error ? err.message : "Delete failed")
+            },
+          })
+        }}
+        onCancel={() => setPendingDelete(null)}
+      />
     </div>
   )
 }

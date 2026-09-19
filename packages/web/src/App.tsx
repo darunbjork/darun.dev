@@ -12,6 +12,7 @@ import { RequireAuth } from "@/components/require-auth"
 import { LoginPage } from "@/pages/login"
 import { AdminFeedbackPage } from "@/pages/admin-feedback"
 import { AdminJobWatchersPage } from "@/pages/admin-job-watchers"
+import { Toaster } from "sonner"
 
 const ChatPanel = lazy(() =>
   import("@/components/chat/chat-panel").then((m) => ({ default: m.ChatPanel }))
@@ -221,6 +222,17 @@ export function App(): React.JSX.Element {
           </Routes>
         </Suspense>
       </div>
+      <Toaster
+        theme="dark"
+        position="bottom-right"
+        toastOptions={{
+          style: {
+            background: "var(--surface)",
+            color: "var(--text)",
+            border: "1px solid var(--border)",
+          },
+        }}
+      />
     </BrowserRouter>
   )
 }
