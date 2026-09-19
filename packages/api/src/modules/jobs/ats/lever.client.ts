@@ -1,5 +1,3 @@
-import { env } from "../../../env.js"
-import { AppError } from "../../../utils/errors.js"
 import type { JobListing } from "../jobs.types.js"
 
 type LeverPosting = {
@@ -25,18 +23,15 @@ export async function fetchLeverJobs(
     res = await fetch(url, {
       headers: { Accept: "application/json", "User-Agent": "darun.dev-portfolio" },
     })
-  } catch (err) {
-    console.error("[lever] fetch threw", companySlug, err)
+  } catch {
     return []
   }
 
   if (!res.ok) {
-    console.error("[lever] non-ok", companySlug, res.status, res.statusText)
     return []
   }
 
   const rows = (await res.json()) as LeverPosting[]
-  console.error("[lever] got", companySlug, rows.length)
 
   return rows.map((j, index) => {
     const title = j.text ?? "Untitled"

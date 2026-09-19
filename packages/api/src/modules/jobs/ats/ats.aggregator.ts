@@ -21,10 +21,6 @@ async function fetchOne(
       return []
     }
 
-    app.log.info(
-      { ats: watcher.ats, slug: watcher.companySlug, count: jobs.length },
-      "ats fetch result",
-    )
     return jobs
   } catch (err) {
     app.log.warn(
