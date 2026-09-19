@@ -14,6 +14,7 @@ import {
 } from "@/hooks/useJobWatchers"
 import type { AtsSource, JobWatcher } from "@/lib/job-watchers-api"
 
+const ATS_NAMES = ["greenhouse", "lever", "ashby"] as const
 const ATS_OPTIONS: AtsSource[] = ["greenhouse", "lever", "ashby"]
 
 export function AdminJobWatchersPage(): React.JSX.Element {
@@ -30,10 +31,15 @@ export function AdminJobWatchersPage(): React.JSX.Element {
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault()
     if (companySlug.trim().length === 0) return
+    const clean = companySlug.trim().toLowerCase()
+    if ((ATS_NAMES as readonly string[]).includes(clean)) {
+      toast.error(`"${clean}" is an ATS name, not a company slug. Switch the ATS dropdown if you meant a different source.`)
+      return
+    }
     create.mutate(
       {
         ats,
-        companySlug: companySlug.trim().toLowerCase(),
+        companySlug: clean,
         displayName: displayName.trim() || undefined,
       },
       {
@@ -91,6 +97,7 @@ export function AdminJobWatchersPage(): React.JSX.Element {
               placeholder="snyk"
               className="rounded-lg border border-(--border) bg-(--surface) px-3 py-2 text-sm text-(--text)"
             />
+            <span className="text-[10px] text-(--muted)">Company on the ATS, not the ATS name.</span>
           </div>
           <div className="flex flex-col gap-1">
             <label className="text-xs text-(--muted)">Display name (optional)</label>
