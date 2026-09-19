@@ -4,9 +4,11 @@ import { fetchAdzunaJobs, EUROPEAN_ADZUNA_COUNTRIES } from "./jobs.client.js"
 import { fetchAllAtsJobs } from "./ats/ats.aggregator.js"
 import { JobWatcherService } from "./job-watcher.service.js"
 import type { JobListing, JobSource } from "./jobs.types.js"
+import { createMatchService, type ScoredJobListing } from "./match.service.js"
 
 export function createJobsService(app: FastifyInstance) {
   const watchers = new JobWatcherService(app)
+  const matcher = createMatchService(app)
 
   async function searchAdzuna(opts: {
     countries?: string[]
@@ -74,7 +76,7 @@ export function createJobsService(app: FastifyInstance) {
       where?: string
       page?: number
       sources?: JobSource[]
-    }): Promise<JobListing[]> {
+    }): Promise<ScoredJobListing[]> {
       const sources = opts.sources ?? ["adzuna", "greenhouse", "lever", "ashby"]
       const tasks: Promise<JobListing[]>[] = []
 
@@ -98,7 +100,8 @@ export function createJobsService(app: FastifyInstance) {
       }
 
       const results = await Promise.all(tasks)
-      return results.flat()
+      const merged = results.flat()
+      return matcher.scoreJobs(merged)
     },
   }
 }
