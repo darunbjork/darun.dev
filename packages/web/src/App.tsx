@@ -12,6 +12,7 @@ import { RequireAuth } from "@/components/require-auth"
 import { LoginPage } from "@/pages/login"
 import { AdminFeedbackPage } from "@/pages/admin-feedback"
 import { AdminJobWatchersPage } from "@/pages/admin-job-watchers"
+import { AdminJobsPage } from "@/pages/admin-jobs"
 import { Toaster } from "sonner"
 
 const ChatPanel = lazy(() =>
@@ -213,6 +214,14 @@ export function App(): React.JSX.Element {
               element={
                 <RequireAuth>
                   <AdminJobWatchersPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin/jobs"
+              element={
+                <RequireAuth>
+                  <AdminJobsPage />
                 </RequireAuth>
               }
             />
