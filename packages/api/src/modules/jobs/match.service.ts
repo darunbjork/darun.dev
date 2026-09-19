@@ -106,27 +106,35 @@ export function createMatchService(app: FastifyInstance) {
         .map((job) => {
           const titleTokens = tokenize(job.title)
           const descTokens = tokenize(job.description)
-          const matched = new Set<string>()
 
+          const titleMatched = new Set<string>()
           for (const t of titleTokens) {
-            if (vocabSet.has(t)) matched.add(t)
-          }
-          for (const t of descTokens) {
-            if (vocabSet.has(t)) matched.add(t)
+            if (vocabSet.has(t)) titleMatched.add(t)
           }
 
-          const titleHits = titleTokens.filter((t) => vocabSet.has(t)).length
-          const descHits = descTokens.filter((t) => vocabSet.has(t)).length
+          const descMatched = new Set<string>()
+          for (const t of descTokens) {
+            if (vocabSet.has(t)) descMatched.add(t)
+          }
+
+          // Union of title + desc matches, minus anything already in title.
+          const allMatched = new Set<string>(titleMatched)
+          for (const t of descMatched) allMatched.add(t)
+
+          const titleHits = titleMatched.size
+          const descHits = descMatched.size
           const weighted = titleHits * 3 + descHits
 
-          // 8 weighted hits = 100. Tuned to spread scores out realistically.
-          const cap = 8
+          // 12 weighted unique hits = 100. Forces the top scorer to be a
+          // genuinely skill-dense job, not just any posting that mentions
+          // "react" ten times.
+          const cap = 12
           const raw = Math.min(100, Math.round((weighted / cap) * 100))
 
           return {
             ...job,
             matchScore: raw,
-            matchedSkills: Array.from(matched).slice(0, 10),
+            matchedSkills: Array.from(allMatched).slice(0, 10),
           }
         })
         .sort((a, b) => b.matchScore - a.matchScore)
