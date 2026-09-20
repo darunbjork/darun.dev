@@ -9,16 +9,16 @@ const PitchResponseSchema = z.object({
   parsed: z.object({
     role: z.string().min(1).max(200),
     company: z.string().max(200).nullable(),
-    requiredSkills: z.array(z.string().max(80)).max(30),
-    niceToHave: z.array(z.string().max(80)).max(20),
-    responsibilities: z.array(z.string().max(300)).max(20),
+    requiredSkills: z.array(z.string().max(200)).max(30),
+    niceToHave: z.array(z.string().max(200)).max(20),
+    responsibilities: z.array(z.string().max(500)).max(20),
   }),
   pitch: z.object({
-    fitSummary: z.string().min(1).max(1000),
-    matchedSkills: z.array(z.string().max(80)).max(30),
-    gapSkills: z.array(z.string().max(80)).max(20),
+    fitSummary: z.string().min(1).max(1500),
+    matchedSkills: z.array(z.string().max(200)).max(30),
+    gapSkills: z.array(z.string().max(200)).max(20),
     pitchText: z.string().min(1).max(2500),
-    coverLetter: z.string().min(1).max(3500),
+    coverLetter: z.string().min(1).max(4000),
   }),
 })
 
@@ -125,7 +125,7 @@ export class PitchService {
     const validated = PitchResponseSchema.safeParse(parsedJson)
     if (!validated.success) {
       this.fastify.log.error(
-        { errors: validated.error.flatten() },
+        { issues: validated.error.issues },
         "pitch schema validation failed",
       )
       throw new AppError(

@@ -118,7 +118,7 @@ function HomePage(): React.JSX.Element {
                 darunbjork@gmail.com
               </a>
               <a
-                href="https://www.linkedin.com/in/darun-mustafa/"
+                href="https://www.linkedin.com/in/darun-mustafa"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-(--border) px-5 py-2.5 font-mono text-sm text-(--text) transition hover:border-(--iris-soft)"
