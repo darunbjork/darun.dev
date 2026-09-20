@@ -42,7 +42,7 @@ export function TestimonialsSection() {
                   {"★".repeat(Math.max(0, 5 - item.rating))}
                 </span>
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-(--text)">
+              <p className="mt-3 text-sm leading-relaxed text-slate-200">
                 {item.comment}
               </p>
             </GlassCard>
