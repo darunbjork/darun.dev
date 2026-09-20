@@ -75,7 +75,7 @@ export function AdminFeedbackPage() {
                 {"★".repeat(item.rating)} · {item.like ? "Like" : "Dislike"} ·{" "}
                 {item.approved ? "Approved" : "Pending"}
               </div>
-              <p className="mt-2 text-sm text-(--text)">{item.comment}</p>
+              <p className="mt-2 text-sm text-slate-200">{item.comment}</p>
               <div className="mt-3 flex gap-2">
                 <button
                   type="button"
