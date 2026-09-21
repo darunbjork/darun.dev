@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils"
 const links = [
   { label: "Projects", href: "#projects" },
   { label: "About", href: "#about" },
+  { label: "CV", href: "#cv" },
   { label: "Contact", href: "#contact" },
 ] as const
 
@@ -14,13 +15,13 @@ export function Navbar(): React.JSX.Element {
   return (
     <nav
       className={cn(
-        "fixed top-0 z-50 w-full border-b border-(--border)]",
-        "bg-(--void)]/80 backdrop-blur-md"
+        "fixed top-0 z-50 w-full border-b border-(--border)",
+        "bg-(--void)/80 backdrop-blur-md"
       )}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#" className="font-mono text-lg text-(--text)]">
-          darun<span className="text-(--iris)]">.dev</span>
+        <a href="#" className="font-mono text-lg text-(--text)">
+          darun<span className="text-(--iris)">.dev</span>
         </a>
 
         <div className="hidden items-center gap-8 md:flex">
@@ -28,7 +29,7 @@ export function Navbar(): React.JSX.Element {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-(--muted)] transition-colors hover:text-(--text)]"
+              className="text-sm text-(--muted) transition-colors hover:text-(--text)"
             >
               {link.label}
             </a>
@@ -37,7 +38,7 @@ export function Navbar(): React.JSX.Element {
 
         <button
           type="button"
-          className="md:hidden rounded-lg p-2 text-(--text)] hover:bg-white/5"
+          className="rounded-lg p-2 text-(--text) hover:bg-white/5 md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -47,13 +48,13 @@ export function Navbar(): React.JSX.Element {
       </div>
 
       {open && (
-        <div className="border-t border-(--border)] bg-(--void)] px-6 py-4 md:hidden">
+        <div className="border-t border-(--border) bg-(--void) px-6 py-4 md:hidden">
           <div className="flex flex-col gap-3">
             {links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm text-(--muted)] hover:text-(--text)]"
+                className="text-sm text-(--muted) hover:text-(--text)"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
