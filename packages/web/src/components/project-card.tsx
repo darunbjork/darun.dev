@@ -54,7 +54,7 @@ function ProjectCardComponent({
         )}
 
         {/* Hover hint — appears only when the card is hovered */}
-        <div className="pointer-events-none absolute inset-0 flex items-end justify-center bg-gradient-to-t from-(--void)/90 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <div className="pointer-events-none absolute inset-0 flex items-end justify-center bg-linear-to-t from-(--void)/90 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           <span className="mb-3 rounded-full bg-(--iris) px-3 py-1 font-mono text-xs text-white">
             Click to explore
           </span>
