@@ -86,7 +86,7 @@ function HomePage(): React.JSX.Element {
             <p className="mb-6 font-mono text-sm text-(--iris-soft)">
               Full-stack AI engineer · Stockholm · Open to roles
             </p>
-            <div className="space-y-4 text-(--muted)">
+            <div className="space-y-4 text-slate-300">
               <p>
                 I build production AI systems end-to-end — from vector search pipelines
                 to the auth layer that protects them. Currently shipping{" "}
@@ -106,14 +106,14 @@ function HomePage(): React.JSX.Element {
         </section>
         <section id="contact" className="mx-auto max-w-6xl px-6 py-16">
           <GlassCard glow="ember" className="p-8">
-           <h2 className="mb-3 text-2xl font-semibold text-(--text)">Let's talk</h2>
-        <p className="mb-6 max-w-2xl text-(--muted)">
-            Open to full-stack and AI engineering roles in Stockholm, plus selected
-            contract work. Usually respond within a day.
-        </p>
-           <div id="cv" className="mb-6 scroll-mt-24">
-            <p className="mb-3 text-sm text-(--muted)">Prefer a CV first?</p>
-             <CvDownload />
+            <h2 className="mb-3 text-2xl font-semibold text-(--text)">Let's talk</h2>
+            <p className="mb-6 max-w-2xl text-slate-300">
+              Open to full-stack and AI engineering roles in Stockholm, plus selected
+              contract work. Usually respond within a day.
+            </p>
+            <div id="cv" className="mb-6 scroll-mt-24">
+              <p className="mb-3 text-sm text-slate-300">Prefer a CV first?</p>
+              <CvDownload />
             </div>
             <div className="flex flex-wrap items-center gap-3">
               <a
@@ -139,7 +139,7 @@ function HomePage(): React.JSX.Element {
                 GitHub
               </a>
             </div>
-            <p className="mt-8 text-xs text-(--muted)">
+            <p className="mt-8 text-xs text-slate-300">
               Or use the chat in the bottom-right — it's a live RAG demo over my CV
               and project READMEs. Try: <em>"What has Darun shipped recently?"</em>
             </p>
