@@ -72,7 +72,7 @@ function HomePage(): React.JSX.Element {
         description="Darun Mustafa — production TypeScript, Fastify, RAG systems, Stockholm."
       />
       <Navbar />
-      <main>
+      <main className="pb-24">
         <Hero />
         <StatsSection />
         <section id="projects" className="mx-auto max-w-6xl px-6 pb-24">
@@ -236,17 +236,19 @@ export function App(): React.JSX.Element {
           </Routes>
         </Suspense>
       </div>
-      <Toaster
-        theme="dark"
-        position="bottom-right"
-        toastOptions={{
-          style: {
-            background: "var(--surface)",
-            color: "var(--text)",
-            border: "1px solid var(--border)",
-          },
-        }}
-      />
+     <Toaster
+  theme="dark"
+  position="bottom-right"
+  offset="88px"
+  toastOptions={{
+    style: {
+      background: "var(--surface)",
+      color: "var(--text)",
+      border: "1px solid var(--border)",
+    },
+  }}
+/>
+
     </BrowserRouter>
   )
 }
