@@ -1,39 +1,75 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const links = [
-  { label: "Projects", href: "#projects" },
-  { label: "About", href: "#about" },
-  { label: "CV", href: "#cv" },
-  { label: "Contact", href: "#contact" },
+  { label: "Projects", href: "#projects", id: "projects" },
+  { label: "About", href: "#about", id: "about" },
+  { label: "CV", href: "#cv", id: "cv" },
+  { label: "Contact", href: "#contact", id: "contact" },
 ] as const
 
 export function Navbar(): React.JSX.Element {
   const [open, setOpen] = useState<boolean>(false)
+  const [active, setActive] = useState<string | null>(null)
+
+  useEffect(() => {
+    const sections = links
+      .map((l) => document.getElementById(l.id))
+      .filter((el): el is HTMLElement => el !== null)
+
+    if (sections.length === 0) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+        if (visible[0] !== undefined) {
+          setActive(visible[0].target.id)
+        }
+      },
+      { rootMargin: "-20% 0px -60% 0px", threshold: [0.1, 0.25, 0.5] }
+    )
+
+    for (const s of sections) observer.observe(s)
+    return () => observer.disconnect()
+  }, [])
 
   return (
-    <nav
-      className={cn(
-        "fixed top-0 z-50 w-full border-b border-(--border)",
-        "bg-(--void)/80 backdrop-blur-md"
-      )}
-    >
+    <nav className="fixed top-0 z-50 w-full border-b border-(--border) bg-(--void)/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a href="#" className="font-mono text-lg text-(--text)">
           darun<span className="text-(--iris)">.dev</span>
         </a>
 
-        <div className="hidden items-center gap-8 md:flex">
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm text-(--muted) transition-colors hover:text-(--text)"
-            >
-              {link.label}
-            </a>
-          ))}
+        <div className="hidden items-center gap-1 md:flex">
+          {links.map((link) => {
+            const isActive = active === link.id
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  "group relative rounded-lg px-3 py-2 text-sm transition-colors",
+                  isActive
+                    ? "text-(--text)"
+                    : "text-(--muted) hover:text-(--text)"
+                )}
+              >
+                {link.label}
+                <span
+                  className={cn(
+                    "absolute bottom-1 left-3 right-3 h-px origin-left bg-(--iris) transition-transform duration-300",
+                    isActive
+                      ? "scale-x-100"
+                      : "scale-x-0 group-hover:scale-x-100"
+                  )}
+                  aria-hidden
+                />
+              </a>
+            )
+          })}
         </div>
 
         <button
