@@ -14,6 +14,7 @@ import { AdminFeedbackPage } from "@/pages/admin-feedback"
 import { AdminJobWatchersPage } from "@/pages/admin-job-watchers"
 import { AdminJobsPage } from "@/pages/admin-jobs"
 import { Toaster } from "sonner"
+import { CvDownload } from "@/components/cv-download"
 
 const ChatPanel = lazy(() =>
   import("@/components/chat/chat-panel").then((m) => ({ default: m.ChatPanel }))
@@ -105,11 +106,15 @@ function HomePage(): React.JSX.Element {
         </section>
         <section id="contact" className="mx-auto max-w-6xl px-6 py-16">
           <GlassCard glow="ember" className="p-8">
-            <h2 className="mb-3 text-2xl font-semibold text-(--text)">Let's talk</h2>
-            <p className="mb-8 max-w-2xl text-(--muted)">
-              Open to full-stack and AI engineering roles in Stockholm, plus selected
-              contract work. Usually respond within a day.
-            </p>
+           <h2 className="mb-3 text-2xl font-semibold text-(--text)">Let's talk</h2>
+        <p className="mb-6 max-w-2xl text-(--muted)">
+            Open to full-stack and AI engineering roles in Stockholm, plus selected
+            contract work. Usually respond within a day.
+        </p>
+           <div id="cv" className="mb-6 scroll-mt-24">
+            <p className="mb-3 text-sm text-(--muted)">Prefer a CV first?</p>
+             <CvDownload />
+            </div>
             <div className="flex flex-wrap items-center gap-3">
               <a
                 href="mailto:darunbjork@gmail.com?subject=Hello%20from%20your%20portfolio"
