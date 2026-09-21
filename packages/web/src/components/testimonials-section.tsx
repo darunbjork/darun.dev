@@ -25,14 +25,14 @@ export function TestimonialsSection() {
       <h2 className="text-2xl font-semibold tracking-tight text-(--text)">
         What visitors say
       </h2>
-      <p className="mt-2 text-sm text-(--muted)">
+      <p className="mt-2 text-sm text-slate-300">
         Approved feedback from people who explored the work.
       </p>
-      <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+     <ul className="mt-8 grid gap-4 sm:grid-cols-2">
         {data.map((item) => (
           <li key={item.id}>
             <GlassCard className="h-full p-5">
-              <div className="flex items-center justify-between gap-2 text-xs text-(--muted)">
+              <div className="flex items-center justify-between gap-2 text-xs text-slate-400">
                 <span className="truncate">{item.projectSlug}</span>
                 <span>{formatRelativeUpdated(item.createdAt)}</span>
               </div>
