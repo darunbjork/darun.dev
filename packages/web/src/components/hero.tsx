@@ -40,9 +40,9 @@ export function Hero(): React.JSX.Element {
   return (
     <header
       ref={rootRef}
-      className="relative flex min-h-[88vh] items-center px-6 pt-24"
-    >
-      <div className="mx-auto max-w-6xl">
+       className="relative flex min-h-[88vh] items-center px-6 pt-24"
+        >
+       <div className="mx-auto w-full max-w-6xl">
         <p
           data-hero-item
           className="mb-4 font-mono text-sm text-violet-400"
