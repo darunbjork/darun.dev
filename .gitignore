@@ -40,3 +40,4 @@ test-ingest.sh
 # Local CV source — never commit
 packages/api/scripts/.cv.local
 packages/api/src/data/cv.md
+.DS_Store
