@@ -70,8 +70,8 @@ export function Navbar(): React.JSX.Element {
                   className={cn(
                     "group relative rounded-lg px-3 py-2 text-sm transition-colors",
                     isActive
-                      ? "font-medium text-(--iris-soft)"
-                      : "text-slate-300 hover:text-white"
+                      ? "font-semibold text-(--iris-soft)"
+                      : "font-medium text-slate-100 hover:text-(--iris-soft)"
                   )}
                 >
                   {link.label}
