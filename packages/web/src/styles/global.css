@@ -23,6 +23,12 @@ body,
   min-height: 100%;
 }
 
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   margin: 0;
   background-color: var(--void);

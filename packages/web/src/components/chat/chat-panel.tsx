@@ -78,16 +78,16 @@ export function ChatPanel(): React.JSX.Element | null {
       >
         {/* Header */}
         <div className="flex items-center justify-between border-b border-(--border) px-4 py-3">
-          <div>
-            <p className="text-sm font-medium text-(--text)">
+          <div className="min-w-0">
+            <p className="truncate text-sm font-medium text-(--text)">
               Chat with darun.dev
             </p>
-            <p className="text-xs text-(--muted)">
+            <p className="truncate text-xs text-(--muted)">
               Context-bound assistant
               {userType !== null ? ` · ${userType}` : ""}
             </p>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex shrink-0 items-center gap-1">
             <Button
               type="button"
               variant="ghost"
