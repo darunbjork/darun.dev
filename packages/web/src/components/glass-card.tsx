@@ -21,8 +21,8 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
         className={cn(
           "rounded-2xl border backdrop-blur-md",
           elevated
-            ? "border-white/1 bg-(--surface)]/90"
-            : "border-(--border)] bg-(--surface)]/80",
+            ? "border-white/10 bg-(--surface)"
+            : "border-(--border) bg-(--surface)",
           glowClass,
           className
         )}
