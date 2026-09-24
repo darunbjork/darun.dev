@@ -22,7 +22,6 @@ packages/api/src/generated/prisma/
 *.log
 
 # docs
-docs/
 docscookies.txt
 day63-review.md
 
