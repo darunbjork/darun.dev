@@ -85,18 +85,25 @@ export function Navbar(): React.JSX.Element {
 
       {open && (
         <div className="border-t border-(--border) bg-(--void) px-6 py-4 md:hidden">
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col">
             {links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm text-(--muted) hover:text-(--text)"
+                className="border-b border-(--border) py-3 text-base font-medium text-white transition-colors last:border-b-0 hover:text-(--iris-soft)"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
               </a>
             ))}
           </div>
+          <a
+            href="#contact"
+            className="mt-5 block rounded-lg bg-(--iris) px-4 py-3 text-center text-base font-medium text-white transition-colors hover:bg-(--iris-soft) hover:text-(--void)"
+            onClick={() => setOpen(false)}
+          >
+            Let's Talk
+          </a>
         </div>
       )}
     </nav>
