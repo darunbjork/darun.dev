@@ -39,22 +39,17 @@ export function Navbar(): React.JSX.Element {
   useEffect(() => {
     if (!open) return
 
-    document.body.style.overflow = "hidden"
-
     const handleResize = () => {
       if (window.innerWidth >= 768) setOpen(false)
     }
     window.addEventListener("resize", handleResize)
 
-    return () => {
-      document.body.style.overflow = ""
-      window.removeEventListener("resize", handleResize)
-    }
+    return () => window.removeEventListener("resize", handleResize)
   }, [open])
 
   return (
     <>
-      <nav className="fixed top-0 z-50 w-full border-b border-(--border) bg-(--void)/80 backdrop-blur-md">
+      <nav className="sticky top-0 z-50 w-full border-b border-(--border) bg-(--void)/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <a href="#" className="font-mono text-lg text-(--text)">
             darun<span className="text-(--iris)">.dev</span>
@@ -99,41 +94,32 @@ export function Navbar(): React.JSX.Element {
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
+
+        {open && (
+          <div className="border-t border-(--border) bg-(--void) px-6 py-6 md:hidden">
+            <nav className="flex flex-col gap-6">
+              {links.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="text-xl font-medium text-white transition-colors hover:text-(--iris-soft)"
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+
+            <a
+              href="#contact"
+              className="mt-4 block rounded-xl bg-(--iris) px-4 py-3 text-center font-semibold text-white transition-colors hover:bg-(--iris-soft) hover:text-(--void)"
+              onClick={() => setOpen(false)}
+            >
+              Let's Talk
+            </a>
+          </div>
+        )}
       </nav>
-
-      {open && (
-        <div className="fixed inset-0 z-[100] flex flex-col overflow-y-auto bg-(--void) px-6 pt-24 pb-8 md:hidden">
-          <button
-            type="button"
-            onClick={() => setOpen(false)}
-            aria-label="Close menu"
-            className="absolute top-4 right-4 rounded-lg p-2 text-(--muted) transition-colors hover:text-white"
-          >
-            <X size={24} />
-          </button>
-
-          <nav className="mt-2 flex flex-col gap-2">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="rounded-lg px-2 py-3 text-2xl font-medium text-white transition-colors hover:text-(--iris-soft)"
-                onClick={() => setOpen(false)}
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
-          <a
-            href="#contact"
-            className="mt-8 block rounded-xl bg-(--iris) px-4 py-4 text-center font-semibold text-white transition-colors hover:bg-(--iris-soft) hover:text-(--void)"
-            onClick={() => setOpen(false)}
-          >
-            Let's Talk
-          </a>
-        </div>
-      )}
     </>
   )
 }
