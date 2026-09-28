@@ -1,5 +1,5 @@
 app = "darun-ai-portfolio"
-primary_region = "ams"
+primary_region = "arn"
 
 [build]
   dockerfile = "packages/api/Dockerfile"
