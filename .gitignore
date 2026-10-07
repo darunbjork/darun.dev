@@ -39,4 +39,8 @@ test-ingest.sh
 # Local CV source — never commit
 packages/api/scripts/.cv.local
 packages/api/src/data/cv.md
+
+# All Markdown stays local — only the root README.md is published
+*.md
+!/README.md
 .DS_Store
