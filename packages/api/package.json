@@ -9,6 +9,8 @@
     "build": "tsc",
     "start": "node dist/app.js",
     "seed:admin": "tsx scripts/seed-admin.ts",
+    "seed:cv": "tsx scripts/seed-cv.ts",
+    "ingest:all": "tsx scripts/ingest-all.ts",
     "type-check": "tsc --noEmit",
     "lint": "eslint src --ext .ts || true",
     "test": "vitest run",

@@ -1,827 +1,185 @@
 %PDF-1.4
-%âãÏÓ
+%“Œ‹ž ReportLab Generated PDF document (opensource)
 1 0 obj
 <<
-/Producer (pypdf)
+/F1 2 0 R /F2 3 0 R /F3 8 0 R
 >>
 endobj
 2 0 obj
 <<
-/Type /Pages
-/Count 1
-/Kids [ 4 0 R ]
+/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
 >>
 endobj
 3 0 obj
 <<
-/Type /Catalog
-/Pages 2 0 R
-/Outlines 10 0 R
+/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
 >>
 endobj
 4 0 obj
 <<
-/Contents 5 0 R
-/MediaBox [ 0 0 595.2756 841.8898 ]
-/Resources <<
-/Font 6 0 R
-/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
->>
-/Rotate 0
-/Trans <<
->>
-/Type /Page
-/Parent 2 0 R
-/Annots [ 11 0 R 12 0 R 13 0 R 14 0 R 15 0 R 16 0 R 17 0 R ]
+/A <<
+/S /URI /Type /Action /URI (https://github.com/darunbjork)
+>> /Border [ 0 0 0 ] /Rect [ 214.1201 777.3126 283.3711 785.7126 ] /Subtype /Link /Type /Annot
 >>
 endobj
 5 0 obj
-[ 20 0 R 21 0 R ]
+<<
+/A <<
+/S /URI /Type /Action /URI (https://linkedin.com/in/darun-mustafa)
+>> /Border [ 0 0 0 ] /Rect [ 289.2091 777.3126 382.5751 785.7126 ] /Subtype /Link /Type /Annot
+>>
 endobj
 6 0 obj
 <<
-/F1 7 0 R
-/F1-0 18 0 R
-/F2 8 0 R
-/F2-0 19 0 R
-/F3 9 0 R
+/A <<
+/S /URI /Type /Action /URI (https://darun-dev.pages.dev)
+>> /Border [ 0 0 0 ] /Rect [ 388.4131 777.3126 454.1711 785.7126 ] /Subtype /Link /Type /Annot
 >>
 endobj
 7 0 obj
 <<
-/BaseFont /Helvetica
-/Encoding /WinAnsiEncoding
-/Name /F1
-/Subtype /Type1
-/Type /Font
+/A <<
+/S /URI /Type /Action /URI (https://github.com/darunbjork/research-assistant-platform)
+>> /Border [ 0 0 0 ] /Rect [ 155.6629 576.4726 182.9935 586.3126 ] /Subtype /Link /Type /Annot
 >>
 endobj
 8 0 obj
 <<
-/BaseFont /Helvetica-Bold
-/Encoding /WinAnsiEncoding
-/Name /F2
-/Subtype /Type1
-/Type /Font
+/BaseFont /Symbol /Name /F3 /Subtype /Type1 /Type /Font
 >>
 endobj
 9 0 obj
 <<
-/BaseFont /ZapfDingbats
-/Name /F3
-/Subtype /Type1
-/Type /Font
+/A <<
+/S /URI /Type /Action /URI (https://github.com/darunbjork/voice-agent)
+>> /Border [ 0 0 0 ] /Rect [ 89.5873 526.2726 116.9179 536.1126 ] /Subtype /Link /Type /Annot
 >>
 endobj
 10 0 obj
 <<
+/A <<
+/S /URI /Type /Action /URI (https://voice-agent-nine-self.vercel.app)
+>> /Border [ 0 0 0 ] /Rect [ 123.7567 526.2726 165.2241 536.1126 ] /Subtype /Link /Type /Annot
 >>
 endobj
 11 0 obj
 <<
 /A <<
-/S /URI
-/Type /Action
-/URI (https\072\057\057darun\055dev\056pages\056dev\057)
->>
-/Border [ 0 0 0 ]
-/Rect [ 419.1704 762.4587 452.5229 771.4587 ]
-/Subtype /Link
-/Type /Annot
+/S /URI /Type /Action /URI (https://github.com/darunbjork/darun.dev)
+>> /Border [ 0 0 0 ] /Rect [ 165.2159 466.1726 192.5465 476.0126 ] /Subtype /Link /Type /Annot
 >>
 endobj
 12 0 obj
 <<
 /A <<
-/S /URI
-/Type /Action
-/URI (https\072\057\057github\056com\057darunbjork\057research\055assistant\055platform)
->>
-/Border [ 0 0 0 ]
-/Rect [ 42.85039 458.1104 72.73759 468.1104 ]
-/Subtype /Link
-/Type /Annot
+/S /URI /Type /Action /URI (https://darun-dev.pages.dev)
+>> /Border [ 0 0 0 ] /Rect [ 199.3853 466.1726 240.8527 476.0126 ] /Subtype /Link /Type /Annot
 >>
 endobj
 13 0 obj
 <<
 /A <<
-/S /URI
-/Type /Action
-/URI (https\072\057\057github\056com\057darunbjork\057darun\056dev)
->>
-/Border [ 0 0 0 ]
-/Rect [ 42.85039 386.4326 72.73759 395.0726 ]
-/Subtype /Link
-/Type /Annot
+/S /URI /Type /Action /URI (https://github.com/darunbjork/cleannation)
+>> /Border [ 0 0 0 ] /Rect [ 91.8587 396.4726 119.1893 406.3126 ] /Subtype /Link /Type /Annot
 >>
 endobj
 14 0 obj
 <<
 /A <<
-/S /URI
-/Type /Action
-/URI (https\072\057\057darun\055dev\056pages\056dev\057)
->>
-/Border [ 0 0 0 ]
-/Rect [ 78.74239 386.4326 120.632 395.0726 ]
-/Subtype /Link
-/Type /Annot
+/S /URI /Type /Action /URI (https://github.com/darunbjork/smart-home-automation-api)
+>> /Border [ 0 0 0 ] /Rect [ 156.0975 356.1726 183.4281 366.0126 ] /Subtype /Link /Type /Annot
 >>
 endobj
 15 0 obj
 <<
 /A <<
-/S /URI
-/Type /Action
-/URI (https\072\057\057github\056com\057darunbjork\057smart\055home\055automation\055api)
->>
-/Border [ 0 0 0 ]
-/Rect [ 42.85039 315.2948 72.73759 323.9348 ]
-/Subtype /Link
-/Type /Annot
+/S /URI /Type /Action /URI (https://smart-home-api-c9r8.onrender.com/)
+>> /Border [ 0 0 0 ] /Rect [ 190.2669 356.1726 231.7343 366.0126 ] /Subtype /Link /Type /Annot
 >>
 endobj
 16 0 obj
 <<
 /A <<
-/S /URI
-/Type /Action
-/URI (https\072\057\057smart\055home\055api\055c9r8\056onrender\056com)
->>
-/Border [ 0 0 0 ]
-/Rect [ 78.74239 315.2948 120.632 323.9348 ]
-/Subtype /Link
-/Type /Annot
+/S /URI /Type /Action /URI (https://github.com/darunbjork/DevQuiz)
+>> /Border [ 0 0 0 ] /Rect [ 270.0365 305.9726 297.3671 315.8126 ] /Subtype /Link /Type /Annot
 >>
 endobj
 17 0 obj
 <<
 /A <<
-/S /URI
-/Type /Action
-/URI (https\072\057\057github\056com\057darunbjork\057chat\055app)
->>
-/Border [ 0 0 0 ]
-/Rect [ 42.85039 257.4648 72.73759 267.4648 ]
-/Subtype /Link
-/Type /Annot
+/S /URI /Type /Action /URI (https://dev-quiz-2stl.vercel.app)
+>> /Border [ 0 0 0 ] /Rect [ 304.2059 305.9726 345.6733 315.8126 ] /Subtype /Link /Type /Annot
 >>
 endobj
 18 0 obj
 <<
-/BaseFont /Helvetica
-/Encoding /WinAnsiEncoding
-/Name /F1
-/Subtype /Type1
-/Type /Font
+/Annots [ 4 0 R 5 0 R 6 0 R 7 0 R 9 0 R 10 0 R 11 0 R 12 0 R 13 0 R 14 0 R 
+  15 0 R 16 0 R 17 0 R ] /Contents 22 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 21 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 
+  /Trans <<
+
+>> /Type /Page
 >>
 endobj
 19 0 obj
 <<
-/BaseFont /Helvetica-Bold
-/Encoding /WinAnsiEncoding
-/Name /F2
-/Subtype /Type1
-/Type /Font
+/PageMode /UseNone /Pages 21 0 R /Type /Catalog
 >>
 endobj
 20 0 obj
 <<
-/Length 12633
+/Author (\(anonymous\)) /CreationDate (D:20261005231843+00'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20261005231843+00'00') /Producer (ReportLab PDF Library - \(opensource\)) 
+  /Subject (\(unspecified\)) /Title (\(anonymous\)) /Trapped /False
 >>
-stream
-q
-1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
-q
-1 0 0 1 42.85039 785.5433 cm
-q
-.101961 .101961 .180392 rg
-BT 1 0 0 1 0 2 Tm /F2 20 Tf 22 TL (DARUN MUSTAFA) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 772.876 cm
-q
-.058824 .298039 .505882 rg
-BT 1 0 0 1 0 2.25 Tm /F1 9 Tf 11.25 TL (Full-Stack Developer \267 React \267 Node.js \267 TypeScript \267 Docker \267 AI/LLM) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 762.0837 cm
-q
-BT 1 0 0 1 0 1.875 Tm 9.375 TL /F1 7.5 Tf .533333 .533333 .533333 rg (+46 79 300 73 95 \267 darunbjork@gmail.com \267 Stockholm \267 github.com/darunbjork \267 linkedin.com/in/darun-mustafa \267 ) Tj (darun.dev) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 756.4144 cm
-Q
-q
-1 0 0 1 42.85039 754.2144 cm
-q
-1.2 w
-1 J
-.058824 .298039 .505882 RG
-n 0 0 m 509.5748 0 l S
-Q
-Q
-q
-1 0 0 1 36.85039 733.5451 cm
-q
-.058824 .298039 .505882 rg
-n 0 15 521.5748 -15 re f*
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-q
-1 0 0 1 5 2.5 cm
-q
-1 1 1 rg
-BT 1 0 0 1 0 2.5 Tm /F2 7.5 Tf 10 TL (PROFILE) Tj T* ET
-Q
-Q
-q
-Q
-Q
-Q
-q
-1 0 0 1 42.85039 729.2931 cm
-Q
-q
-1 0 0 1 42.85039 696.2931 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 0 25 Tm /F1 8 Tf 11 TL (Full-stack developer building production-grade systems in React/TypeScript, Node.js/Fastify, PostgreSQL, MongoDB, and Docker \227 with a) Tj T* (consistent focus on auth security, API contract design, and real-time data. Specializing in production LLM integration: RAG retrieval pipelines,) Tj T* (structured prompt validation, and AI-grounded backend architecture.) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 690.6238 cm
-Q
-q
-1 0 0 1 36.85039 675.6238 cm
-q
-.058824 .298039 .505882 rg
-n 0 15 521.5748 -15 re f*
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-q
-1 0 0 1 5 2.5 cm
-q
-1 1 1 rg
-BT 1 0 0 1 0 2.5 Tm /F2 7.5 Tf 10 TL (EXPERIENCE) Tj T* ET
-Q
-Q
-q
-Q
-Q
-Q
-q
-1 0 0 1 42.85039 671.3719 cm
-Q
-q
-1 0 0 1 42.85039 660.3719 cm
-q
-.101961 .101961 .180392 rg
-BT 1 0 0 1 0 2.5 Tm /F2 8.5 Tf 11 TL (Independent Full-Stack Developer) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 649.8049 cm
-q
-.058824 .298039 .505882 rg
-BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Self-directed \267 Stockholm) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 640.238 cm
-q
-.533333 .533333 .533333 rg
-BT 1 0 0 1 0 2 Tm /F1 7 Tf 9 TL (Jun 2023 \226 Present) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 616.9703 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 8.503937 13.2 Tm /F1 7.8 Tf 10.5 TL (\233 Architected and shipped 5+ full-stack applications end-to-end \227 establishing the same auth, API, and deployment patterns across every project) Tj T* (so each new build started from a proven baseline) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 593.7026 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 8.503937 13.2 Tm /F1 7.8 Tf 10.5 TL (\233 Production auth from scratch: JWT + RBAC with refresh token rotation and role-scoped middleware across 3 projects \227 zero auth bugs) Tj T* (post-launch) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 580.9348 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 8.503937 2.7 Tm /F1 7.8 Tf 10.5 TL (\233 Enforced consistent API contracts with OpenAPI/Swagger on every backend; all frontend clients consume one standardized error shape) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 567.6671 cm
-q
-.101961 .101961 .180392 rg
-BT 1 0 0 1 0 2.5 Tm /F2 8.5 Tf 11 TL (Personal Assistant / Night Shift Care) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 557.1002 cm
-q
-.058824 .298039 .505882 rg
-BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Stockholm \267 Part-time) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 547.5333 cm
-q
-.533333 .533333 .533333 rg
-BT 1 0 0 1 0 2 Tm /F1 7 Tf 9 TL (2018 \226 2024) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 524.2656 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 8.503937 13.2 Tm /F1 7.8 Tf 10.5 TL (\233 Provided nightly personal care and support for a client with significant needs \227 coordinating care plans, schedules, and regulatory) Tj T* (documentation reviewed by government authorities over 6 years) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 510.9978 cm
-q
-BT 1 0 0 1 0 2.5 Tm 11 TL /F2 8.5 Tf .101961 .101961 .180392 rg (Earlier: Production Manager & Grocery Manager) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 500.4309 cm
-q
-.058824 .298039 .505882 rg
-BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Kurdistan Region, Iraq \267 2010 \226 2015) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 497.0293 cm
-Q
-q
-1 0 0 1 36.85039 482.0293 cm
-q
-.058824 .298039 .505882 rg
-n 0 15 521.5748 -15 re f*
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-q
-1 0 0 1 5 2.5 cm
-q
-1 1 1 rg
-BT 1 0 0 1 0 2.5 Tm /F2 7.5 Tf 10 TL (KEY PROJECTS) Tj T* ET
-Q
-Q
-q
-Q
-Q
-Q
-q
-1 0 0 1 42.85039 477.7774 cm
-Q
-q
-1 0 0 1 42.85039 466.7774 cm
-q
-.101961 .101961 .180392 rg
-BT 1 0 0 1 0 2.5 Tm /F2 8.5 Tf 11 TL (Research Assistant Platform) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 456.2104 cm
-q
-.082353 .396078 .752941 rg
-BT 1 0 0 1 0 2.8 Tm /F1 7.2 Tf 10 TL (GitHub ) Tj /F3 7.2 Tf 10 TL (n) Tj /F1 7.2 Tf 10 TL T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 446.36 cm
-q
-.533333 .533333 .533333 rg
-BT 1 0 0 1 0 2.2 Tm /F1 6.8 Tf 9 TL (Fastify \267 TypeScript \267 PostgreSQL/pgvector \267 Redis \267 Gemini API \267 Docker \267 OpenTelemetry) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 434.4427 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 8.503937 2.7 Tm /F1 7.8 Tf 10.5 TL (\233 640+ Jest unit tests with 82% line coverage enforced in CI \227 sub-800ms P95 latency on RAG queries) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 421.675 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 8.503937 2.7 Tm /F1 7.8 Tf 10.5 TL (\233 Hybrid retrieval: pgvector cosine similarity + BM25 keyword search merged via Reciprocal Rank Fusion for grounded, cited answers) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 408.9073 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 8.503937 2.7 Tm /F1 7.8 Tf 10.5 TL (\233 Self-correcting ReAct agent loop with automated RAG Triad quality evaluation and retry logic) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 395.6396 cm
-q
-.101961 .101961 .180392 rg
-BT 1 0 0 1 0 2.5 Tm /F2 8.5 Tf 11 TL (darun.dev \227 Portfolio Platform) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 385.0726 cm
-q
-BT 1 0 0 1 0 2.8 Tm 10 TL /F1 7.2 Tf .082353 .396078 .752941 rg (GitHub ) Tj /F3 7.2 Tf 10 TL (n) Tj /F1 7.2 Tf 10 TL ( \267 ) Tj (Live Demo ) Tj /F3 7.2 Tf 10 TL (n) Tj /F1 7.2 Tf 10 TL T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 375.2222 cm
-q
-.533333 .533333 .533333 rg
-BT 1 0 0 1 0 2.2 Tm /F1 6.8 Tf 9 TL (Fastify 5 \267 Prisma 7 \267 PostgreSQL \267 Redis \267 Gemini API \267 React \267 Tailwind \267 Docker \267 Cloudflare Pages) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 363.3049 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 8.503937 2.7 Tm /F1 7.8 Tf 10.5 TL (\233 Turborepo monorepo with shared TypeScript types \227 Argon2id + HttpOnly JWT + CSRF double-submit protection) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 350.5372 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 8.503937 2.7 Tm /F1 7.8 Tf 10.5 TL (\233 Visitor fingerprinting with SHA-256, unique project view analytics, and structured Gemini chat with Zod-validated output) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 337.7695 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 8.503937 2.7 Tm /F1 7.8 Tf 10.5 TL (\233 AI-powered job pitch generator \227 matches job descriptions to candidate profile, generates tailored cover letters) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 324.5018 cm
-q
-.101961 .101961 .180392 rg
-BT 1 0 0 1 0 2.5 Tm /F2 8.5 Tf 11 TL (Smart Home Automation API) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 313.9348 cm
-q
-BT 1 0 0 1 0 2.8 Tm 10 TL /F1 7.2 Tf .082353 .396078 .752941 rg (GitHub ) Tj /F3 7.2 Tf 10 TL (n) Tj /F1 7.2 Tf 10 TL ( \267 ) Tj (Live Demo ) Tj /F3 7.2 Tf 10 TL (n) Tj /F1 7.2 Tf 10 TL T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 304.0844 cm
-q
-.533333 .533333 .533333 rg
-BT 1 0 0 1 0 2.2 Tm /F1 6.8 Tf 9 TL (Node.js \267 TypeScript \267 MongoDB \267 MQTT \267 Socket.io \267 JWT/RBAC \267 Docker \267 GitHub Actions \267 Swagger) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 292.1671 cm
-q
-BT 1 0 0 1 8.503937 2.7 Tm 10.5 TL /F1 7.8 Tf .333333 .333333 .333333 rg (\233 Full IoT real-time loop: MQTT handles device commands, Socket.io fans state to all clients in <) Tj (30ms) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 279.3994 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 8.503937 2.7 Tm /F1 7.8 Tf 10.5 TL (\233 Tenant-isolated RBAC at middleware layer \227 cross-tenant data access is structurally blocked, not just permission-gated) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 266.1317 cm
-q
-.101961 .101961 .180392 rg
-BT 1 0 0 1 0 2.5 Tm /F2 8.5 Tf 11 TL (Chat App \227 React Native) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 255.5648 cm
-q
-.082353 .396078 .752941 rg
-BT 1 0 0 1 0 2.8 Tm /F1 7.2 Tf 10 TL (GitHub ) Tj /F3 7.2 Tf 10 TL (n) Tj /F1 7.2 Tf 10 TL T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 245.7144 cm
-q
-.533333 .533333 .533333 rg
-BT 1 0 0 1 0 2.2 Tm /F1 6.8 Tf 9 TL (React Native \267 Expo \267 Firebase Firestore \267 Firebase Auth) Tj T* ET
-Q
-Q
-q
-1 0 0 1 42.85039 233.797 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 8.503937 2.7 Tm /F1 7.8 Tf 10.5 TL (\233 Real-time mobile messaging with live Firestore listeners, authenticated user sessions, and push notifications) Tj T* ET
-Q
-Q
-q
-1 0 0 1 36.85039 216.5293 cm
-q
-.058824 .298039 .505882 rg
-n 0 15 521.5748 -15 re f*
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-q
-1 0 0 1 5 2.5 cm
-q
-1 1 1 rg
-BT 1 0 0 1 0 2.5 Tm /F2 7.5 Tf 10 TL (TECHNICAL SKILLS) Tj T* ET
-Q
-Q
-q
-Q
-Q
-Q
-q
-1 0 0 1 42.85039 212.2774 cm
-Q
-q
-1 0 0 1 36.85039 152.2774 cm
-q
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-q
-1 0 0 1 6 50 cm
-q
-.101961 .101961 .180392 rg
-BT 1 0 0 1 0 2.5 Tm /F2 7.5 Tf 10 TL (Frontend) Tj T* ET
-Q
-Q
-q
-1 0 0 1 85.37008 50 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (React \267 TypeScript \267 Tailwind \267 Zustand \267 Axios \267 Vite \267 React Native \267 Expo \267 Framer Motion) Tj T* ET
-Q
-Q
-q
-1 0 0 1 6 40 cm
-q
-.101961 .101961 .180392 rg
-BT 1 0 0 1 0 2.5 Tm /F2 7.5 Tf 10 TL (Backend) Tj T* ET
-Q
-Q
-q
-1 0 0 1 85.37008 40 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Node.js \267 Fastify \267 Express \267 WebSockets \267 MQTT \267 JWT/RBAC \267 Zod \267 BullMQ \267 Socket.io) Tj T* ET
-Q
-Q
-q
-1 0 0 1 6 30 cm
-q
-.101961 .101961 .180392 rg
-BT 1 0 0 1 0 2.5 Tm /F2 7.5 Tf 10 TL (AI / LLM) Tj T* ET
-Q
-Q
-q
-1 0 0 1 85.37008 30 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Gemini \267 DeepSeek \267 Grok \267 GroqCloud \267 Deepgram \267 RAG \267 pgvector \267 ReAct agents \267 Prompt Engineering) Tj T* ET
-Q
-Q
-q
-1 0 0 1 6 20 cm
-q
-.101961 .101961 .180392 rg
-BT 1 0 0 1 0 2.5 Tm /F2 7.5 Tf 10 TL (Databases) Tj T* ET
-Q
-Q
-q
-1 0 0 1 85.37008 20 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (PostgreSQL \267 Prisma \267 MongoDB \267 Mongoose \267 Redis \267 Upstash \267 Supabase \267 Firebase Firestore) Tj T* ET
-Q
-Q
-q
-1 0 0 1 6 10 cm
-q
-.101961 .101961 .180392 rg
-BT 1 0 0 1 0 2.5 Tm /F2 7.5 Tf 10 TL (DevOps) Tj T* ET
-Q
-Q
-q
-1 0 0 1 85.37008 10 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Docker \267 GitHub Actions \267 Cloudflare Pages \267 Render \267 Heroku \267 Swagger/OpenAPI \267 Jest) Tj T* ET
-Q
-Q
-q
-1 0 0 1 6 0 cm
-q
-.101961 .101961 .180392 rg
-BT 1 0 0 1 0 2.5 Tm /F2 7.5 Tf 10 TL (Comms/Email) Tj T* ET
-Q
-Q
-q
-1 0 0 1 85.37008 0 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (SendGrid \267 Resend \267 Twilio) Tj T* ET
-Q
-Q
-q
-Q
-Q
-Q
-q
-1 0 0 1 36.85039 137.2774 cm
-q
-.058824 .298039 .505882 rg
-n 0 15 521.5748 -15 re f*
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-q
-1 0 0 1 5 2.5 cm
-q
-1 1 1 rg
-BT 1 0 0 1 0 2.5 Tm /F2 7.5 Tf 10 TL (EDUCATION) Tj T* ET
-Q
-Q
-q
-Q
-Q
-Q
-q
-1 0 0 1 42.85039 133.0254 cm
-Q
-q
-1 0 0 1 36.85039 95.52539 cm
-q
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-q
-1 0 0 1 6 26.5 cm
-q
-.101961 .101961 .180392 rg
-BT 1 0 0 1 0 2.5 Tm /F2 8.5 Tf 11 TL (Fullstack Developer \227 Open Source Track) Tj T* ET
-Q
-Q
-q
-1 0 0 1 289.4646 27.5 cm
-q
-.058824 .298039 .505882 rg
-BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Chas Academy \267 Stockholm \267 Sep 2025 \226 Jun 2027) Tj T* ET
-Q
-Q
-q
-1 0 0 1 6 14 cm
-q
-.101961 .101961 .180392 rg
-BT 1 0 0 1 0 2.5 Tm /F2 8.5 Tf 11 TL (Full-Stack Web Development Certificate) Tj T* ET
-Q
-Q
-q
-1 0 0 1 289.4646 15 cm
-q
-.058824 .298039 .505882 rg
-BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (CareerFoundry \(Remote\) \267 Jun 2023 \226 Aug 2024) Tj T* ET
-Q
-Q
-q
-1 0 0 1 6 1.5 cm
-q
-.101961 .101961 .180392 rg
-BT 1 0 0 1 0 2.5 Tm /F2 8.5 Tf 11 TL (Business Administration Diploma) Tj T* ET
-Q
-Q
-q
-1 0 0 1 289.4646 2.5 cm
-q
-.058824 .298039 .505882 rg
-BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Choman Technical Institute \267 2011 \226 2013) Tj T* ET
-Q
-Q
-q
-Q
-Q
-Q
-q
-1 0 0 1 42.85039 92.69075 cm
-Q
-q
-1 0 0 1 36.85039 77.69075 cm
-q
-.058824 .298039 .505882 rg
-n 0 15 521.5748 -15 re f*
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-q
-1 0 0 1 5 2.5 cm
-q
-1 1 1 rg
-BT 1 0 0 1 0 2.5 Tm /F2 7.5 Tf 10 TL (LANGUAGES) Tj T* ET
-Q
-Q
-q
-Q
-Q
-Q
-q
-1 0 0 1 42.85039 73.43878 cm
-Q
-q
-1 0 0 1 42.85039 63.43878 cm
-q
-.333333 .333333 .333333 rg
-BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Kurdish \227 Native \267 English \227 Professional \267 Swedish \227 Professional) Tj T* ET
-Q
-Q
- 
-
-Q
-
-endstream
 endobj
 21 0 obj
 <<
-/Length 436
+/Count 1 /Kids [ 18 0 R ] /Type /Pages
+>>
+endobj
+22 0 obj
+<<
+/Filter [ /ASCII85Decode /FlateDecode ] /Length 4934
 >>
 stream
-q
-0.0 0.0 595.2756 841.8898 re
-W
-n
-1 0 0 1 0 0 cm
-BT
-/F1-0 12 Tf
-14.4 TL
-ET
-1 1 1 rg
-n
-41.85039 201.7249 458.1496 10.5 re
-f*
-0.101961 0.101961 0.180392 rg
-BT
-/F2-0 7.5 Tf
-9 TL
-ET
-BT
-1 0 0 1 42.85039 204.7774 Tm
-(Frontend) Tj
-T*
-ET
-BT
-/F1-0 7.5 Tf
-9 TL
-ET
-BT
-1 0 0 1 122.2205 204.7774 Tm
-(React \267 TypeScript \267 Tailwind \267 Zustand \267 Axios \267 Vite \267 React Native \267 Redux Toolkit \267 Expo \267 Framer Motion) Tj
-T*
-ET
-Q
-
-endstream
+Gb!#_>Bedl&q801ka.^tCd:I6aR$h(CRdA@A&um^S@f-,!KAB_dD\$8lh@Gt8I18,SD\H85-Y\jh-JQ2?[Yr)kcBO]?2jP-`fA(*n4[K+_8]EN>FNONQgAhllME*F][Ls[]s$bG*OqQ3)\*q,Vj_Me[PM<[@CVW*1X1"NgD[;<p'O1Podgq=`XE'kQ8:KWrkZ_GqWfO&n`sjN4<)"Hj1j7A?Sq'br+qe3hjet/G[7XiJcYh\P`kZQ)GT\b"%Rk12k@4+,L=-`8\fdd_[CXVbef&)P^P>-Q]7=>54[0AOfReD,2h0^RC]m@=[#LSkf]g64qSX0I.6^tA%NHC0)E1DJ!D_DFgQ^V%irQ"0f(@Ne'"eJNGsMY)d:SO=#ZM4XdK9lH&$,"RUI,b*L;]t)aeF?@Xk4B[nV]t/-cBqb[-@@-6(T0%=si]alG+;hY_"%HXW`G,$(=pEbK5@U@M23lZ!SI#I?+V(DD,oE&D>)eDmU`EUYAMDKl^>Eqh=c1N_Y$bIsmaY=[6:!Pd/#hMc(c?L;,E<l7=IG)-+dT/IE&+D/(0dg!BtiIZ7IOjT_kk!%ON9B.-2Q3IC4mR\M7])I)#EI$7jPW`^6]tJ?`FLNFDg<r]$ldOS<JgEBi`j=TS=7@mm_?^o5@uF:hKqF,El-<0[i%/)E3KGs3-L@1JIX\d.O\Q'&LM'qZLXYADl2;gf=k7;;8V_^.a\83E0b:VATOPEr@Lqnb$d<+p8?reJ,rqG%^W;d5Qri4@N;H$^k0"5R?<topH&?aKJ7mglOe\f/Mn40NF*MBdC$Z,R@$L/H'6865,j,^ck5gG6(\dN['cBSicJpSb4.*6CR@(:-cJs4V&O$0]i)YLpn&!'X#V<*LCq[_UZ'XV>S\V=/=,3@9gFl"jpUA`pkfSqnWD3skVOVibmqin,E]G%BKF88Cj\3gG_YF9!Mkqu&&\mGLV)QLQ#'KJnjGD47PkC?]7?iS.6*&t;q"\rnL&nn-Su]-2(L@7#Z-4"5(=ZcBMP,<SpB%<);<3W:Eod?ld@CufN9@F&WCVFYdoOhYr%Rf%0P;'_)7u5Lm68q(INXq?lADM>]fNj@3;ms3K/`L_-4&tm)kDPo-J2gW[OG=.-(*'klllc2!o?J:*f4T[kG>g/ZOK;<*_j74R)3UC?e^1WqZ6f)B:*eU_lhpJ(p6k9:1)VCB1h0b,_;gM8OWiPU-.=Tf4DkLT80s\.ToM)%i5Vdm_<2Z,)Wsf5lM5a(5jU54T_#[`YNZ;d3V?[G*%FPC`^ma&cU5r'-<"BDm.oLE=>Qk^+_Uq_8iC_Wj,A$d54;%c[6jl%j-3!a-aPKf13_gj_6096M5E]8h:^fVk,/]&eXTL"%a5I(^(GKNW'CPRYergQ*)H_\ca`lGZf2;dX]S*BTF:S:IUT"!)Oh@]2$/8Snk@.)gnZY+_[Tm'9tAMMpF(l]R;cNo4Bd\1@tQG9:'IhU/1[GXn>fqPC@ZYe.RTSZ!g,&p9<gLp5+`eNTT1VB?/Ycp-g._%T\KCjZg3LpYhj:Pt'l0qQrqtC;Z+9&5Q7>PF"a7mjj`ZF'J$idgaQJ#oB6G'<m.S'eS+5d\KZ8-%3F./4<)r4/F>HKk(kF$7J)n;g:@[!2'L`68W&b]Yam?!UH&h/0Z`5m)o5d%uQ1[R#:18,4]aTZO&l&-lbgFWa-e0[irL2QrpY^J:/^nAAM=Zm.-6j6f;7+\`@).K?*UXc$V&QF&WLoY>^7?C-?;8#[:UBD5;*>5k<;q4S";8fm,&pEf''%\`k1CW.k]pA8?qs47"0a^=NS:Wsh>(>G\V%"0K>Q)#W@bIghS:rTWis[):\tL*lX9Kl,n3k)QF<hUehm4@sU"8ecEDP0f)_Y.(3aCQ.!"Ki)2%i-GZV%</k0h817Wbm)M3r*;&10f(oMMb#CqV1XsV*6a4Z[r7,`2U,ZCn?QhS:s`c(7])"@p9MPmr#[P'[g6$/[-h^?V<'LjH-=k1T\;ZYA'?//cobUB$YI"F<8LE@H`(P!MA:daFSRMh-1ODnbWQ?o0_-VF!=Lm`B\;[+04j&oXWcik%+oY@HB?klYu*\mo@ciTfGUt*?i_G5//8?`?dJhs<ida^j#^Y6D=t<n^8:fWdu"9"*L$:/K02(k:bY^%56<Q*Ni/uSnB?86Jmgb&B+IJ8'Zgl,+eik:nK/^)[\?%Ho'NiB0S"H]b=#qecRAr%m"\#=(AdFp2#BMS+J744=Nh`XSnC(,nI&d-Du@I_hWIgFJr[s,O"Z:qk$\sD\QfYu(q5\C):G\YB"FLWREY76.Mq%Qn!*>YR"I>M/j0OFn-!>PFtb)W=VLT;'Esc/HB(jRW&r@2e*4%i1gtf&ZX)=b@FfsS>36l'[ZQ<Z"KJnjG"L57'-<'T^$9JkZhd7h/P@V<DSt05&Gl^)N!NGT.W1JNL*loBf;k'%]50Y)ft=uJ9s3gQbsliO.bp-Qb;p!28fl[?L-,]DSoQKM%^Y*KT2S(EoD>%m0pSD>M]S69DPD>V,3'?JPo`d5muVEjK=+gm+"\U*=]KQ%9.gS>+Kj%Q8@*ir&uYq3EpBV?7@DB&OFK"u#g-?cpc[H[$#U1s5S;L,a$f_C>Vepi@\K$F^kTAU@+gSkU&P16G6IXE#kBf@Co!$\7M`+,3:HZ,X`"hE['+H>gOXRp]7>?*Ru;5XjTXEK)TEG?$!k>7*bGtEbN?N(F?P37QXtHXk7@V$QeMiseXajG#:h<D8;-o1N0:<kILdA%$Q9VV>t9DqdNi=g0gLU*cf+U^ngn5`*eF^(EA(u'hCn9e3mO2,:D%>.G10V,C>7<5a0qGQ5^*X]kZN&@0T]BsY3tX2*7T[EV26^5TMlGVi^Kj@*eT+LenVs!OLRp#/G=$U>DUpBiNg=-"r^V0?'pj&a)R5:i*?_a/rq5S"Oi0IpFGP.[#8_1ql_ol>Lg=`3@ql'dR:+p,nkL\<kh:f<#3`WNWA9A`<iQF`ZS#ET#_Xl4Q-;Um5*ZDp+`8HJhdj[a!YpODK_,jI"D(&;LU/0og4Kh`s)Z@8s&(E=_4RJMjjmh%Qb_;T92aE:b-;i<6D#:8\95e$O"1P&/,HN3!-2c9)HC\86)+UgfQ#m[`1c5JpV9eLcnbWL>rlh7$7>1-c*3&AL'H!#=hAJ!r5QG>uJYJ_hQil6ER<Hmiq;%]LBB(n+lQ)<uG=@JX?S$WOse>Sp;$ZaHVa8mk?G&??%.`-Jc9`$AWk<#<+IE3u:Y.$]sc,KYDA<]jBUK,D%"-ge0h2*+nYAIIW9MLtUZuD<.WD"fbD0M9-8>q1)Y7Ph:*jmCO63DaAq_-_!s2_40;+m?4t45fuh&L3^62`AjZBKN_tWQ.meB!cp-V-pZZi;ldL7_[ou5b4n?n'#Nd'n91Lq(LU`Ki*uqG*Mre=Cg$t[QoVJH3$]S^?aRL.V:,7n1rieM-lpR:gbhQ4Rp*"6Y?9DldVR[nVa!*:fns[2B@bSj+3UHRCS+:8m7>`=Z<a#3:`!KYj0BaWZYV3-gIW.(ktnep*u$cZp/nq_As5ApZguPO)ohm,*_6Mq/!*5*LiMJI6mT_1X^Xb@5SS$@$9:Z]/K'sc&AdNq\g^;H73(>.\FrPoWJ>:8bK3VCL/OV;qEa]IaM4RA#A0%94$^+A!^pc+1a8#MMI#UI?",5JZ&&_^!I[@B1+T:g[ioVc_Y"_<87S69JD`*pO^p])S3W$6c"*W]bNd0!C`"DMVe79tQ<?!OZ^P<2DjG2PdE].DA'LUY6Rt`;R:.";hmR;O1RoN+E10l5bL_'[.YBRodB%o(:Fn$Bifm.3JpjPT3``5U)hn?aQBH-Y%Y%&LP>^Om2VK#N\&mQW'($V5hX=EX/kJQ3'AM3a)A4N$C0s#(edll$TCr[NGIJj<Z4VVhra&E080ll,je4O\h)#l9G*)+^`*"[j.`p.T3WpdT\?*AgH-ToM^[*.CD(L8Ka:`3M^N\VjL:\4jp*2>9UcNHrSYo9sXZ".sUQEW^fICm@E[`p*;j&r\.0*3<+=1!3h(G()mD*U_DD$uGO5GAs3$)D3d>*Y'bOu.Hi>>;.m^p;OfQmYh2Ipc,^bmT(Eg8%K_8'2fH&]h0I-+h=ij-BYegiG(;OaSq(uC#lHg%pq'P17QjZBC7<PdfKojZSC8$Q"ge$,9R8Ub"DUW0:*2<i`Fef)?*24/.fW`pCp-3ma&=_-FEW7f2$Uio0Dk+d)"1EoP8HWnb[%?MKhn"-Ko"K"OITSb"6FmQPQ5HLi`mU7r4T<92-I<YnRM=[_$g-Nu4LpX#;\U(O;^`V!HX);[5A3Qr\`7=Sf;F-[QSRUA#=#/ut)1/_L-l+">N8H9hFcnVAP4U!EDor%aJm6"d/rQ4dCBc0Om<-ZZ:Mq4^FK*Y>Q;FdW3:_s"o^cS&d=(><omse>Mtk+'T9T.up2HFh-0Jn1@m,[C$^&sF<gPnn_N`O-lW2XjA)DS0X#*$`j6$_K0YF^IoIKg5NYssD\85D54MOe2'-..Qn[a%[lMA]IWe]+WV<dJ*496?a0=G\,1KQ.YiBprmgYLQfW-0m%l>IYBV<`;m*-\S'0Ijgpn5-.X:f5hqjAgI2=2'.(UUY'1bED[$>r$>b`\uH6E'J[LroED8E.%3Odgd%p*<Y+V1"%YeFdMIF0""_(W!K(,Ku4+?,SjAi90S$m/Sj]_l2tsr#qAlSj11Mm.(t/ObH7]&7smT-BPhm4Z90Z+[d2>j>J]m@Jp'X^;NR8<>'Z"oQidPiZ=Ej#OROrqSl']iYQANC/FpAC]RKj0=NkqM0FWkQ"d.t=GXPo<+j)//3='/,<TPJo&<=FopCElBClD=E$0cuq7046l(]!>1ZsFi#Knot@hd(H,@pm,WD"!]HfkQA2]u.r$IA7nVPC@d;r,hp\G^eA<YirbIAFJ>-#PPK^:A$NKjdE,$TT12APq0"K'Zho+56)a"eR9%CWX>1Wf_Y,mIb:_$"/>'PoD~>endstream
 endobj
 xref
-0 22
+0 23
 0000000000 65535 f 
-0000000015 00000 n 
-0000000054 00000 n 
-0000000113 00000 n 
-0000000179 00000 n 
-0000000439 00000 n 
-0000000472 00000 n 
-0000000549 00000 n 
-0000000656 00000 n 
-0000000768 00000 n 
-0000000851 00000 n 
-0000000873 00000 n 
-0000001075 00000 n 
-0000001309 00000 n 
-0000001522 00000 n 
-0000001723 00000 n 
-0000001958 00000 n 
-0000002174 00000 n 
-0000002386 00000 n 
-0000002494 00000 n 
-0000002607 00000 n 
-0000015294 00000 n 
+0000000061 00000 n 
+0000000112 00000 n 
+0000000219 00000 n 
+0000000331 00000 n 
+0000000512 00000 n 
+0000000701 00000 n 
+0000000880 00000 n 
+0000001089 00000 n 
+0000001166 00000 n 
+0000001358 00000 n 
+0000001551 00000 n 
+0000001743 00000 n 
+0000001923 00000 n 
+0000002116 00000 n 
+0000002324 00000 n 
+0000002518 00000 n 
+0000002708 00000 n 
+0000002893 00000 n 
+0000003200 00000 n 
+0000003270 00000 n 
+0000003551 00000 n 
+0000003612 00000 n 
 trailer
 <<
-/Size 22
-/Root 3 0 R
-/Info 1 0 R
+/ID 
+[<40332b1439838af3a5658dd926d34052><40332b1439838af3a5658dd926d34052>]
+% ReportLab generated PDF document -- digest (opensource)
+
+/Info 20 0 R
+/Root 19 0 R
+/Size 23
 >>
 startxref
-15782
+8638
 %%EOF
