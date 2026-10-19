@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, vi } from "vitest"
 import { buildApp } from "../../app.js"
+import { AppError } from "../../utils/errors.js"
 import type { FastifyInstance } from "fastify"
 
 const { callGeminiSpy } = vi.hoisted(() => ({
@@ -206,6 +207,77 @@ describe("userType persistence (mocked Gemini)", () => {
         reply.includes("not in my current stack") ||
         reply.includes("pick up new technologies")
     ).toBe(true)
+  })
+})
+
+describe("Fallback replies when Gemini is unavailable", () => {
+  it("serves a cached fallback for tech background questions", async () => {
+    callGeminiSpy.mockRejectedValueOnce(
+      new AppError("AI service temporarily unavailable", 503, "AI_UNAVAILABLE")
+    )
+
+    const start = await app.inject({
+      method: "POST",
+      url: "/api/v1/chat/session/start",
+      payload: {},
+    })
+    const sessionId = start.json<{ data: { sessionId: string } }>().data.sessionId
+
+    const msg = await app.inject({
+      method: "POST",
+      url: "/api/v1/chat/message",
+      payload: { sessionId, content: "What is Darun's tech background?" },
+    })
+
+    expect(msg.statusCode).toBe(200)
+    const reply = msg.json<{ data: { reply: string } }>().data.reply
+    expect(reply.toLowerCase()).toContain("typescript")
+    expect(reply).toContain("Cached answer")
+  })
+
+  it("serves a cached fallback for availability questions", async () => {
+    callGeminiSpy.mockRejectedValueOnce(
+      new AppError("AI service temporarily unavailable", 503, "AI_UNAVAILABLE")
+    )
+
+    const start = await app.inject({
+      method: "POST",
+      url: "/api/v1/chat/session/start",
+      payload: {},
+    })
+    const sessionId = start.json<{ data: { sessionId: string } }>().data.sessionId
+
+    const msg = await app.inject({
+      method: "POST",
+      url: "/api/v1/chat/message",
+      payload: { sessionId, content: "Are you available for hire?" },
+    })
+
+    expect(msg.statusCode).toBe(200)
+    const reply = msg.json<{ data: { reply: string } }>().data.reply
+    expect(reply.toLowerCase()).toContain("immediately available")
+    expect(reply).toContain("Cached answer")
+  })
+
+  it("still returns 503 when Gemini is down and no fallback matches", async () => {
+    callGeminiSpy.mockRejectedValueOnce(
+      new AppError("AI service temporarily unavailable", 503, "AI_UNAVAILABLE")
+    )
+
+    const start = await app.inject({
+      method: "POST",
+      url: "/api/v1/chat/session/start",
+      payload: {},
+    })
+    const sessionId = start.json<{ data: { sessionId: string } }>().data.sessionId
+
+    const msg = await app.inject({
+      method: "POST",
+      url: "/api/v1/chat/message",
+      payload: { sessionId, content: "zqxv jklmnop 42 unrelated gibberish" },
+    })
+
+    expect(msg.statusCode).toBe(503)
   })
 })
 
