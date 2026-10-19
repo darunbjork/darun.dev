@@ -21,12 +21,23 @@ export function errorHandler(
     return
   }
 
-  request.log.error({ error, correlationId }, "Unexpected error")
+  const statusCode =
+    typeof (error as FastifyError).statusCode === "number" &&
+    (error as FastifyError).statusCode! >= 400 &&
+    (error as FastifyError).statusCode! < 500
+      ? (error as FastifyError).statusCode!
+      : 500
+
+  if (statusCode === 500) {
+    request.log.error({ error, correlationId }, "Unexpected error")
+  } else {
+    request.log.warn({ error, correlationId, statusCode }, "Client error")
+  }
 
   const message =
-    process.env.NODE_ENV === "production"
+    process.env.NODE_ENV === "production" && statusCode === 500
       ? "Internal server error"
       : error.message
 
-  void reply.status(500).send(fail(message, correlationId))
+  void reply.status(statusCode).send(fail(message, correlationId))
 }

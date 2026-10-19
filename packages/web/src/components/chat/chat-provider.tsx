@@ -55,6 +55,15 @@ export function ChatProvider({
       setIsSending(true)
       setError(null)
 
+      const tempId = `local-${Date.now()}`
+      const userMsg: ChatMessageItem = {
+        id: tempId,
+        role: "user",
+        content: trimmed,
+        createdAt: new Date().toISOString(),
+      }
+      setMessages((prev) => [...prev, userMsg])
+
       try {
         let activeSessionId = sessionId
         if (activeSessionId === null) {
@@ -64,15 +73,6 @@ export function ChatProvider({
           setSessionId(activeSessionId)
           setIsStarting(false)
         }
-
-        const tempId = `local-${Date.now()}`
-        const userMsg: ChatMessageItem = {
-          id: tempId,
-          role: "user",
-          content: trimmed,
-          createdAt: new Date().toISOString(),
-        }
-        setMessages((prev) => [...prev, userMsg])
 
         const result = await postChatMessage(activeSessionId, trimmed)
 
@@ -86,7 +86,11 @@ export function ChatProvider({
         setUserType(result.userType)
       } catch (err: unknown) {
         console.error("Send message error:", err)
-        setError(err instanceof Error ? err.message : "Send failed")
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Could not send message — please try again"
+        )
       } finally {
         setIsStarting(false)
         setIsSending(false)

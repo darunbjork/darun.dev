@@ -18,7 +18,7 @@ const chatRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
           ? {}
           : {
               rateLimit: {
-                max: 3,
+                max: 10,
                 timeWindow: "1 hour",
                 keyGenerator: (req) => req.ip,
               },
