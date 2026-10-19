@@ -1,6 +1,32 @@
-import { describe, it, expect, beforeAll, afterAll } from "vitest"
+import { describe, it, expect, beforeAll, afterAll, beforeEach, vi } from "vitest"
 import { buildApp } from "../../app.js"
 import type { FastifyInstance } from "fastify"
+
+const { callGeminiSpy } = vi.hoisted(() => ({
+  callGeminiSpy: vi.fn(),
+}))
+
+vi.mock(import("../../utils/gemini-client.js"), () => ({
+  callGemini: callGeminiSpy,
+}))
+
+vi.mock(import("../rag/retrieve.js"), () => ({
+  retrieveChunks: vi.fn().mockResolvedValue([
+    {
+      content: "Mock CV chunk for testing.",
+      source: "cv",
+      similarity: 0.9,
+    },
+  ]),
+}))
+
+function geminiReply(userType: string, reply = "This is a test reply."): string {
+  return JSON.stringify({
+    reply,
+    userType,
+    notes: { summary: null, nextSteps: null, painPoints: null },
+  })
+}
 
 let app: FastifyInstance
 
@@ -13,7 +39,9 @@ afterAll(async () => {
   await app.close()
 })
 
-const isRealGeminiKey = !!process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY.startsWith("AIza")
+beforeEach(() => {
+  callGeminiSpy.mockReset()
+})
 
 describe("Chat session lifecycle", () => {
   it("starts a session and returns sessionId", async () => {
@@ -105,15 +133,14 @@ describe("Chat session lifecycle", () => {
   })
 })
 
-describe("userType persistence (live Gemini tests)", () => {
-  if (!isRealGeminiKey) {
-    it("skips live Gemini tests without a real API key", () => {
-      expect(true).toBe(true)
+describe("userType persistence (mocked Gemini)", () => {
+  it("updates session.userType after a successful message", async () => {
+    callGeminiSpy.mockResolvedValueOnce({
+      text: geminiReply("Recruiter"),
+      model: "test",
+      attempts: 1,
     })
-    return
-  }
 
-  it("updates session.userType after a successful message when Gemini is available", async () => {
     const start = await app.inject({
       method: "POST",
       url: "/api/v1/chat/session/start",
@@ -136,21 +163,24 @@ describe("userType persistence (live Gemini tests)", () => {
       data: { reply: string; userType: string }
     }>()
     expect(body.success).toBe(true)
-    expect([
-      "Unknown",
-      "Recruiter",
-      "Developer",
-      "Client",
-      "Other",
-    ]).toContain(body.data.userType)
+    expect(body.data.userType).toBe("Recruiter")
 
     const session = await app.prisma.chatSession.findUnique({
       where: { id: sessionId },
     })
-    expect(session?.userType).toBe(body.data.userType)
+    expect(session?.userType).toBe("Recruiter")
   })
 
-  it("refuses unknown topics without inventing stack details (live)", async () => {
+  it("refuses unknown topics without inventing stack details", async () => {
+    callGeminiSpy.mockResolvedValueOnce({
+      text: geminiReply(
+        "Unknown",
+        "That's not in my current stack, but I pick up new technologies quickly."
+      ),
+      model: "test",
+      attempts: 1,
+    })
+
     const start = await app.inject({
       method: "POST",
       url: "/api/v1/chat/session/start",
@@ -174,7 +204,7 @@ describe("userType persistence (live Gemini tests)", () => {
     expect(
       reply.includes("don't have that detail") ||
         reply.includes("not in my current stack") ||
-        reply.includes("interview")
+        reply.includes("pick up new technologies")
     ).toBe(true)
   })
 })
