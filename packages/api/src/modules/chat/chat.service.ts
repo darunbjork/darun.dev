@@ -9,6 +9,7 @@ import type {
   StartSessionResponse,
   SendMessageResponse,
   SessionWithTranscript,
+  GeminiStructuredOutput,
 } from "@darun/shared-types"
 import { NotFoundError, AppError } from "../../utils/errors.js"
 import {
@@ -27,6 +28,7 @@ import {
   formatRagChunks,
   formatSqlProjects,
 } from "../rag/prompt.js"
+import { getFallbackReply } from "./fallback.service.js"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -168,12 +170,27 @@ export class ChatService {
       userMessage: content,
     })
 
-    const result = await this.gemini.generateReply(
-      content,
-      history,
-      hybridContext,
-      contextState.version
-    )
+    let result: GeminiStructuredOutput
+    try {
+      result = await this.gemini.generateReply(
+        content,
+        history,
+        hybridContext,
+        contextState.version
+      )
+    } catch (err) {
+      const isUnavailable =
+        err instanceof AppError && err.code === "AI_UNAVAILABLE"
+      const fallback = isUnavailable
+        ? getFallbackReply(content, contextState.data)
+        : null
+      if (fallback === null) throw err
+      this.fastify.log.warn(
+        { event: "gemini_fallback", sessionId, ip },
+        "Gemini unavailable — served cached fallback reply"
+      )
+      result = fallback
+    }
 
     const inputTokens = estimateTokens(hybridContext)
     const outputTokens = estimateTokens(result.reply)
