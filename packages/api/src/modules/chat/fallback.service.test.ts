@@ -36,6 +36,16 @@ describe("current-work fallback (site copy)", () => {
     expect(getFallbackReply("what are you working on", {})).toBeNull()
   })
 
+  it("answers the 'one standout app' question without Gemini", () => {
+    const out = getFallbackReply(
+      "What is one App, that make Darun standout from other Developers?",
+      { site }
+    )
+
+    expect(out?.reply).toContain("hybrid RAG chat")
+    expect(out?.reply).toContain("Cached answer")
+  })
+
   it("does not shadow availability or project answers", () => {
     expect(
       getFallbackReply("Are you available for hire?", { site })?.reply

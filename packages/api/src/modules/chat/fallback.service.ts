@@ -293,6 +293,13 @@ export function getFallbackReply(
       "internships",
       "praktik",
       "arbetsförmedlingen",
+      "standout",
+      "stand out",
+      "one app",
+      "best app",
+      "what makes",
+      "makes darun",
+      "differentiate",
     ])
   ) {
     const reply = currentWorkReply(context)
