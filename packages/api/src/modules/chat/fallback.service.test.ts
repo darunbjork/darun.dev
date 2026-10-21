@@ -49,6 +49,17 @@ describe("current-work fallback (site copy)", () => {
     expect(out?.reply).toContain("Cached answer")
   })
 
+  it("answers 'what recent app is Darun building' from the site copy", () => {
+    const out = getFallbackReply(
+      "What is the recent App that Darun is building?",
+      { site }
+    )
+
+    expect(out?.reply).toContain("hybrid RAG chat")
+    expect(out?.reply).toContain("LIA App")
+    expect(out?.reply).toContain("Cached answer")
+  })
+
   it("does not shadow availability or project answers", () => {
     expect(
       getFallbackReply("Are you available for hire?", { site })?.reply
