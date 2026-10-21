@@ -3,12 +3,19 @@ import { env } from "../env.js"
 
 const PRIMARY_MODEL = "gemini-3.6-flash"
 const FALLBACK_MODEL = "gemini-3.6-pro"
-const PRIMARY_ATTEMPTS = 4
-const FALLBACK_ATTEMPTS = 2
-const PRIMARY_BACKOFF_MS = [2000, 4000, 8000, 12000]
-const FALLBACK_BACKOFF_MS = [2000, 4000]
+const PRIMARY_ATTEMPTS = 2
+const FALLBACK_ATTEMPTS = 1
+const PRIMARY_BACKOFF_MS = [2000, 4000]
+const FALLBACK_BACKOFF_MS = [2000]
+// ! hard wall-clock cap across primary + fallback: chat answers from the cached
+// ! fallback instead of leaving visitors waiting on a capacity-constrained model
+const TOTAL_BUDGET_MS = 20_000
 
-const ai = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY })
+const ai = new GoogleGenAI({
+  apiKey: env.GEMINI_API_KEY,
+  // ! cap a single HTTP call so one slow generation cannot blow the budget
+  httpOptions: { timeout: 15_000 },
+})
 
 export type GeminiConfig = {
   maxOutputTokens: number
@@ -41,10 +48,12 @@ async function tryModel(
   config: GeminiConfig,
   maxAttempts: number,
   backoff: number[],
+  deadline: number,
 ): Promise<{ text: string; attempts: number }> {
   let lastErr: unknown = null
 
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    if (Date.now() >= deadline) break
     try {
       const result = await ai.models.generateContent({
         model,
@@ -60,8 +69,8 @@ async function tryModel(
       lastErr = err
       if (!isRetryable(err)) throw err
       if (attempt < maxAttempts - 1) {
-        const delay = backoff[attempt] ?? 4000
-        await new Promise((resolve) => setTimeout(resolve, delay))
+        const delay = Math.min(backoff[attempt] ?? 4000, deadline - Date.now())
+        if (delay > 0) await new Promise((resolve) => setTimeout(resolve, delay))
       }
     }
   }
@@ -73,6 +82,7 @@ export async function callGemini(
   prompt: string,
   config: GeminiConfig,
 ): Promise<GeminiResult> {
+  const deadline = Date.now() + TOTAL_BUDGET_MS
   try {
     const primary = await tryModel(
       PRIMARY_MODEL,
@@ -80,10 +90,12 @@ export async function callGemini(
       config,
       PRIMARY_ATTEMPTS,
       PRIMARY_BACKOFF_MS,
+      deadline,
     )
     return { text: primary.text, model: PRIMARY_MODEL, attempts: primary.attempts }
   } catch (primaryErr) {
     if (!isRetryable(primaryErr)) throw primaryErr
+    if (Date.now() >= deadline) throw primaryErr
 
     try {
       const fallback = await tryModel(
@@ -92,6 +104,7 @@ export async function callGemini(
         config,
         FALLBACK_ATTEMPTS,
         FALLBACK_BACKOFF_MS,
+        deadline,
       )
       return {
         text: fallback.text,

@@ -300,6 +300,15 @@ export function getFallbackReply(
       "what makes",
       "makes darun",
       "differentiate",
+      "recent app",
+      "latest app",
+      "newest app",
+      "recently built",
+      "recently shipped",
+      "latest project",
+      "newest project",
+      "building",
+      "darun building",
     ])
   ) {
     const reply = currentWorkReply(context)
