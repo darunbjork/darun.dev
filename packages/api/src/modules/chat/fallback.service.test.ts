@@ -51,4 +51,18 @@ describe("current-work fallback (site copy)", () => {
       getFallbackReply("Are you available for hire?", { site })?.reply
     ).toContain("Immediately available")
   })
+
+  it("answers 'Brief me on Darun?' from the cached profile", () => {
+    const out = getFallbackReply("Brief me on Darun?", {
+      profile: {
+        name: "Darun Mustafa",
+        title: "Full-Stack & AI Developer",
+        bio: "Backend & AI engineer building production-grade systems.",
+      },
+    })
+
+    expect(out?.reply).toContain("Darun Mustafa")
+    expect(out?.reply).toContain("Backend & AI engineer")
+    expect(out?.reply).toContain("Cached answer")
+  })
 })
