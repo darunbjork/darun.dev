@@ -347,7 +347,7 @@ export function getFallbackReply(
   }
 
   if (
-    includesAny(normalized, ["who is", "about", "about you", "introduce", "yourself", "bio", "background story", "vem är"])
+    includesAny(normalized, ["who is", "about", "about you", "introduce", "yourself", "bio", "background story", "vem är", "brief", "brief me", "summary", "summarize", "summarise", "rundown"])
   ) {
     const profile = context.profile
     if (profile) {
