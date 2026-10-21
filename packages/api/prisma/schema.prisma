@@ -195,6 +195,23 @@ model CvDocument {
   @@map("cv_documents")
 }
 
+// ── Site copy (About / hero / contact — admin-editable, served to web + chat) ─
+
+model SiteContent {
+  id              String   @id @default("singleton") // singleton row — one id only
+  heroEyebrow     String
+  heroTitle       String
+  heroAccent      String
+  heroBio         String
+  aboutSubtitle   String
+  aboutParagraphs String[] // markdown-lite: **bold** only, no raw HTML
+  contactBlurb    String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("site_content")
+}
+
 enum AtsSource {
   greenhouse
   lever

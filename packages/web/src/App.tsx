@@ -15,6 +15,8 @@ import { AdminJobWatchersPage } from "@/pages/admin-job-watchers"
 import { AdminJobsPage } from "@/pages/admin-jobs"
 import { Toaster } from "sonner"
 import { CvDownload } from "@/components/cv-download"
+import { InlineText } from "@/components/inline-text"
+import { useSiteContent } from "@/hooks/useSiteContent"
 
 const ChatPanel = lazy(() =>
   import("@/components/chat/chat-panel").then((m) => ({ default: m.ChatPanel }))
@@ -35,6 +37,11 @@ const AdminProjectsPage = lazy(() =>
 const AdminProjectFormPage = lazy(() =>
   import("@/pages/admin-project-form").then((m) => ({
     default: m.AdminProjectFormPage,
+  }))
+)
+const AdminSiteContentPage = lazy(() =>
+  import("@/pages/admin-site-content").then((m) => ({
+    default: m.AdminSiteContentPage,
   }))
 )
 
@@ -64,6 +71,8 @@ function NotFoundPage(): React.JSX.Element {
 }
 
 function HomePage(): React.JSX.Element {
+  const site = useSiteContent()
+
   return (
     <>
       <Seo
@@ -84,33 +93,21 @@ function HomePage(): React.JSX.Element {
           <GlassCard className="p-8">
             <h2 className="mb-2 text-2xl font-semibold text-(--text)">About</h2>
             <p className="mb-6 font-mono text-sm text-(--iris-soft)">
-              Full-stack AI engineer · Stockholm · Open to roles
+              {site.aboutSubtitle}
             </p>
             <div className="space-y-4 text-slate-300">
-              <p>
-                I build production AI systems end-to-end — from vector search pipelines
-                to the auth layer that protects them. Currently shipping{" "}
-                <span className="text-(--text)">darun.dev</span>, a portfolio platform
-                with hybrid RAG chat, admin CMS, and self-maintaining embeddings driven
-                by GitHub webhooks.
-              </p>
-              <p>
-                Previously: full-stack work across React, Fastify, PostgreSQL, and
-                Gemini AI. I care about the boring parts — CSRF, token budgets,
-                idempotent migrations, webhook signature verification — because those
-                are what separate a demo from something that survives contact with
-                production.
-              </p>
+              {site.aboutParagraphs.map((paragraph, index) => (
+                <p key={index}>
+                  <InlineText text={paragraph} />
+                </p>
+              ))}
             </div>
           </GlassCard>
         </section>
         <section id="contact" className="mx-auto max-w-6xl px-6 py-16">
           <GlassCard glow="ember" className="p-8">
             <h2 className="mb-3 text-2xl font-semibold text-(--text)">Let's talk</h2>
-            <p className="mb-6 max-w-2xl text-slate-300">
-              Open to full-stack and AI engineering roles in Stockholm, plus selected
-              contract work. Usually respond within a day.
-            </p>
+            <p className="mb-6 max-w-2xl text-slate-300">{site.contactBlurb}</p>
             <div id="cv" className="mb-6 scroll-mt-24">
               <p className="mb-3 text-sm text-slate-300">Prefer a CV first?</p>
               <CvDownload />
@@ -227,6 +224,14 @@ export function App(): React.JSX.Element {
               element={
                 <RequireAuth>
                   <AdminJobsPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin/site-content"
+              element={
+                <RequireAuth>
+                  <AdminSiteContentPage />
                 </RequireAuth>
               }
             />

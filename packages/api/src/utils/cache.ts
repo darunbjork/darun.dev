@@ -9,6 +9,7 @@ export const TTL = {
   GITHUB_PROFILE: 900, // 15 min
   GITHUB_REPOS:   900, // 15 min
   JOBS_SEARCH: 60 * 60, // 1 hour
+  SITE_CONTENT: 60,   // 1 min — invalidated on admin save
 } as const
 
 export const CacheKey = {
@@ -19,6 +20,7 @@ export const CacheKey = {
   sessionAnalytics: (): string => "analytics:sessions",
   githubProfile: (username: string): string => `github:profile:${username}`,
   githubRepos:   (username: string): string => `github:repos:${username}`,
+  siteContent: (): string => "site:content",
   adzunaSearch: (p: {
     countries: string
     what: string

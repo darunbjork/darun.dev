@@ -100,5 +100,13 @@ export function createMockPrisma(): DeepMocked<PrismaClient> {
       upsert: vi.fn(),
       findUnique: vi.fn(),
     },
+
+    siteContent: {
+      findUnique: vi.fn(),
+      findFirst: vi.fn(),
+      upsert: vi.fn(),
+      update: vi.fn(),
+      delete: vi.fn(),
+    },
   } as unknown as DeepMocked<PrismaClient>
 }

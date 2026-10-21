@@ -409,6 +409,7 @@ export const ModelName = {
   ChatNotes: 'ChatNotes',
   PortfolioEmbedding: 'PortfolioEmbedding',
   CvDocument: 'CvDocument',
+  SiteContent: 'SiteContent',
   JobWatcher: 'JobWatcher'
 } as const
 
@@ -425,7 +426,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "admin" | "passwordResetToken" | "project" | "projectImage" | "visitor" | "projectView" | "feedback" | "chatSession" | "chatMessage" | "chatNotes" | "portfolioEmbedding" | "cvDocument" | "jobWatcher"
+    modelProps: "admin" | "passwordResetToken" | "project" | "projectImage" | "visitor" | "projectView" | "feedback" | "chatSession" | "chatMessage" | "chatNotes" | "portfolioEmbedding" | "cvDocument" | "siteContent" | "jobWatcher"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1317,6 +1318,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SiteContent: {
+      payload: Prisma.$SiteContentPayload<ExtArgs>
+      fields: Prisma.SiteContentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SiteContentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteContentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SiteContentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteContentPayload>
+        }
+        findFirst: {
+          args: Prisma.SiteContentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteContentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SiteContentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteContentPayload>
+        }
+        findMany: {
+          args: Prisma.SiteContentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteContentPayload>[]
+        }
+        create: {
+          args: Prisma.SiteContentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteContentPayload>
+        }
+        createMany: {
+          args: Prisma.SiteContentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SiteContentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteContentPayload>[]
+        }
+        delete: {
+          args: Prisma.SiteContentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteContentPayload>
+        }
+        update: {
+          args: Prisma.SiteContentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteContentPayload>
+        }
+        deleteMany: {
+          args: Prisma.SiteContentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SiteContentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SiteContentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteContentPayload>[]
+        }
+        upsert: {
+          args: Prisma.SiteContentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteContentPayload>
+        }
+        aggregate: {
+          args: Prisma.SiteContentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSiteContent>
+        }
+        groupBy: {
+          args: Prisma.SiteContentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SiteContentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SiteContentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SiteContentCountAggregateOutputType> | number
+        }
+      }
+    }
     JobWatcher: {
       payload: Prisma.$JobWatcherPayload<ExtArgs>
       fields: Prisma.JobWatcherFieldRefs
@@ -1595,6 +1670,22 @@ export const CvDocumentScalarFieldEnum = {
 } as const
 
 export type CvDocumentScalarFieldEnum = (typeof CvDocumentScalarFieldEnum)[keyof typeof CvDocumentScalarFieldEnum]
+
+
+export const SiteContentScalarFieldEnum = {
+  id: 'id',
+  heroEyebrow: 'heroEyebrow',
+  heroTitle: 'heroTitle',
+  heroAccent: 'heroAccent',
+  heroBio: 'heroBio',
+  aboutSubtitle: 'aboutSubtitle',
+  aboutParagraphs: 'aboutParagraphs',
+  contactBlurb: 'contactBlurb',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SiteContentScalarFieldEnum = (typeof SiteContentScalarFieldEnum)[keyof typeof SiteContentScalarFieldEnum]
 
 
 export const JobWatcherScalarFieldEnum = {
@@ -1910,6 +2001,7 @@ export type GlobalOmitConfig = {
   chatNotes?: Prisma.ChatNotesOmit
   portfolioEmbedding?: Prisma.PortfolioEmbeddingOmit
   cvDocument?: Prisma.CvDocumentOmit
+  siteContent?: Prisma.SiteContentOmit
   jobWatcher?: Prisma.JobWatcherOmit
 }
 

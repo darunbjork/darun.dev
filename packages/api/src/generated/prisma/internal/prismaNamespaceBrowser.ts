@@ -63,6 +63,7 @@ export const ModelName = {
   ChatNotes: 'ChatNotes',
   PortfolioEmbedding: 'PortfolioEmbedding',
   CvDocument: 'CvDocument',
+  SiteContent: 'SiteContent',
   JobWatcher: 'JobWatcher'
 } as const
 
@@ -247,6 +248,22 @@ export const CvDocumentScalarFieldEnum = {
 } as const
 
 export type CvDocumentScalarFieldEnum = (typeof CvDocumentScalarFieldEnum)[keyof typeof CvDocumentScalarFieldEnum]
+
+
+export const SiteContentScalarFieldEnum = {
+  id: 'id',
+  heroEyebrow: 'heroEyebrow',
+  heroTitle: 'heroTitle',
+  heroAccent: 'heroAccent',
+  heroBio: 'heroBio',
+  aboutSubtitle: 'aboutSubtitle',
+  aboutParagraphs: 'aboutParagraphs',
+  contactBlurb: 'contactBlurb',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SiteContentScalarFieldEnum = (typeof SiteContentScalarFieldEnum)[keyof typeof SiteContentScalarFieldEnum]
 
 
 export const JobWatcherScalarFieldEnum = {
