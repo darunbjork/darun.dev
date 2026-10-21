@@ -259,7 +259,7 @@ describe("Fallback replies when Gemini is unavailable", () => {
     expect(reply).toContain("Cached answer")
   })
 
-  it("still returns 503 when Gemini is down and no fallback matches", async () => {
+  it("serves a cached catch-all when Gemini is down and nothing matches", async () => {
     callGeminiSpy.mockRejectedValueOnce(
       new AppError("AI service temporarily unavailable", 503, "AI_UNAVAILABLE")
     )
@@ -277,7 +277,10 @@ describe("Fallback replies when Gemini is unavailable", () => {
       payload: { sessionId, content: "zqxv jklmnop 42 unrelated gibberish" },
     })
 
-    expect(msg.statusCode).toBe(503)
+    expect(msg.statusCode).toBe(200)
+    const reply = msg.json<{ data: { reply: string } }>().data.reply
+    expect(reply).toContain("Cached answer")
+    expect(reply).toContain("at capacity")
   })
 })
 

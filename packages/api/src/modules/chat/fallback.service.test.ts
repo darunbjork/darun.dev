@@ -32,8 +32,11 @@ describe("current-work fallback (site copy)", () => {
     ).toContain("Arbetsförmedlingen")
   })
 
-  it("falls through to null when no site copy exists", () => {
-    expect(getFallbackReply("what are you working on", {})).toBeNull()
+  it("serves the cached catch-all when there is no site copy", () => {
+    const out = getFallbackReply("what are you working on", {})
+
+    expect(out?.reply).toContain("Cached answer")
+    expect(out?.reply).toContain("at capacity")
   })
 
   it("answers the 'one standout app' question without Gemini", () => {
