@@ -102,6 +102,29 @@ function currentWorkReply(context: ContextData): string | null {
   return paragraphs.join("\n\n")
 }
 
+// ! last line of defence: when no keyword branch matches, answer with a cached
+// ! overview instead of 503-ing the visitor over their choice of words
+function catchAllReply(context: ContextData): string {
+  const profile = context.profile
+  const header = `${profile?.name ?? "Darun Mustafa"} — ${
+    profile?.title ?? "Full-Stack & AI Developer"
+  } (${profile?.location ?? "Stockholm, Sweden"})`
+  const projects = (context.projects ?? [])
+    .slice(0, 3)
+    .map((p) => p.title)
+    .join(", ")
+
+  return [
+    header,
+    profile?.bio ??
+      "Full-stack AI engineer building production-grade systems with React/TypeScript, Node.js and PostgreSQL.",
+    projects ? `Selected projects: ${projects}.` : null,
+    "The live AI is at capacity right now, so this is a cached overview — ask about experience, projects, availability, tech stack, or contact details.",
+  ]
+    .filter((line): line is string => line !== null)
+    .join("\n\n")
+}
+
 export function getFallbackReply(
   userMessage: string,
   context: ContextData
@@ -380,5 +403,5 @@ export function getFallbackReply(
     )
   }
 
-  return null
+  return fallbackOutput(catchAllReply(context))
 }
