@@ -79,7 +79,7 @@ const chatAdminRoutes: FastifyPluginAsync = async (
       config: { rateLimit: { max: 5, timeWindow: "1 minute" } },
     },
     async (request, reply) => {
-      const data = chatService.reloadContext()
+      const data = await chatService.reloadContext()
       return reply.status(200).send(ok(data, request.correlationId))
     }
   )

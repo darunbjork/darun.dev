@@ -10,7 +10,10 @@ import type {
   SendMessageResponse,
   SessionWithTranscript,
   GeminiStructuredOutput,
+  SiteContentData,
 } from "@darun/shared-types"
+import { SITE_CONTENT_DEFAULTS } from "@darun/shared-types"
+import { siteContentRowToData } from "../site/site.mapper.js"
 import { NotFoundError, AppError } from "../../utils/errors.js"
 import {
   checkTokenBudget,
@@ -48,6 +51,19 @@ function loadContext(): {
 }
 
 let contextState = loadContext()
+
+// ! Site copy (About/hero) is DB-backed and overlaid onto the file context so
+// ! admin edits reach the model without a redeploy. `profile`/`bio`/`experience`
+// ! stay file-owned — they follow docs/UPDATING_THE_CV.md.
+export function refreshSiteContext(site: SiteContentData | null): void {
+  const data = contextState.data
+  if (site === null) {
+    delete data.site
+  } else {
+    data.site = site
+  }
+  contextState = { ...contextState, data, json: JSON.stringify(data) }
+}
 
 export class ChatService {
   private readonly gemini = new GeminiService()
@@ -301,8 +317,20 @@ export class ChatService {
     }))
   }
 
-  reloadContext(): { version: string } {
+  async reloadContext(): Promise<{ version: string }> {
     contextState = loadContext()
+    try {
+      const row = await this.fastify.prisma.siteContent.findUnique({
+        where: { id: "singleton" },
+      })
+      refreshSiteContext(
+        row === null
+          ? { ...SITE_CONTENT_DEFAULTS, updatedAt: null }
+          : siteContentRowToData(row)
+      )
+    } catch (error) {
+      this.fastify.log.warn({ err: error }, "site overlay refresh failed")
+    }
     return { version: contextState.version }
   }
 

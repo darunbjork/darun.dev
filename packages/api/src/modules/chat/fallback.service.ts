@@ -3,6 +3,10 @@ import type { GeminiStructuredOutput } from "@darun/shared-types"
 type ContextData = {
   faqs?: Array<{ q: string; a: string }>
   guardrails?: Record<string, string>
+  site?: {
+    aboutSubtitle?: string
+    aboutParagraphs?: string[]
+  }
   profile?: {
     name?: string
     title?: string
@@ -86,6 +90,16 @@ function techBackgroundReply(context: ContextData): string {
     )
   }
   return parts.join("\n\n")
+}
+
+// ! served from the DB-backed site copy (site_content) — the same About text
+// ! the frontend renders, so the degraded/cached answer stays current too
+function currentWorkReply(context: ContextData): string | null {
+  const paragraphs = (context.site?.aboutParagraphs ?? [])
+    .map((p) => p.replace(/\*\*/g, "").trim())
+    .filter((p) => p.length > 0)
+  if (paragraphs.length === 0) return null
+  return paragraphs.join("\n\n")
 }
 
 export function getFallbackReply(
@@ -261,6 +275,27 @@ export function getFallbackReply(
     includesAny(normalized, ["darun.dev", "this site", "this portfolio", "portfolio platform"])
   ) {
     const reply = projectReply(context, "darun-dev-portfolio")
+    if (reply) return fallbackOutput(reply)
+  }
+
+  if (
+    includesAny(normalized, [
+      "working on",
+      "working right now",
+      "currently building",
+      "are you building",
+      "what are you building",
+      "building right now",
+      "next project",
+      "coming up",
+      "lia app",
+      "internship",
+      "internships",
+      "praktik",
+      "arbetsförmedlingen",
+    ])
+  ) {
+    const reply = currentWorkReply(context)
     if (reply) return fallbackOutput(reply)
   }
 

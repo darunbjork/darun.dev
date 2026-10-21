@@ -2,11 +2,13 @@ import { useRef } from "react"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import { Button } from "@/components/ui/button"
+import { useSiteContent } from "@/hooks/useSiteContent"
 
 gsap.registerPlugin(useGSAP)
 
 export function Hero(): React.JSX.Element {
   const rootRef = useRef<HTMLElement | null>(null)
+  const site = useSiteContent()
 
   useGSAP(
     () => {
@@ -47,24 +49,22 @@ export function Hero(): React.JSX.Element {
           data-hero-item
           className="mb-4 font-mono text-sm text-violet-400"
         >
-          Full-Stack AI Engineer · Stockholm
+          {site.heroEyebrow}
         </p>
 
         <h1
           data-hero-item
           className="max-w-3xl text-3xl font-semibold tracking-tight text-slate-200 sm:text-5xl md:text-6xl"
         >
-          Building production AI systems
-          <span className="text-violet-500"> end-to-end</span>
+          {site.heroTitle}
+          <span className="text-violet-500">{site.heroAccent}</span>
         </h1>
 
         <p
           data-hero-item
           className="mt-6 max-w-xl text-base text-slate-300 sm:text-lg"
         >
-          Darun Mustafa — MERN background, strict TypeScript, Fastify, RAG
-          pipelines, and observable backends. Portfolio, chat, and admin tools
-          on one platform.
+          {site.heroBio}
         </p>
 
         <div data-hero-item className="mt-8 flex flex-wrap gap-3">

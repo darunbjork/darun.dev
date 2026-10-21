@@ -31,6 +31,10 @@ import { githubWebhookRoutes } from "./modules/github/github-webhook.routes.js"
 import { jobsRoutes } from "./modules/jobs/jobs.routes.js"
 import { jobWatcherRoutes } from "./modules/jobs/job-watcher.routes.js"
 import { pitchRoutes } from "./modules/pitch/pitch.routes.js"
+import { siteRoutes } from "./modules/site/site.routes.js"
+import { siteContentRowToData } from "./modules/site/site.mapper.js"
+import { refreshSiteContext } from "./modules/chat/chat.service.js"
+import { SITE_CONTENT_DEFAULTS } from "@darun/shared-types"
 
 export async function buildApp(): Promise<FastifyInstance> {
   const fastify = Fastify({
@@ -156,6 +160,25 @@ fastify.get("/api/v1/csrf", async (_request, reply) => {
   await fastify.register(githubWebhookRoutes)
   await fastify.register(jobWatcherRoutes)
   await fastify.register(pitchRoutes)
+  await fastify.register(siteRoutes)
+
+  // ! Overlay the DB-backed site copy onto the bundled chat context at boot so
+  // ! the model sees live About/hero text without a redeploy. Failure must not
+  // ! block boot — the file context stays valid on its own.
+  fastify.addHook("onReady", async () => {
+    try {
+      const row = await fastify.prisma.siteContent.findUnique({
+        where: { id: "singleton" },
+      })
+      refreshSiteContext(
+        row === null
+          ? { ...SITE_CONTENT_DEFAULTS, updatedAt: null }
+          : siteContentRowToData(row)
+      )
+    } catch (error) {
+      fastify.log.warn({ err: error }, "site content overlay skipped")
+    }
+  })
 
   return fastify
 }
