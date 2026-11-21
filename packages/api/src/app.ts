@@ -35,6 +35,7 @@ import { siteRoutes } from "./modules/site/site.routes.js"
 import { siteContentRowToData } from "./modules/site/site.mapper.js"
 import { refreshSiteContext } from "./modules/chat/chat.service.js"
 import { SITE_CONTENT_DEFAULTS } from "@darun/shared-types"
+import { probeLlmModels, setLlmLogger } from "./utils/gemini-client.js"
 
 export async function buildApp(): Promise<FastifyInstance> {
   const fastify = Fastify({
@@ -46,6 +47,8 @@ export async function buildApp(): Promise<FastifyInstance> {
         : undefined,
     },
   })
+
+  setLlmLogger(fastify.log)
 
   await fastify.register(fastifyHelmet, {
     contentSecurityPolicy: {
@@ -178,6 +181,16 @@ fastify.get("/api/v1/csrf", async (_request, reply) => {
     } catch (error) {
       fastify.log.warn({ err: error }, "site content overlay skipped")
     }
+  })
+
+  // ! Startup check: call each configured LLM once. Not awaited so boot and
+  // ! Fly's health check aren't delayed; results land on /health. Skipped in
+  // ! tests so the suite never calls a real model.
+  fastify.addHook("onReady", async () => {
+    if (env.NODE_ENV === "test") return
+    void probeLlmModels().catch((err: unknown) =>
+      fastify.log.error({ err }, "LLM startup check crashed")
+    )
   })
 
   return fastify

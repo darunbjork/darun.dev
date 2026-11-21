@@ -28,6 +28,12 @@ const envSchema = z.object({
   CLOUDINARY_API_SECRET: z.string().min(1),
 
   GEMINI_API_KEY: z.string().min(1),
+  GEMINI_MODEL: z.string().min(1).default("gemini-3.6-flash"),
+  // ! empty string disables the Gemini fallback
+  GEMINI_FALLBACK_MODEL: z.string().default("gemini-3.1-flash-lite"),
+  // ! optional non-Google fallback (OpenAI-compatible API); unset/empty = off
+  GROQ_API_KEY: z.string().optional(),
+  GROQ_MODEL: z.string().min(1).default("openai/gpt-oss-120b"),
   GITHUB_TOKEN:    z.string().optional(),
   GITHUB_USERNAME: z.string().default("darunbjork"),
   GITHUB_WEBHOOK_SECRET: z.string().min(16).optional(),

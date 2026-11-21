@@ -28,6 +28,17 @@ describe("GET /health", () => {
     expect(new Date(body.data.timestamp).toISOString()).toBe(body.data.timestamp)
   })
 
+  it("exposes the LLM startup check without failing the health check", async () => {
+    const response = await app.inject({ method: "GET", url: "/health" })
+
+    expect(response.statusCode).toBe(200)
+    const body = response.json<{
+      data: { llm: { checkedAt: string | null; models: unknown[] } }
+    }>()
+    // ! the startup probe is skipped in tests, so nothing has been checked yet
+    expect(body.data.llm).toEqual({ checkedAt: null, models: [] })
+  })
+
   it("returns X-Correlation-ID header on every response", async () => {
     const response = await app.inject({
       method: "GET",

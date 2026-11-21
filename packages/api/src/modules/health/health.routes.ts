@@ -1,5 +1,6 @@
 import type { FastifyInstance, FastifyPluginAsync } from "fastify"
 import { ok, fail } from "../../utils/response.js"
+import { getLlmHealth, type LlmProbeResult } from "../../utils/gemini-client.js"
 
 interface HealthData {
   status: "ok" | "degraded"
@@ -8,6 +9,8 @@ interface HealthData {
     db: "ok" | "error"
     redis: "ok" | "error"
   }
+  // ! informational: a broken model must not fail the Fly liveness check
+  llm: LlmProbeResult
 }
 
 const healthRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
@@ -30,6 +33,25 @@ const healthRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                     properties: {
                       db: { type: "string", enum: ["ok", "error"] },
                       redis: { type: "string", enum: ["ok", "error"] },
+                    },
+                  },
+                  llm: {
+                    type: "object",
+                    properties: {
+                      checkedAt: { type: ["string", "null"] },
+                      models: {
+                        type: "array",
+                        items: {
+                          type: "object",
+                          properties: {
+                            provider: { type: "string" },
+                            model: { type: "string" },
+                            status: { type: "string" },
+                            httpStatus: { type: "number" },
+                            latencyMs: { type: "number" },
+                          },
+                        },
+                      },
                     },
                   },
                 },
@@ -76,6 +98,7 @@ const healthRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
           status: overall,
           timestamp: new Date().toISOString(),
           services: { db: dbStatus, redis: redisStatus },
+          llm: getLlmHealth(),
         }
         return reply.status(200).send(ok(data, correlationId))
       }
