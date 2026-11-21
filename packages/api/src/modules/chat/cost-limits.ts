@@ -1,7 +1,9 @@
 export const MESSAGE_MAX_CHARS = 2000
 export const MAX_OUTPUT_TOKENS = 2500
 export const MAX_RAG_CONTEXT_CHARS = 12_000
-export const MAX_PROMPT_CHARS = 24_000
+export const MAX_PROMPT_CHARS = 40_000
+// ! history is trimmed first when over budget, but never below this many messages
+export const MIN_HISTORY_MESSAGES = 6
 
 export const TOKEN_BUDGET = {
   session: 50_000,

@@ -3,6 +3,7 @@ import type { GeminiStructuredOutput } from "@darun/shared-types"
 import { AppError } from "../../utils/errors.js"
 import { callGemini } from "../../utils/gemini-client.js"
 import { MAX_OUTPUT_TOKENS } from "./cost-limits.js"
+import { formatHistory } from "../rag/prompt.js"
 
 const GeminiOutputSchema = z.object({
   reply: z.string().min(1).max(4000),
@@ -23,10 +24,8 @@ export class GeminiService {
   ): Promise<GeminiStructuredOutput> {
     const systemPrompt = buildSystemPrompt(contextJson)
 
-    const historyText = history
-      .slice(-10)
-      .map((m) => `${m.role}: ${m.content}`)
-      .join("\n")
+    // ! same formatter buildHybridContext budgets with
+    const historyText = formatHistory(history.slice(-10))
 
     const fullPrompt = [
       systemPrompt,

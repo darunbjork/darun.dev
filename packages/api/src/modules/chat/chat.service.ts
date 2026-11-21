@@ -26,11 +26,7 @@ import {
   estimateTokens,
 } from "./cost-limits.js"
 import { retrieveChunks } from "../rag/retrieve.js"
-import {
-  buildHybridContext,
-  formatRagChunks,
-  formatSqlProjects,
-} from "../rag/prompt.js"
+import { buildHybridContext } from "../rag/prompt.js"
 import { getFallbackReply } from "./fallback.service.js"
 import { parseTech, toModelContext } from "./tech-stack.js"
 
@@ -185,13 +181,13 @@ export class ChatService {
       },
     })
 
-    const historyBlock = history.map((m) => `${m.role}: ${m.content}`).join("\n")
-
-    const hybridContext = buildHybridContext({
+    // ! trims history, then non-matching project rows, then RAG — and returns
+    // ! the trimmed history so the prompt sent is exactly what was budgeted
+    const { context: hybridContext, history: promptHistory } = buildHybridContext({
       system: contextState.json,
-      sqlContext: formatSqlProjects(projects),
-      rag: formatRagChunks(chunks),
-      historyBlock,
+      projects,
+      chunks,
+      history,
       userMessage: content,
     })
 
@@ -199,7 +195,7 @@ export class ChatService {
     try {
       result = await this.gemini.generateReply(
         content,
-        history,
+        promptHistory,
         hybridContext,
         contextState.version
       )
