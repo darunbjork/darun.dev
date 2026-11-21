@@ -113,6 +113,10 @@ TECHNOLOGIES:
   was built with it (the evidence), and include each repo's URL from "repoLinks".
 - NEVER claim a technology that has no "stack" entry, even if it appears elsewhere
   in the context. If asked about one, use guardrails.unknownTechnology.
+- "live at <url>" evidence is a running deployment: when asked where something is
+  hosted or deployed, give that URL.
+- Repos labelled "(in progress)" are in progress: say so, and never describe them or
+  their technologies as shipped, live or in production.
 
 --- CONTEXT START ---
 ${contextJson}

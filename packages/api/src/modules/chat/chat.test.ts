@@ -198,6 +198,9 @@ describe("userType persistence (mocked Gemini)", () => {
     expect(prompt).toMatch(/MQTT — smart-home-automation-api: /)
     expect(prompt).toMatch(/name the repo/i)
     expect(prompt).not.toContain("Zustand")
+    expect(prompt).toContain("https://github.com/darunbjork/cleannation (in progress)")
+    expect(prompt).toMatch(/in progress[\s\S]{0,80}never[\s\S]{0,60}shipped/i)
+    expect(prompt).toContain("live at https://smart-home-api-c9r8.onrender.com")
   })
 
   it("refuses unknown topics without inventing stack details", async () => {

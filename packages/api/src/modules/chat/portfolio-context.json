@@ -1,6 +1,6 @@
 {
-  "version": "1.3.0",
-  "lastUpdated": "2026-11-21",
+  "version": "1.4.0",
+  "lastUpdated": "2026-11-22",
   "profile": {
     "name": "Darun Mustafa",
     "title": "Full-Stack & AI Developer",
@@ -16,6 +16,44 @@
       "note": "Also hold a CareerFoundry Full-Stack Web Development Certificate (Jun 2023 – Aug 2024) and a Business Administration Diploma (UHR-evaluated: SeQF Level 5). 3,300+ GitHub contributions since Jul 2023 across live deployed systems."
     }
   },
+  "repos": {
+    "research-assistant-platform": {
+      "url": "https://github.com/darunbjork/research-assistant-platform",
+      "status": "shipped"
+    },
+    "voice-agent": {
+      "url": "https://github.com/darunbjork/voice-agent",
+      "status": "shipped"
+    },
+    "smart-home-automation-api": {
+      "url": "https://github.com/darunbjork/smart-home-automation-api",
+      "status": "shipped"
+    },
+    "devquiz-api": {
+      "url": "https://github.com/darunbjork/devquiz-api",
+      "status": "shipped"
+    },
+    "DevQuiz": {
+      "url": "https://github.com/darunbjork/DevQuiz",
+      "status": "shipped"
+    },
+    "chat-app": {
+      "url": "https://github.com/darunbjork/chat-app",
+      "status": "shipped"
+    },
+    "voxcript": {
+      "url": "https://github.com/darunbjork/voxcript",
+      "status": "shipped"
+    },
+    "darun.dev": {
+      "url": "https://github.com/darunbjork/darun.dev",
+      "status": "shipped"
+    },
+    "cleannation": {
+      "url": "https://github.com/darunbjork/cleannation",
+      "status": "in progress"
+    }
+  },
   "stack": {
     "languages": [
       {
@@ -24,12 +62,14 @@
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "Typed Fastify + React monorepo"
+            "evidence": "Typed Fastify + React monorepo",
+            "type": "code"
           },
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "TypeScript backend and React frontend"
+            "evidence": "TypeScript backend and React frontend",
+            "type": "code"
           }
         ]
       },
@@ -39,7 +79,8 @@
           {
             "repo": "chat-app",
             "url": "https://github.com/darunbjork/chat-app",
-            "evidence": "React Native chat app written in JavaScript"
+            "evidence": "React Native chat app written in JavaScript",
+            "type": "code"
           }
         ]
       }
@@ -51,12 +92,14 @@
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "Express API on a Node 22 multi-stage image"
+            "evidence": "Express API on a Node 22 multi-stage image",
+            "type": "code"
           },
           {
             "repo": "smart-home-automation-api",
             "url": "https://github.com/darunbjork/smart-home-automation-api",
-            "evidence": "Express + Socket.io server on Node 22"
+            "evidence": "Express + Socket.io server on Node 22",
+            "type": "code"
           }
         ]
       },
@@ -66,17 +109,20 @@
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "Fastify 5 API with Helmet, CORS and rate limiting"
+            "evidence": "Fastify 5 API with Helmet, CORS and rate limiting",
+            "type": "code"
           },
           {
             "repo": "voice-agent",
             "url": "https://github.com/darunbjork/voice-agent",
-            "evidence": "Fastify API with WebSocket audio routes"
+            "evidence": "Fastify API with WebSocket audio routes",
+            "type": "code"
           },
           {
             "repo": "devquiz-api",
             "url": "https://github.com/darunbjork/devquiz-api",
-            "evidence": "Fastify quiz API"
+            "evidence": "Fastify quiz API",
+            "type": "code"
           }
         ]
       },
@@ -86,12 +132,14 @@
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "Express API with Swagger UI"
+            "evidence": "Express API with Swagger UI",
+            "type": "code"
           },
           {
             "repo": "smart-home-automation-api",
             "url": "https://github.com/darunbjork/smart-home-automation-api",
-            "evidence": "Express REST API for devices and households"
+            "evidence": "Express REST API for devices and households",
+            "type": "code"
           }
         ]
       },
@@ -101,7 +149,14 @@
           {
             "repo": "devquiz-api",
             "url": "https://github.com/darunbjork/devquiz-api",
-            "evidence": "Bun runtime: oven/bun image, bun --hot dev server"
+            "evidence": "Bun runtime: oven/bun image, bun --hot dev server",
+            "type": "code"
+          },
+          {
+            "repo": "cleannation",
+            "url": "https://github.com/darunbjork/cleannation",
+            "evidence": "Bun install, build and type-check in CI",
+            "type": "code"
           }
         ]
       },
@@ -111,17 +166,20 @@
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "Prisma 7 with the pg driver adapter"
+            "evidence": "Prisma 7 with the pg driver adapter",
+            "type": "code"
           },
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "Prisma schema and SQL migrations"
+            "evidence": "Prisma schema and SQL migrations",
+            "type": "code"
           },
           {
             "repo": "voxcript",
             "url": "https://github.com/darunbjork/voxcript",
-            "evidence": "Prisma client for the API database"
+            "evidence": "Prisma client for the API database",
+            "type": "code"
           }
         ]
       },
@@ -131,17 +189,20 @@
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "Postgres for documents, chunks and users"
+            "evidence": "Postgres for documents, chunks and users",
+            "type": "code"
           },
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "Postgres for projects, chat and analytics"
+            "evidence": "Postgres for projects, chat and analytics",
+            "type": "code"
           },
           {
             "repo": "voice-agent",
             "url": "https://github.com/darunbjork/voice-agent",
-            "evidence": "Postgres via Prisma"
+            "evidence": "Postgres via Prisma",
+            "type": "code"
           }
         ]
       },
@@ -151,12 +212,14 @@
           {
             "repo": "smart-home-automation-api",
             "url": "https://github.com/darunbjork/smart-home-automation-api",
-            "evidence": "Mongoose models for devices and households"
+            "evidence": "Mongoose models for devices and households",
+            "type": "code"
           },
           {
             "repo": "devquiz-api",
             "url": "https://github.com/darunbjork/devquiz-api",
-            "evidence": "Native MongoDB driver for quizzes"
+            "evidence": "Native MongoDB driver for quizzes",
+            "type": "code"
           }
         ]
       },
@@ -166,12 +229,14 @@
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "HNSW index on chunk embeddings (vector_cosine_ops)"
+            "evidence": "HNSW index on chunk embeddings (vector_cosine_ops)",
+            "type": "code"
           },
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "768-dim cosine retrieval for the portfolio chat"
+            "evidence": "768-dim cosine retrieval for the portfolio chat",
+            "type": "code"
           }
         ]
       },
@@ -181,17 +246,20 @@
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "ioredis search-result cache"
+            "evidence": "ioredis search-result cache",
+            "type": "code"
           },
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "Token budgets, kill switch and API cache"
+            "evidence": "Token budgets, kill switch and API cache",
+            "type": "code"
           },
           {
             "repo": "voice-agent",
             "url": "https://github.com/darunbjork/voice-agent",
-            "evidence": "Redis client plugin"
+            "evidence": "Redis client plugin",
+            "type": "code"
           }
         ]
       },
@@ -201,17 +269,31 @@
           {
             "repo": "voice-agent",
             "url": "https://github.com/darunbjork/voice-agent",
-            "evidence": "@fastify/websocket audio streaming"
+            "evidence": "@fastify/websocket audio streaming",
+            "type": "code"
           },
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "WebSocket server for live updates"
+            "evidence": "WebSocket server for live updates",
+            "type": "code"
           },
           {
             "repo": "smart-home-automation-api",
             "url": "https://github.com/darunbjork/smart-home-automation-api",
-            "evidence": "Socket.io fan-out of device state to household rooms"
+            "evidence": "Socket.io fan-out of device state to household rooms",
+            "type": "code"
+          }
+        ]
+      },
+      {
+        "name": "Socket.io",
+        "provenBy": [
+          {
+            "repo": "smart-home-automation-api",
+            "url": "https://github.com/darunbjork/smart-home-automation-api",
+            "evidence": "Socket.io fan-out of device state to household rooms",
+            "type": "code"
           }
         ]
       },
@@ -221,7 +303,19 @@
           {
             "repo": "smart-home-automation-api",
             "url": "https://github.com/darunbjork/smart-home-automation-api",
-            "evidence": "Embedded Aedes MQTT broker for device messages"
+            "evidence": "Embedded Aedes MQTT broker for device messages",
+            "type": "code"
+          }
+        ]
+      },
+      {
+        "name": "Kafka",
+        "provenBy": [
+          {
+            "repo": "cleannation",
+            "url": "https://github.com/darunbjork/cleannation",
+            "evidence": "kafkajs producers and consumers between services",
+            "type": "code"
           }
         ]
       },
@@ -231,17 +325,20 @@
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "jsonwebtoken cookie auth guard"
+            "evidence": "jsonwebtoken cookie auth guard",
+            "type": "code"
           },
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "JWT sign/verify utilities"
+            "evidence": "JWT sign/verify utilities",
+            "type": "code"
           },
           {
             "repo": "devquiz-api",
             "url": "https://github.com/darunbjork/devquiz-api",
-            "evidence": "@fastify/jwt auth middleware"
+            "evidence": "@fastify/jwt auth middleware",
+            "type": "code"
           }
         ]
       },
@@ -251,12 +348,14 @@
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "requireRole middleware (GUEST/USER/ADMIN)"
+            "evidence": "requireRole middleware (GUEST/USER/ADMIN)",
+            "type": "code"
           },
           {
             "repo": "devquiz-api",
             "url": "https://github.com/darunbjork/devquiz-api",
-            "evidence": "Admin-role check in auth middleware"
+            "evidence": "Admin-role check in auth middleware",
+            "type": "code"
           }
         ]
       },
@@ -266,17 +365,20 @@
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "Zod-validated Gemini output and env"
+            "evidence": "Zod-validated Gemini output and env",
+            "type": "code"
           },
           {
             "repo": "smart-home-automation-api",
             "url": "https://github.com/darunbjork/smart-home-automation-api",
-            "evidence": "Zod request-validation middleware"
+            "evidence": "Zod request-validation middleware",
+            "type": "code"
           },
           {
             "repo": "devquiz-api",
             "url": "https://github.com/darunbjork/devquiz-api",
-            "evidence": "Zod-validated Gemini quiz output"
+            "evidence": "Zod-validated Gemini quiz output",
+            "type": "code"
           }
         ]
       },
@@ -286,17 +388,20 @@
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "@fastify/swagger docs at /api/docs"
+            "evidence": "@fastify/swagger docs at /api/docs",
+            "type": "code"
           },
           {
             "repo": "smart-home-automation-api",
             "url": "https://github.com/darunbjork/smart-home-automation-api",
-            "evidence": "swagger-ui-express API docs"
+            "evidence": "swagger-ui-express API docs",
+            "type": "code"
           },
           {
             "repo": "voice-agent",
             "url": "https://github.com/darunbjork/voice-agent",
-            "evidence": "@fastify/swagger API docs"
+            "evidence": "@fastify/swagger API docs",
+            "type": "code"
           }
         ]
       }
@@ -308,22 +413,26 @@
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "@google/genai chat, embeddings and pitch generation"
+            "evidence": "@google/genai chat, embeddings and pitch generation",
+            "type": "code"
           },
           {
             "repo": "voice-agent",
             "url": "https://github.com/darunbjork/voice-agent",
-            "evidence": "@google/genai agent LLM calls"
+            "evidence": "@google/genai agent LLM calls",
+            "type": "code"
           },
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "Agent engine on the Gemini REST API"
+            "evidence": "Agent engine on the Gemini REST API",
+            "type": "code"
           },
           {
             "repo": "devquiz-api",
             "url": "https://github.com/darunbjork/devquiz-api",
-            "evidence": "Gemini quiz generation"
+            "evidence": "Gemini quiz generation",
+            "type": "code"
           }
         ]
       },
@@ -333,12 +442,14 @@
           {
             "repo": "voice-agent",
             "url": "https://github.com/darunbjork/voice-agent",
-            "evidence": "WebSocket proxy to Deepgram live speech-to-text"
+            "evidence": "WebSocket proxy to Deepgram live speech-to-text",
+            "type": "code"
           },
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "Deepgram streaming speech-to-text service"
+            "evidence": "Deepgram streaming speech-to-text service",
+            "type": "code"
           }
         ]
       },
@@ -348,12 +459,14 @@
           {
             "repo": "voice-agent",
             "url": "https://github.com/darunbjork/voice-agent",
-            "evidence": "Streaming text-to-speech via the ElevenLabs API"
+            "evidence": "Streaming text-to-speech via the ElevenLabs API",
+            "type": "code"
           },
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "ElevenLabs text-to-speech service"
+            "evidence": "ElevenLabs text-to-speech service",
+            "type": "code"
           }
         ]
       },
@@ -363,12 +476,14 @@
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "Document chunking, embedding and retrieval"
+            "evidence": "Document chunking, embedding and retrieval",
+            "type": "code"
           },
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "Chunk, embed, retrieve and prompt for the portfolio chat"
+            "evidence": "Chunk, embed, retrieve and prompt for the portfolio chat",
+            "type": "code"
           }
         ]
       },
@@ -378,7 +493,8 @@
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "Vector and keyword results merged in a hybrid search service"
+            "evidence": "Vector and keyword results merged in a hybrid search service",
+            "type": "code"
           }
         ]
       },
@@ -388,7 +504,8 @@
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "ts_rank keyword search over document chunks"
+            "evidence": "ts_rank keyword search over document chunks",
+            "type": "code"
           }
         ]
       },
@@ -398,7 +515,8 @@
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "RRF merge of vector and keyword rankings"
+            "evidence": "RRF merge of vector and keyword rankings",
+            "type": "code"
           }
         ]
       },
@@ -408,12 +526,14 @@
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "Agent engine with a tool registry and a 5-step limit"
+            "evidence": "Agent engine with a tool registry and a 5-step limit",
+            "type": "code"
           },
           {
             "repo": "voice-agent",
             "url": "https://github.com/darunbjork/voice-agent",
-            "evidence": "Voice agent tool registry (weather, reminders)"
+            "evidence": "Voice agent tool registry (weather, reminders)",
+            "type": "code"
           }
         ]
       },
@@ -423,7 +543,8 @@
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "Context-only system prompt with a JSON output contract"
+            "evidence": "Context-only system prompt with a JSON output contract",
+            "type": "code"
           }
         ]
       },
@@ -433,7 +554,8 @@
           {
             "repo": "voice-agent",
             "url": "https://github.com/darunbjork/voice-agent",
-            "evidence": "Real-time audio streamed over WebSocket"
+            "evidence": "Real-time audio streamed over WebSocket",
+            "type": "code"
           }
         ]
       }
@@ -445,22 +567,26 @@
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "React 19 SPA with admin dashboard"
+            "evidence": "React 19 SPA with admin dashboard",
+            "type": "code"
           },
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "React research UI with agent chat"
+            "evidence": "React research UI with agent chat",
+            "type": "code"
           },
           {
             "repo": "voice-agent",
             "url": "https://github.com/darunbjork/voice-agent",
-            "evidence": "React voice-agent client"
+            "evidence": "React voice-agent client",
+            "type": "code"
           },
           {
             "repo": "DevQuiz",
             "url": "https://github.com/darunbjork/DevQuiz",
-            "evidence": "React quiz app"
+            "evidence": "React quiz app",
+            "type": "code"
           }
         ]
       },
@@ -470,12 +596,14 @@
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "Tailwind CSS v4 styling"
+            "evidence": "Tailwind CSS v4 styling",
+            "type": "code"
           },
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "Tailwind-styled frontend"
+            "evidence": "Tailwind-styled frontend",
+            "type": "code"
           }
         ]
       },
@@ -485,12 +613,14 @@
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "Axios client with CSRF interceptor"
+            "evidence": "Axios client with CSRF interceptor",
+            "type": "code"
           },
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "Axios API client"
+            "evidence": "Axios API client",
+            "type": "code"
           }
         ]
       },
@@ -500,17 +630,20 @@
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "Vite 8 build with manual chunks"
+            "evidence": "Vite 8 build with manual chunks",
+            "type": "code"
           },
           {
             "repo": "DevQuiz",
             "url": "https://github.com/darunbjork/DevQuiz",
-            "evidence": "Vite build and Vitest"
+            "evidence": "Vite build and Vitest",
+            "type": "code"
           },
           {
             "repo": "voice-agent",
             "url": "https://github.com/darunbjork/voice-agent",
-            "evidence": "Vite web client"
+            "evidence": "Vite web client",
+            "type": "code"
           }
         ]
       },
@@ -520,7 +653,8 @@
           {
             "repo": "chat-app",
             "url": "https://github.com/darunbjork/chat-app",
-            "evidence": "React Native chat screens"
+            "evidence": "React Native chat screens",
+            "type": "code"
           }
         ]
       },
@@ -530,7 +664,8 @@
           {
             "repo": "chat-app",
             "url": "https://github.com/darunbjork/chat-app",
-            "evidence": "Expo app entry and app.json config"
+            "evidence": "Expo app entry and app.json config",
+            "type": "code"
           }
         ]
       },
@@ -540,12 +675,31 @@
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "GSAP hero and count-up animations"
+            "evidence": "GSAP hero and count-up animations",
+            "type": "code"
           },
           {
             "repo": "voice-agent",
             "url": "https://github.com/darunbjork/voice-agent",
-            "evidence": "GSAP status-ring animation"
+            "evidence": "GSAP status-ring animation",
+            "type": "code"
+          }
+        ]
+      },
+      {
+        "name": "Recharts",
+        "provenBy": [
+          {
+            "repo": "DevQuiz",
+            "url": "https://github.com/darunbjork/DevQuiz",
+            "evidence": "Recharts accuracy pie chart",
+            "type": "code"
+          },
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "Recharts analytics dashboard",
+            "type": "code"
           }
         ]
       },
@@ -555,7 +709,8 @@
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "TanStack Query hooks for admin and public data"
+            "evidence": "TanStack Query hooks for admin and public data",
+            "type": "code"
           }
         ]
       }
@@ -567,17 +722,20 @@
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "Multi-stage backend Dockerfile"
+            "evidence": "Multi-stage backend Dockerfile",
+            "type": "code"
           },
           {
             "repo": "smart-home-automation-api",
             "url": "https://github.com/darunbjork/smart-home-automation-api",
-            "evidence": "Multi-stage API Dockerfile"
+            "evidence": "Multi-stage API Dockerfile",
+            "type": "code"
           },
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "API Dockerfile and docker-compose for Postgres/Redis"
+            "evidence": "API Dockerfile and docker-compose for Postgres/Redis",
+            "type": "code"
           }
         ]
       },
@@ -587,17 +745,20 @@
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "CI: lint, type-check, test, build"
+            "evidence": "CI: lint, type-check, test, build",
+            "type": "code"
           },
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "CI workflows"
+            "evidence": "CI workflows",
+            "type": "code"
           },
           {
             "repo": "voice-agent",
             "url": "https://github.com/darunbjork/voice-agent",
-            "evidence": "CI with Turborepo tasks"
+            "evidence": "CI with Turborepo tasks",
+            "type": "code"
           }
         ]
       },
@@ -607,22 +768,65 @@
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "Turborepo monorepo tasks"
+            "evidence": "Turborepo monorepo tasks",
+            "type": "code"
           },
           {
             "repo": "voice-agent",
             "url": "https://github.com/darunbjork/voice-agent",
-            "evidence": "Turborepo type-check and test in CI"
+            "evidence": "Turborepo type-check and test in CI",
+            "type": "code"
           }
         ]
       },
       {
-        "name": "Cloudflare Pages",
+        "name": "Kubernetes (k3s)",
         "provenBy": [
           {
-            "repo": "darun.dev",
-            "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "SPA _redirects and pages.dev CORS allowlist"
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "k8s manifests deployed to a k3s cluster by CI",
+            "type": "code"
+          },
+          {
+            "repo": "voxcript",
+            "url": "https://github.com/darunbjork/voxcript",
+            "evidence": "k3s manifests: Traefik ingress, local-path StatefulSet",
+            "type": "code"
+          }
+        ]
+      },
+      {
+        "name": "Prometheus",
+        "provenBy": [
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "prom-client metrics scraped via a ServiceMonitor",
+            "type": "code"
+          },
+          {
+            "repo": "voxcript",
+            "url": "https://github.com/darunbjork/voxcript",
+            "evidence": "kube-prometheus-stack values",
+            "type": "code"
+          }
+        ]
+      },
+      {
+        "name": "Grafana",
+        "provenBy": [
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "Grafana in the monitoring compose stack",
+            "type": "code"
+          },
+          {
+            "repo": "voxcript",
+            "url": "https://github.com/darunbjork/voxcript",
+            "evidence": "Grafana behind a Traefik ingress",
+            "type": "code"
           }
         ]
       },
@@ -632,7 +836,8 @@
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "@opentelemetry tracing"
+            "evidence": "@opentelemetry tracing",
+            "type": "code"
           }
         ]
       },
@@ -642,7 +847,8 @@
           {
             "repo": "smart-home-automation-api",
             "url": "https://github.com/darunbjork/smart-home-automation-api",
-            "evidence": "Sentry captureException in Express error middleware"
+            "evidence": "Sentry captureException in Express error middleware",
+            "type": "code"
           }
         ]
       }
@@ -654,12 +860,14 @@
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "ts-jest backend test suite"
+            "evidence": "ts-jest backend test suite",
+            "type": "code"
           },
           {
             "repo": "smart-home-automation-api",
             "url": "https://github.com/darunbjork/smart-home-automation-api",
-            "evidence": "ts-jest API tests"
+            "evidence": "ts-jest API tests",
+            "type": "code"
           }
         ]
       },
@@ -669,17 +877,31 @@
           {
             "repo": "darun.dev",
             "url": "https://github.com/darunbjork/darun.dev",
-            "evidence": "Vitest API tests"
+            "evidence": "Vitest API tests",
+            "type": "code"
           },
           {
             "repo": "voice-agent",
             "url": "https://github.com/darunbjork/voice-agent",
-            "evidence": "Vitest API tests"
+            "evidence": "Vitest API tests",
+            "type": "code"
           },
           {
             "repo": "voxcript",
             "url": "https://github.com/darunbjork/voxcript",
-            "evidence": "Vitest API tests"
+            "evidence": "Vitest API tests",
+            "type": "code"
+          }
+        ]
+      },
+      {
+        "name": "Playwright",
+        "provenBy": [
+          {
+            "repo": "voxcript",
+            "url": "https://github.com/darunbjork/voxcript",
+            "evidence": "Playwright end-to-end upload flow",
+            "type": "code"
           }
         ]
       },
@@ -689,7 +911,8 @@
           {
             "repo": "research-assistant-platform",
             "url": "https://github.com/darunbjork/research-assistant-platform",
-            "evidence": "Artillery load-test config"
+            "evidence": "Artillery load-test config",
+            "type": "code"
           }
         ]
       },
@@ -699,7 +922,8 @@
           {
             "repo": "voice-agent",
             "url": "https://github.com/darunbjork/voice-agent",
-            "evidence": "axe-core accessibility baseline script"
+            "evidence": "axe-core accessibility baseline script",
+            "type": "code"
           }
         ]
       },
@@ -709,7 +933,83 @@
           {
             "repo": "smart-home-automation-api",
             "url": "https://github.com/darunbjork/smart-home-automation-api",
-            "evidence": "Supertest HTTP route tests"
+            "evidence": "Supertest HTTP route tests",
+            "type": "code"
+          }
+        ]
+      }
+    ],
+    "hosting": [
+      {
+        "name": "Render",
+        "provenBy": [
+          {
+            "repo": "smart-home-automation-api",
+            "url": "https://github.com/darunbjork/smart-home-automation-api",
+            "evidence": "Smart-home API on Render",
+            "type": "live",
+            "liveUrl": "https://smart-home-api-c9r8.onrender.com"
+          }
+        ]
+      },
+      {
+        "name": "Cloudflare Pages",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "Portfolio frontend on Cloudflare Pages",
+            "type": "live",
+            "liveUrl": "https://darun-dev.pages.dev"
+          },
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "SPA _redirects and pages.dev CORS allowlist",
+            "type": "code"
+          }
+        ]
+      },
+      {
+        "name": "Vercel",
+        "provenBy": [
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "Voice-agent web client on Vercel",
+            "type": "live",
+            "liveUrl": "https://voice-agent-nine-self.vercel.app"
+          },
+          {
+            "repo": "DevQuiz",
+            "url": "https://github.com/darunbjork/DevQuiz",
+            "evidence": "DevQuiz frontend on Vercel",
+            "type": "live",
+            "liveUrl": "https://dev-quiz-2stl.vercel.app"
+          }
+        ]
+      },
+      {
+        "name": "Fly.io",
+        "provenBy": [
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "fly.toml app config for the API",
+            "type": "code"
+          },
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "Voice-agent API on Fly.io",
+            "type": "live",
+            "liveUrl": "https://darun-voice-agent-api.fly.dev/health"
+          },
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "fly.toml for the portfolio API",
+            "type": "code"
           }
         ]
       }
@@ -809,7 +1109,8 @@
         "Status: in progress"
       ],
       "repoUrl": "https://github.com/darunbjork/cleannation",
-      "liveUrl": ""
+      "liveUrl": "",
+      "status": "in progress"
     },
     {
       "slug": "smart-home-automation-api",
@@ -822,7 +1123,7 @@
         "MQTT",
         "Socket.io",
         "Gemini",
-        "JWT/RBAC",
+        "JWT + household owner/member checks",
         "Docker",
         "Swagger"
       ],
