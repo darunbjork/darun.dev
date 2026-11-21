@@ -1,5 +1,9 @@
 import { afterAll, beforeAll } from "vitest"
 import type { FastifyInstance } from "fastify"
+import { assertLocalTestEnv } from "./helpers/test-env-guard.js"
+
+// ! Runs before buildApp() connects to anything — see test-env-guard.ts
+assertLocalTestEnv()
 
 let app: FastifyInstance
 
