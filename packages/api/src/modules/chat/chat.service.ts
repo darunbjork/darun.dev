@@ -32,6 +32,7 @@ import {
   formatSqlProjects,
 } from "../rag/prompt.js"
 import { getFallbackReply } from "./fallback.service.js"
+import { parseStack, toModelContext } from "./tech-stack.js"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -43,9 +44,11 @@ function loadContext(): {
   const data = JSON.parse(
     readFileSync(join(__dirname, "portfolio-context.json"), "utf-8")
   ) as { version: string; [key: string]: unknown }
+  // ! throws on any technology without provenBy — fail at boot, not in a chat
+  data.stack = parseStack(data.stack)
   return {
     version: data.version,
-    json: JSON.stringify(data),
+    json: JSON.stringify(toModelContext(data)),
     data,
   }
 }
@@ -62,7 +65,11 @@ export function refreshSiteContext(site: SiteContentData | null): void {
   } else {
     data.site = site
   }
-  contextState = { ...contextState, data, json: JSON.stringify(data) }
+  contextState = {
+    ...contextState,
+    data,
+    json: JSON.stringify(toModelContext(data)),
+  }
 }
 
 export class ChatService {

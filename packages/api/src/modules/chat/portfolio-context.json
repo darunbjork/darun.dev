@@ -1,6 +1,6 @@
 {
-  "version": "1.2.0",
-  "lastUpdated": "2026-10-19",
+  "version": "1.3.0",
+  "lastUpdated": "2026-11-21",
   "profile": {
     "name": "Darun Mustafa",
     "title": "Full-Stack & AI Developer",
@@ -17,58 +17,703 @@
     }
   },
   "stack": {
-    "languages": ["TypeScript", "JavaScript"],
+    "languages": [
+      {
+        "name": "TypeScript",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "Typed Fastify + React monorepo"
+          },
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "TypeScript backend and React frontend"
+          }
+        ]
+      },
+      {
+        "name": "JavaScript",
+        "provenBy": [
+          {
+            "repo": "chat-app",
+            "url": "https://github.com/darunbjork/chat-app",
+            "evidence": "React Native chat app written in JavaScript"
+          }
+        ]
+      }
+    ],
     "backend": [
-      "Node.js",
-      "Fastify",
-      "Express",
-      "Bun",
-      "Prisma",
-      "PostgreSQL",
-      "MongoDB",
-      "pgvector",
-      "Redis",
-      "WebSockets",
-      "MQTT",
-      "JWT/RBAC",
-      "Zod",
-      "Swagger/OpenAPI"
+      {
+        "name": "Node.js",
+        "provenBy": [
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "Express API on a Node 22 multi-stage image"
+          },
+          {
+            "repo": "smart-home-automation-api",
+            "url": "https://github.com/darunbjork/smart-home-automation-api",
+            "evidence": "Express + Socket.io server on Node 22"
+          }
+        ]
+      },
+      {
+        "name": "Fastify",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "Fastify 5 API with Helmet, CORS and rate limiting"
+          },
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "Fastify API with WebSocket audio routes"
+          },
+          {
+            "repo": "devquiz-api",
+            "url": "https://github.com/darunbjork/devquiz-api",
+            "evidence": "Fastify quiz API"
+          }
+        ]
+      },
+      {
+        "name": "Express",
+        "provenBy": [
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "Express API with Swagger UI"
+          },
+          {
+            "repo": "smart-home-automation-api",
+            "url": "https://github.com/darunbjork/smart-home-automation-api",
+            "evidence": "Express REST API for devices and households"
+          }
+        ]
+      },
+      {
+        "name": "Bun",
+        "provenBy": [
+          {
+            "repo": "devquiz-api",
+            "url": "https://github.com/darunbjork/devquiz-api",
+            "evidence": "Bun runtime: oven/bun image, bun --hot dev server"
+          }
+        ]
+      },
+      {
+        "name": "Prisma",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "Prisma 7 with the pg driver adapter"
+          },
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "Prisma schema and SQL migrations"
+          },
+          {
+            "repo": "voxcript",
+            "url": "https://github.com/darunbjork/voxcript",
+            "evidence": "Prisma client for the API database"
+          }
+        ]
+      },
+      {
+        "name": "PostgreSQL",
+        "provenBy": [
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "Postgres for documents, chunks and users"
+          },
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "Postgres for projects, chat and analytics"
+          },
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "Postgres via Prisma"
+          }
+        ]
+      },
+      {
+        "name": "MongoDB",
+        "provenBy": [
+          {
+            "repo": "smart-home-automation-api",
+            "url": "https://github.com/darunbjork/smart-home-automation-api",
+            "evidence": "Mongoose models for devices and households"
+          },
+          {
+            "repo": "devquiz-api",
+            "url": "https://github.com/darunbjork/devquiz-api",
+            "evidence": "Native MongoDB driver for quizzes"
+          }
+        ]
+      },
+      {
+        "name": "pgvector",
+        "provenBy": [
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "HNSW index on chunk embeddings (vector_cosine_ops)"
+          },
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "768-dim cosine retrieval for the portfolio chat"
+          }
+        ]
+      },
+      {
+        "name": "Redis",
+        "provenBy": [
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "ioredis search-result cache"
+          },
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "Token budgets, kill switch and API cache"
+          },
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "Redis client plugin"
+          }
+        ]
+      },
+      {
+        "name": "WebSockets",
+        "provenBy": [
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "@fastify/websocket audio streaming"
+          },
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "WebSocket server for live updates"
+          },
+          {
+            "repo": "smart-home-automation-api",
+            "url": "https://github.com/darunbjork/smart-home-automation-api",
+            "evidence": "Socket.io fan-out of device state to household rooms"
+          }
+        ]
+      },
+      {
+        "name": "MQTT",
+        "provenBy": [
+          {
+            "repo": "smart-home-automation-api",
+            "url": "https://github.com/darunbjork/smart-home-automation-api",
+            "evidence": "Embedded Aedes MQTT broker for device messages"
+          }
+        ]
+      },
+      {
+        "name": "JWT authentication",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "jsonwebtoken cookie auth guard"
+          },
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "JWT sign/verify utilities"
+          },
+          {
+            "repo": "devquiz-api",
+            "url": "https://github.com/darunbjork/devquiz-api",
+            "evidence": "@fastify/jwt auth middleware"
+          }
+        ]
+      },
+      {
+        "name": "RBAC",
+        "provenBy": [
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "requireRole middleware (GUEST/USER/ADMIN)"
+          },
+          {
+            "repo": "devquiz-api",
+            "url": "https://github.com/darunbjork/devquiz-api",
+            "evidence": "Admin-role check in auth middleware"
+          }
+        ]
+      },
+      {
+        "name": "Zod",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "Zod-validated Gemini output and env"
+          },
+          {
+            "repo": "smart-home-automation-api",
+            "url": "https://github.com/darunbjork/smart-home-automation-api",
+            "evidence": "Zod request-validation middleware"
+          },
+          {
+            "repo": "devquiz-api",
+            "url": "https://github.com/darunbjork/devquiz-api",
+            "evidence": "Zod-validated Gemini quiz output"
+          }
+        ]
+      },
+      {
+        "name": "Swagger/OpenAPI",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "@fastify/swagger docs at /api/docs"
+          },
+          {
+            "repo": "smart-home-automation-api",
+            "url": "https://github.com/darunbjork/smart-home-automation-api",
+            "evidence": "swagger-ui-express API docs"
+          },
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "@fastify/swagger API docs"
+          }
+        ]
+      }
     ],
     "ai": [
-      "Gemini API",
-      "Deepgram",
-      "ElevenLabs",
-      "RAG pipelines",
-      "pgvector hybrid search",
-      "BM25 keyword search",
-      "Reciprocal Rank Fusion",
-      "Agentic workflows",
-      "Prompt Engineering",
-      "WebSocket streaming"
+      {
+        "name": "Gemini API",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "@google/genai chat, embeddings and pitch generation"
+          },
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "@google/genai agent LLM calls"
+          },
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "Agent engine on the Gemini REST API"
+          },
+          {
+            "repo": "devquiz-api",
+            "url": "https://github.com/darunbjork/devquiz-api",
+            "evidence": "Gemini quiz generation"
+          }
+        ]
+      },
+      {
+        "name": "Deepgram",
+        "provenBy": [
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "WebSocket proxy to Deepgram live speech-to-text"
+          },
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "Deepgram streaming speech-to-text service"
+          }
+        ]
+      },
+      {
+        "name": "ElevenLabs",
+        "provenBy": [
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "Streaming text-to-speech via the ElevenLabs API"
+          },
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "ElevenLabs text-to-speech service"
+          }
+        ]
+      },
+      {
+        "name": "RAG pipelines",
+        "provenBy": [
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "Document chunking, embedding and retrieval"
+          },
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "Chunk, embed, retrieve and prompt for the portfolio chat"
+          }
+        ]
+      },
+      {
+        "name": "Hybrid search (pgvector + Postgres full-text)",
+        "provenBy": [
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "Vector and keyword results merged in a hybrid search service"
+          }
+        ]
+      },
+      {
+        "name": "PostgreSQL full-text search (ts_rank)",
+        "provenBy": [
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "ts_rank keyword search over document chunks"
+          }
+        ]
+      },
+      {
+        "name": "Reciprocal Rank Fusion",
+        "provenBy": [
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "RRF merge of vector and keyword rankings"
+          }
+        ]
+      },
+      {
+        "name": "Agentic workflows",
+        "provenBy": [
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "Agent engine with a tool registry and a 5-step limit"
+          },
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "Voice agent tool registry (weather, reminders)"
+          }
+        ]
+      },
+      {
+        "name": "Prompt Engineering",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "Context-only system prompt with a JSON output contract"
+          }
+        ]
+      },
+      {
+        "name": "WebSocket streaming",
+        "provenBy": [
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "Real-time audio streamed over WebSocket"
+          }
+        ]
+      }
     ],
     "frontend": [
-      "React",
-      "TypeScript",
-      "Tailwind CSS",
-      "Zustand",
-      "Axios",
-      "Vite",
-      "React Native",
-      "Expo",
-      "Framer Motion",
-      "GSAP",
-      "TanStack Query"
+      {
+        "name": "React",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "React 19 SPA with admin dashboard"
+          },
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "React research UI with agent chat"
+          },
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "React voice-agent client"
+          },
+          {
+            "repo": "DevQuiz",
+            "url": "https://github.com/darunbjork/DevQuiz",
+            "evidence": "React quiz app"
+          }
+        ]
+      },
+      {
+        "name": "Tailwind CSS",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "Tailwind CSS v4 styling"
+          },
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "Tailwind-styled frontend"
+          }
+        ]
+      },
+      {
+        "name": "Axios",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "Axios client with CSRF interceptor"
+          },
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "Axios API client"
+          }
+        ]
+      },
+      {
+        "name": "Vite",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "Vite 8 build with manual chunks"
+          },
+          {
+            "repo": "DevQuiz",
+            "url": "https://github.com/darunbjork/DevQuiz",
+            "evidence": "Vite build and Vitest"
+          },
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "Vite web client"
+          }
+        ]
+      },
+      {
+        "name": "React Native",
+        "provenBy": [
+          {
+            "repo": "chat-app",
+            "url": "https://github.com/darunbjork/chat-app",
+            "evidence": "React Native chat screens"
+          }
+        ]
+      },
+      {
+        "name": "Expo",
+        "provenBy": [
+          {
+            "repo": "chat-app",
+            "url": "https://github.com/darunbjork/chat-app",
+            "evidence": "Expo app entry and app.json config"
+          }
+        ]
+      },
+      {
+        "name": "GSAP",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "GSAP hero and count-up animations"
+          },
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "GSAP status-ring animation"
+          }
+        ]
+      },
+      {
+        "name": "TanStack Query",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "TanStack Query hooks for admin and public data"
+          }
+        ]
+      }
     ],
     "infra": [
-      "Docker",
-      "GitHub Actions",
-      "Turborepo",
-      "Cloudflare Pages",
-      "Render",
-      "OpenTelemetry",
-      "Sentry"
+      {
+        "name": "Docker",
+        "provenBy": [
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "Multi-stage backend Dockerfile"
+          },
+          {
+            "repo": "smart-home-automation-api",
+            "url": "https://github.com/darunbjork/smart-home-automation-api",
+            "evidence": "Multi-stage API Dockerfile"
+          },
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "API Dockerfile and docker-compose for Postgres/Redis"
+          }
+        ]
+      },
+      {
+        "name": "GitHub Actions",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "CI: lint, type-check, test, build"
+          },
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "CI workflows"
+          },
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "CI with Turborepo tasks"
+          }
+        ]
+      },
+      {
+        "name": "Turborepo",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "Turborepo monorepo tasks"
+          },
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "Turborepo type-check and test in CI"
+          }
+        ]
+      },
+      {
+        "name": "Cloudflare Pages",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "SPA _redirects and pages.dev CORS allowlist"
+          }
+        ]
+      },
+      {
+        "name": "OpenTelemetry",
+        "provenBy": [
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "@opentelemetry tracing"
+          }
+        ]
+      },
+      {
+        "name": "Sentry",
+        "provenBy": [
+          {
+            "repo": "smart-home-automation-api",
+            "url": "https://github.com/darunbjork/smart-home-automation-api",
+            "evidence": "Sentry captureException in Express error middleware"
+          }
+        ]
+      }
     ],
-    "testing": ["Jest", "Vitest", "Artillery", "axe-core", "Supertest"]
+    "testing": [
+      {
+        "name": "Jest",
+        "provenBy": [
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "ts-jest backend test suite"
+          },
+          {
+            "repo": "smart-home-automation-api",
+            "url": "https://github.com/darunbjork/smart-home-automation-api",
+            "evidence": "ts-jest API tests"
+          }
+        ]
+      },
+      {
+        "name": "Vitest",
+        "provenBy": [
+          {
+            "repo": "darun.dev",
+            "url": "https://github.com/darunbjork/darun.dev",
+            "evidence": "Vitest API tests"
+          },
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "Vitest API tests"
+          },
+          {
+            "repo": "voxcript",
+            "url": "https://github.com/darunbjork/voxcript",
+            "evidence": "Vitest API tests"
+          }
+        ]
+      },
+      {
+        "name": "Artillery",
+        "provenBy": [
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "Artillery load-test config"
+          }
+        ]
+      },
+      {
+        "name": "axe-core",
+        "provenBy": [
+          {
+            "repo": "voice-agent",
+            "url": "https://github.com/darunbjork/voice-agent",
+            "evidence": "axe-core accessibility baseline script"
+          }
+        ]
+      },
+      {
+        "name": "Supertest",
+        "provenBy": [
+          {
+            "repo": "smart-home-automation-api",
+            "url": "https://github.com/darunbjork/smart-home-automation-api",
+            "evidence": "Supertest HTTP route tests"
+          }
+        ]
+      }
+    ]
   },
   "projects": [
     {
@@ -88,7 +733,7 @@
       ],
       "highlights": [
         "640+ Jest unit tests with 82% line coverage enforced in CI",
-        "Hybrid retrieval: pgvector cosine similarity + BM25 keyword search merged via Reciprocal Rank Fusion",
+        "Hybrid retrieval: pgvector cosine similarity + Postgres full-text (ts_rank) keyword search merged via Reciprocal Rank Fusion",
         "Multi-node agent workflow (classify → retrieve/tool-use → evaluate) with automated quality scoring and retry logic",
         "Artillery load-testing suite covering baseline, spike, and sustained-load scenarios",
         "Real-time streaming of agent reasoning steps",
