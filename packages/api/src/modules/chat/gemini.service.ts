@@ -3,6 +3,7 @@ import type { GeminiStructuredOutput } from "@darun/shared-types"
 import { AppError } from "../../utils/errors.js"
 import { callGemini } from "../../utils/gemini-client.js"
 import { MAX_OUTPUT_TOKENS } from "./cost-limits.js"
+import { formatHistory } from "../rag/prompt.js"
 
 const GeminiOutputSchema = z.object({
   reply: z.string().min(1).max(4000),
@@ -23,10 +24,8 @@ export class GeminiService {
   ): Promise<GeminiStructuredOutput> {
     const systemPrompt = buildSystemPrompt(contextJson)
 
-    const historyText = history
-      .slice(-10)
-      .map((m) => `${m.role}: ${m.content}`)
-      .join("\n")
+    // ! same formatter buildHybridContext budgets with
+    const historyText = formatHistory(history.slice(-10))
 
     const fullPrompt = [
       systemPrompt,
@@ -104,8 +103,19 @@ INSTRUCTION: Answer ONLY from the context. If the answer is not explicitly in th
 PROHIBITIONS:
 - NEVER invent facts, skills, projects, or experience.
 - NEVER speculate about salary, location preferences, or timeline.
-- NEVER mention technologies not listed in the context.
 - NEVER answer questions about competitors or other companies.
+
+TECHNOLOGIES:
+- Only claim a technology that is listed in the CONTEXT "stack". Each entry reads
+  "Name — repo: evidence | repo: evidence"; the repo URLs are in "repoLinks".
+- When asked about a technology, name the repo(s) that prove it, say briefly what
+  was built with it (the evidence), and include each repo's URL from "repoLinks".
+- NEVER claim a technology that has no "stack" entry, even if it appears elsewhere
+  in the context. If asked about one, use guardrails.unknownTechnology.
+- "live at <url>" evidence is a running deployment: when asked where something is
+  hosted or deployed, give that URL.
+- Repos labelled "(in progress)" are in progress: say so, and never describe them or
+  their technologies as shipped, live or in production.
 
 --- CONTEXT START ---
 ${contextJson}

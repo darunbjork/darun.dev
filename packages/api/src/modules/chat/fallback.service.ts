@@ -17,7 +17,7 @@ type ContextData = {
     portfolio?: string
     education?: { school?: string; track?: string; note?: string }
   }
-  stack?: Record<string, string[]>
+  stack?: Record<string, Array<{ name: string }>>
   projects?: Array<{
     slug: string
     title: string
@@ -79,7 +79,7 @@ function techBackgroundReply(context: ContextData): string {
   if (context.profile?.bio) parts.push(context.profile.bio)
   const stackLines = Object.entries(stack)
     .filter(([, items]) => items.length > 0)
-    .map(([category, items]) => `- ${category}: ${items.join(", ")}`)
+    .map(([category, items]) => `- ${category}: ${items.map((t) => t.name).join(", ")}`)
   if (stackLines.length > 0) {
     parts.push(`Core stack:\n${stackLines.join("\n")}`)
   }

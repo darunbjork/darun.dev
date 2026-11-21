@@ -172,6 +172,37 @@ describe("userType persistence (mocked Gemini)", () => {
     expect(session?.userType).toBe("Recruiter")
   })
 
+  it("sends the model repo links and the provenance rule for technologies", async () => {
+    callGeminiSpy.mockResolvedValueOnce({
+      text: geminiReply("Developer"),
+      model: "test",
+      attempts: 1,
+    })
+
+    const start = await app.inject({
+      method: "POST",
+      url: "/api/v1/chat/session/start",
+      payload: {},
+    })
+    const sessionId = start.json<{ data: { sessionId: string } }>().data.sessionId
+
+    await app.inject({
+      method: "POST",
+      url: "/api/v1/chat/message",
+      payload: { sessionId, content: "Where has Darun used MQTT?" },
+    })
+
+    const prompt = callGeminiSpy.mock.calls[0]?.[0] as string
+    expect(prompt).toContain("https://github.com/darunbjork/smart-home-automation-api")
+    expect(prompt).toContain("https://github.com/darunbjork/research-assistant-platform")
+    expect(prompt).toMatch(/MQTT — smart-home-automation-api: /)
+    expect(prompt).toMatch(/name the repo/i)
+    expect(prompt).not.toContain("Zustand")
+    expect(prompt).toContain("https://github.com/darunbjork/cleannation (in progress)")
+    expect(prompt).toMatch(/in progress[\s\S]{0,80}never[\s\S]{0,60}shipped/i)
+    expect(prompt).toContain("live at https://smart-home-api-c9r8.onrender.com")
+  })
+
   it("refuses unknown topics without inventing stack details", async () => {
     callGeminiSpy.mockResolvedValueOnce({
       text: geminiReply(
