@@ -22,7 +22,8 @@
     "test": {
       "dependsOn": ["^build"],
       "inputs": ["src/**", "tests/**"],
-      "outputs": ["coverage/**"]
+      "outputs": ["coverage/**"],
+      "env": ["DATABASE_URL", "REDIS_URL"]
     },
     "clean": {
       "cache": false
