@@ -6,7 +6,7 @@ export const MAX_PROMPT_CHARS = 40_000
 export const MIN_HISTORY_MESSAGES = 6
 
 export const TOKEN_BUDGET = {
-  session: 50_000,
+  session: 100_000,
   ipDay: 200_000,
   globalDay: 1_000_000,
 } as const
