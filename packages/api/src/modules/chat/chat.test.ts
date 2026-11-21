@@ -7,7 +7,8 @@ const { callGeminiSpy } = vi.hoisted(() => ({
   callGeminiSpy: vi.fn(),
 }))
 
-vi.mock(import("../../utils/gemini-client.js"), () => ({
+vi.mock(import("../../utils/gemini-client.js"), async (importOriginal) => ({
+  ...(await importOriginal()),
   callGemini: callGeminiSpy,
 }))
 
