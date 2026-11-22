@@ -29,6 +29,30 @@ function parseGithubFullName(repoUrl: string | null | undefined): string | null 
   }
 }
 
+function isoDay(d: Date): string {
+  return d.toISOString().slice(0, 10)
+}
+
+/** Date of the last commit that touched the README; null if GitHub can't say. */
+async function readmeCommitDate(
+  owner: string,
+  repoName: string,
+  headers: Record<string, string>
+): Promise<string | null> {
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repoName)}/commits?path=README.md&per_page=1`,
+      { headers: { ...headers, Accept: "application/vnd.github+json" } }
+    )
+    if (!res.ok) return null
+    const commits = (await res.json()) as { commit?: { committer?: { date?: string } } }[]
+    const date = commits[0]?.commit?.committer?.date
+    return typeof date === "string" ? date.slice(0, 10) : null
+  } catch {
+    return null
+  }
+}
+
 export function createIngestService(app: FastifyInstance) {
   const prisma = app.prisma
   const repo = createEmbeddingRepository(app)
@@ -47,7 +71,10 @@ export function createIngestService(app: FastifyInstance) {
     }
 
     const source = "cv"
-    const chunks = chunkText(cv.content, source, { section: "cv" })
+    const chunks = chunkText(cv.content, source, {
+      section: "cv",
+      contentDate: isoDay(cv.updatedAt),
+    })
     const vectors = await embedTexts(chunks.map((c) => c.content))
     const result = await repo.replaceSource(source, chunks, vectors)
     return { source, ...result }
@@ -79,7 +106,11 @@ export function createIngestService(app: FastifyInstance) {
     ].filter((part): part is string => typeof part === "string" && part.trim().length > 0)
 
     const source = `project:${slug}`
-    const chunks = chunkText(parts.join("\n\n"), source, { section: "project", slug })
+    const chunks = chunkText(parts.join("\n\n"), source, {
+      section: "project",
+      slug,
+      contentDate: isoDay(project.updatedAt),
+    })
     const vectors = await embedTexts(chunks.map((c) => c.content))
     const result = await repo.replaceSource(source, chunks, vectors)
     return { source, slug, ...result }
@@ -128,8 +159,14 @@ export function createIngestService(app: FastifyInstance) {
       })
     }
 
+    const contentDate =
+      (await readmeCommitDate(owner, repoName, headers)) ?? isoDay(new Date())
     const source = `readme:${fullName}`
-    const chunks = chunkText(readme, source, { section: "readme", slug: fullName })
+    const chunks = chunkText(readme, source, {
+      section: "readme",
+      slug: fullName,
+      contentDate,
+    })
     const vectors = await embedTexts(chunks.map((c) => c.content))
     const result = await repo.replaceSource(source, chunks, vectors)
     return { source, fullName, ...result }

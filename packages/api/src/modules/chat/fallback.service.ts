@@ -265,7 +265,7 @@ export function getFallbackReply(
   if (includesAny(normalized, ["contact", "email", "reach out", "reach you", "linkedin", "kontakt"])) {
     const email = context.profile?.email ?? "darunbjork@gmail.com"
     return fallbackOutput(
-      `Email me at ${email}, or reach me via ${context.profile?.portfolio ?? "https://darun.dev"}.`
+      `Email me at ${email}, or reach me via ${context.profile?.portfolio ?? "https://darun-dev.pages.dev"}.`
     )
   }
 
