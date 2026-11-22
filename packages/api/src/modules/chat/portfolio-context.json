@@ -1,5 +1,5 @@
 {
-  "version": "1.4.0",
+  "version": "1.5.0",
   "lastUpdated": "2026-11-22",
   "profile": {
     "name": "Darun Mustafa",
@@ -7,8 +7,8 @@
     "location": "Stockholm, Sweden",
     "github": "https://github.com/darunbjork",
     "email": "darunbjork@gmail.com",
-    "portfolio": "https://darun.dev",
-    "bio": "Backend & AI engineer building production-grade systems in React/TypeScript, Node.js/Fastify/Express, PostgreSQL, MongoDB and Docker — with a consistent focus on auth security, API contract design and real-time data. Built five LLM-integrated projects using Gemini (four live), including a three-provider voice pipeline with Deepgram and ElevenLabs. Experience with multi-provider pipelines, hybrid RAG with quality scoring, Zod-validated output, token-budget enforcement and circuit breakers.",
+    "portfolio": "https://darun-dev.pages.dev",
+    "bio": "Backend & AI engineer building production-grade systems in React/TypeScript, Node.js/Fastify/Express, PostgreSQL, MongoDB and Docker — with a consistent focus on auth security, API contract design and real-time data. Built five LLM-integrated projects using Gemini, all five live in production, including a three-provider voice pipeline with Deepgram and ElevenLabs. Experience with multi-provider pipelines, hybrid RAG with quality scoring, Zod-validated output, token-budget enforcement and circuit breakers.",
     "education": {
       "school": "Chas Academy",
       "track": "Fullstack Developer — Open Source Track",
@@ -793,6 +793,20 @@
             "url": "https://github.com/darunbjork/voxcript",
             "evidence": "k3s manifests: Traefik ingress, local-path StatefulSet",
             "type": "code"
+          },
+          {
+            "repo": "research-assistant-platform",
+            "url": "https://github.com/darunbjork/research-assistant-platform",
+            "evidence": "ResearchBot running on the k3s cluster",
+            "type": "live",
+            "liveUrl": "https://research.voxcript.app"
+          },
+          {
+            "repo": "voxcript",
+            "url": "https://github.com/darunbjork/voxcript",
+            "evidence": "Voxcript running on the k3s cluster",
+            "type": "live",
+            "liveUrl": "https://cdn.voxcript.app"
           }
         ]
       },
@@ -1018,29 +1032,62 @@
   "projects": [
     {
       "slug": "research-assistant-platform",
-      "title": "Research Assistant Platform",
-      "description": "Production-grade RAG + AI agent system. Upload documents, ask questions, stream agent reasoning steps in real time.",
+      "title": "ResearchBot — Research Assistant Platform",
+      "description": "Shipped and live in production: agentic RAG — upload your own documents, ask questions, get cited answers, with agent reasoning steps streamed in real time.",
       "techStack": [
-        "Node.js",
+        "Express",
         "TypeScript",
-        "Fastify",
         "PostgreSQL",
         "pgvector",
+        "Prisma",
         "Redis",
+        "Bull",
         "Gemini",
+        "WebSocket",
+        "OpenTelemetry",
         "Docker",
-        "OpenTelemetry"
+        "k3s"
       ],
       "highlights": [
-        "640+ Jest unit tests with 82% line coverage enforced in CI",
-        "Hybrid retrieval: pgvector cosine similarity + Postgres full-text (ts_rank) keyword search merged via Reciprocal Rank Fusion",
-        "Multi-node agent workflow (classify → retrieve/tool-use → evaluate) with automated quality scoring and retry logic",
-        "Artillery load-testing suite covering baseline, spike, and sustained-load scenarios",
-        "Real-time streaming of agent reasoning steps",
-        "OpenTelemetry instrumentation for end-to-end tracing"
+        "Live in production at https://research.voxcript.app, on a self-managed k3s cluster alongside Voxcript",
+        "969 automated tests (backend + frontend), 81% backend statement coverage",
+        "Hybrid retrieval: pgvector cosine similarity + Postgres full-text search merged with Reciprocal Rank Fusion (k=60), plus a Gemini reranking endpoint; answers cite their sources",
+        "ReAct agent engine shared by HTTP and WebSocket transports, with tool use, cancellation and automated answer evaluation",
+        "Resilient LLM calls: retries with backoff, honours Retry-After on 429s, falls back to a second model",
+        "GitHub Actions deploys digest-pinned images to k3s, runs a smoke check and rolls back automatically on failure",
+        "OpenTelemetry tracing, Prometheus and Grafana, six Artillery load scenarios"
       ],
       "repoUrl": "https://github.com/darunbjork/research-assistant-platform",
-      "liveUrl": ""
+      "liveUrl": "https://research.voxcript.app"
+    },
+    {
+      "slug": "voxcript",
+      "title": "Voxcript — AI subtitle generation",
+      "description": "Shipped and live in production: upload a short video, get subtitles — transcribed locally with whisper.cpp, no external transcription API.",
+      "techStack": [
+        "Fastify 5",
+        "TypeScript",
+        "Prisma",
+        "PostgreSQL 16",
+        "React",
+        "Vite",
+        "whisper.cpp",
+        "ffmpeg",
+        "k3s",
+        "Traefik",
+        "cert-manager"
+      ],
+      "highlights": [
+        "Live in production at https://cdn.voxcript.app, on the same self-managed k3s cluster as ResearchBot",
+        "Local AI inference: whisper.cpp runs inside the worker image, so no per-minute cost and no audio leaves the server",
+        "Async job pipeline: Postgres-backed queue claimed with FOR UPDATE SKIP LOCKED; an integration test proves exactly one winner when five workers race for one job",
+        "Safe uploads: ffprobe validates format, duration, resolution and audio track; each SRT is downloadable only with a per-job access token",
+        "Three required CI jobs (quality, unit + integration on real Postgres, Playwright e2e with real whisper.cpp) gate every merge; deploys roll out by sha256 image digest",
+        "kube-prometheus-stack monitoring and daily pg_dump backups to Cloudflare R2; 40 automated tests",
+        "Known limits: single-node k3s (not highly available); a small quantized Whisper model suited to short clips"
+      ],
+      "repoUrl": "https://github.com/darunbjork/voxcript",
+      "liveUrl": "https://cdn.voxcript.app"
     },
     {
       "slug": "voice-agent",
@@ -1089,7 +1136,7 @@
         "ATS source aggregation (Greenhouse, Lever, Ashby, Adzuna) with AI-scored matching"
       ],
       "repoUrl": "https://github.com/darunbjork/darun.dev",
-      "liveUrl": "https://darun.dev"
+      "liveUrl": "https://darun-dev.pages.dev"
     },
     {
       "slug": "cleannation",
@@ -1169,7 +1216,7 @@
         "Production auth from scratch: JWT + RBAC with refresh token rotation and role-scoped middleware; Argon2id and bcrypt password hashing",
         "Enforced consistent API contracts with OpenAPI/Swagger on every backend",
         "Hybrid RAG with quality scoring, token-budget enforcement, and per-provider circuit breakers",
-        "Five LLM-integrated projects using Gemini — four live (voice-agent, darun.dev, Smart Home API, DevQuiz)"
+        "Five LLM-integrated projects using Gemini — all live (ResearchBot, voice-agent, darun.dev, Smart Home API, DevQuiz)"
       ]
     },
     {
@@ -1202,7 +1249,7 @@
     },
     {
       "q": "Do you have experience with testing?",
-      "a": "Yes — 640+ Jest tests at 82% line coverage on the Research Assistant Platform, plus Vitest integration tests, Artillery load testing, and axe-core accessibility checks."
+      "a": "Yes — 969 automated tests (backend + frontend) at 81% backend statement coverage on ResearchBot, 40 unit/integration/Playwright e2e tests on Voxcript, plus Artillery load testing and axe-core accessibility checks on voice-agent."
     },
     {
       "q": "Where are you based?",
@@ -1210,7 +1257,7 @@
     },
     {
       "q": "What is your experience level?",
-      "a": "I have been building full-stack production applications since June 2023 — 8+ full-stack applications shipped end-to-end, four of them live, with 3,300+ GitHub contributions since Jul 2023."
+      "a": "I have been building full-stack production applications since June 2023 — 8+ full-stack applications shipped end-to-end, six of them live in production, with 3,300+ GitHub contributions since Jul 2023."
     },
     {
       "q": "Do you have a degree in computer science?",
@@ -1218,7 +1265,7 @@
     },
     {
       "q": "What makes you different from other junior developers?",
-      "a": "I build AI-integrated production systems — not just CRUD apps. My Research Assistant Platform has 640+ tests and hybrid retrieval with quality scoring; my voice-agent runs a three-provider pipeline with circuit breakers and token ceilings. I treat engineering quality as non-negotiable."
+      "a": "I build AI-integrated production systems — not just CRUD apps. ResearchBot (live at https://research.voxcript.app) has 969 automated tests and hybrid retrieval with cited answers; Voxcript runs whisper.cpp locally on my own k3s cluster; my voice-agent runs a three-provider pipeline with circuit breakers and token ceilings. I treat engineering quality as non-negotiable."
     },
     {
       "q": "Are you open to relocation?",

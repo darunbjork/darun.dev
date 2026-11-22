@@ -470,6 +470,40 @@ Run migrations on deploy:
 pnpm --filter @darun/api exec prisma migrate deploy
 ```
 
+### Refreshing the chat's knowledge (RAG)
+
+The chat answers from three dated sources: `portfolio-context.json` (`lastUpdated`),
+the published `projects` rows (`updatedAt`) and pgvector chunks (`cv`, `project:<slug>`,
+`readme:<owner>/<repo>`, each with a `contentDate`). When sources disagree the prompt
+prefers the newest date, and README chunks always beat the CV.
+
+Only the `darunbjork/darun.dev` repo has the GitHub push webhook, so READMEs of the other
+repos go stale until you re-ingest. After changing READMEs, project rows or the CV:
+
+```bash
+# 1. Inventory — chunks per source and last ingest time (READ ONLY transaction, prints no content)
+pnpm --filter @darun/api exec dotenv -e ../../.env.production -- tsx scripts/rag-report.ts
+
+# 2. Bring project rows in line with portfolio-context.json (dry run; add --apply to write)
+pnpm --filter @darun/api exec dotenv -e ../../.env.production -- tsx scripts/apply-project-corrections.ts
+pnpm --filter @darun/api exec dotenv -e ../../.env.production -- tsx scripts/apply-project-corrections.ts --apply
+
+# 3. Re-ingest the CV, every published project row and each project's GitHub README
+#    through the admin route (POST /api/v1/admin/rag/ingest/all) on the deployed API
+API=https://darun-ai-portfolio.fly.dev
+curl -sS -c /tmp/darun.jar -X POST "$API/api/v1/admin/auth/login" \
+  -H "Content-Type: application/json" \
+  -d "{\"email\":\"$ADMIN_EMAIL\",\"password\":\"$ADMIN_PASSWORD\"}" > /dev/null
+CSRF=$(curl -sS -b /tmp/darun.jar -c /tmp/darun.jar "$API/api/v1/csrf" | jq -r '.data.csrfToken')
+curl -sS -X POST "$API/api/v1/admin/rag/ingest/all" -H "x-csrf-token: $CSRF" -b /tmp/darun.jar \
+  | jq '{cv: .data.cv.inserted, projects: [.data.project[] | {slug, inserted}], readmes: [.data.readme[] | {fullName, inserted}]}'
+rm -f /tmp/darun.jar
+```
+
+`ingest/all` only reads READMEs for **published** rows that have a GitHub `repoUrl`, so
+run step 2 first; a repo with no project row (e.g. Voxcript before step 2) is skipped.
+Run step 3 after the API is deployed so chunks get their `contentDate`.
+
 ---
 
 ## CI/CD

@@ -2,7 +2,8 @@ import { readFileSync } from "node:fs"
 import { join, dirname } from "node:path"
 import { fileURLToPath } from "node:url"
 import { describe, expect, it } from "vitest"
-import { buildHybridContext, formatHistory, type LiveProject } from "./prompt.js"
+import { buildHybridContext, formatDate, formatHistory, type LiveProject } from "./prompt.js"
+import { buildSystemPrompt } from "../chat/gemini.service.js"
 import type { RetrievedChunk } from "./retrieve.js"
 import { toModelContext } from "../chat/tech-stack.js"
 import { MAX_PROMPT_CHARS, MIN_HISTORY_MESSAGES } from "../chat/cost-limits.js"
@@ -30,6 +31,7 @@ function project(slug: string, title: string, techStack: string[] = []): LivePro
     repoUrl: `https://github.com/darunbjork/${slug}`,
     liveUrl: null,
     featured: false,
+    updatedAt: new Date("2026-11-20T10:00:00Z"),
   }
 }
 
@@ -42,6 +44,7 @@ const chunks: RetrievedChunk[] = Array.from({ length: 6 }, (_, i) => ({
   content: `chunk-${i} ` + "x".repeat(1_950),
   source: `readme:darunbjork/repo-${i}`,
   similarity: 0.9 - i * 0.05,
+  date: "2026-11-21",
 }))
 
 const longHistory = Array.from({ length: 10 }, (_, i) => ({
@@ -116,5 +119,57 @@ describe("buildHybridContext budget", () => {
     expect(out.history).toEqual(history)
     expect(out.context).toContain("### Filler Project 0")
     expect(out.context).toContain("chunk-1 ")
+  })
+})
+
+describe("every context item carries its date", () => {
+  const out = buildHybridContext({
+    system,
+    systemDate: "2026-11-22",
+    projects: [voiceAgent],
+    chunks: [
+      { content: "README: 969 tests", source: "readme:darunbjork/research-assistant-platform", similarity: 0.8, date: "2026-11-21" },
+      { content: "CV: 640+ tests", source: "cv", similarity: 0.7, date: null },
+    ],
+    history: [],
+    userMessage: "How many tests does ResearchBot have?",
+  }).context
+
+  it("dates the profile block", () => {
+    expect(out).toContain("## Portfolio profile (source=portfolio-context.json date=2026-11-22)")
+  })
+
+  it("dates each database project row", () => {
+    expect(out).toMatch(/### Voice Agent \(voice-agent\)[\s\S]*Updated: 2026-11-20/)
+  })
+
+  it("dates each retrieved chunk next to its source, and marks a missing date", () => {
+    expect(out).toContain("[source=readme:darunbjork/research-assistant-platform date=2026-11-21 sim=0.800]")
+    expect(out).toContain("[source=cv date=unknown sim=0.700]")
+  })
+
+  it("formats dates as YYYY-MM-DD and tolerates bad input", () => {
+    expect(formatDate("2026-11-22T23:59:00Z")).toBe("2026-11-22")
+    expect(formatDate("not a date")).toBe("unknown")
+    expect(formatDate(undefined)).toBe("unknown")
+  })
+})
+
+describe("system prompt source priority", () => {
+  const prompt = buildSystemPrompt("{}")
+
+  it("tells the model to prefer the newest dated source", () => {
+    expect(prompt).toContain("SOURCES AND DATES")
+    expect(prompt).toMatch(/use the\s+item with the newest date/)
+  })
+
+  it("ranks README content above the CV regardless of dates", () => {
+    expect(prompt).toMatch(/README content outranks the CV/)
+    expect(prompt).toMatch(/"readme:" chunk wins over a\s+"cv" chunk regardless of their dates/)
+  })
+
+  it("names the real portfolio URL and no other domain", () => {
+    expect(prompt).toContain("https://darun-dev.pages.dev")
+    expect(prompt).not.toMatch(/https?:\/\/(www\.)?darun\.dev(?![\w-]|\.[a-z])/)
   })
 })

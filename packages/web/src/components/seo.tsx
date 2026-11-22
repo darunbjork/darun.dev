@@ -38,7 +38,7 @@ export function Seo({
     ensureMeta("og:title", fullTitle, true)
     ensureMeta("og:description", description, true)
     ensureMeta("og:type", "website", true)
-    ensureMeta("og:url", `https://darun.dev${path}`, true)
+    ensureMeta("og:url", `https://darun-dev.pages.dev${path}`, true)
     ensureMeta(
       "robots",
       noIndex ? "noindex, nofollow" : "index, follow"
@@ -52,7 +52,7 @@ export function Seo({
       canonical.rel = "canonical"
       document.head.appendChild(canonical)
     }
-    canonical.href = `https://darun.dev${path}`
+    canonical.href = `https://darun-dev.pages.dev${path}`
   }, [title, description, path, noIndex])
 
   return null

@@ -17,6 +17,7 @@ export type LiveProject = {
   repoUrl: string | null
   liveUrl: string | null
   featured: boolean
+  updatedAt: Date | string
 }
 
 export type HistoryMessage = { role: string; content: string }
@@ -25,6 +26,13 @@ function asStringArray(v: unknown): string[] {
   return Array.isArray(v)
     ? v.filter((x): x is string => typeof x === "string")
     : []
+}
+
+/** YYYY-MM-DD, or "unknown" for a missing/invalid date */
+export function formatDate(value: Date | string | null | undefined): string {
+  if (value === null || value === undefined) return "unknown"
+  const d = value instanceof Date ? value : new Date(value)
+  return Number.isNaN(d.getTime()) ? "unknown" : d.toISOString().slice(0, 10)
 }
 
 function formatProject(p: LiveProject): string {
@@ -39,6 +47,7 @@ function formatProject(p: LiveProject): string {
     tech ? `Tech: ${tech}` : "",
     p.repoUrl ? `Repo: ${p.repoUrl}` : "",
     p.liveUrl ? `Live: ${p.liveUrl}` : "",
+    `Updated: ${formatDate(p.updatedAt)}`,
   ]
     .filter((line) => line.length > 0)
     .join("\n")
@@ -55,7 +64,7 @@ function ragBlocks(chunks: RetrievedChunk[]): string[] {
   const blocks: string[] = []
   let size = 0
   for (const c of chunks) {
-    const block = `[source=${c.source} sim=${c.similarity.toFixed(3)}]\n${c.content}`
+    const block = `[source=${c.source} date=${c.date ?? "unknown"} sim=${c.similarity.toFixed(3)}]\n${c.content}`
     if (size + block.length + 2 > MAX_RAG_CONTEXT_CHARS) break
     blocks.push(block)
     size += block.length + 2
@@ -99,6 +108,8 @@ function projectMatches(p: LiveProject, question: string): boolean {
  */
 export function buildHybridContext(opts: {
   system: string
+  /** portfolio-context.json "lastUpdated" — dates the profile block */
+  systemDate?: string
   projects: LiveProject[]
   chunks: RetrievedChunk[]
   history: HistoryMessage[]
@@ -123,9 +134,10 @@ export function buildHybridContext(opts: {
             .filter((s) => s.length > 0)
             .join("\n\n")
     return [
+      `## Portfolio profile (source=portfolio-context.json date=${formatDate(opts.systemDate)})`,
       opts.system,
       "",
-      "## Live projects (database)",
+      "## Live projects (source=database; each row has its Updated date)",
       projectsText,
       "",
       "## Retrieved portfolio knowledge",

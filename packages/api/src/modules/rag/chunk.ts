@@ -6,6 +6,9 @@ export type ChunkMeta = {
   section?: string
   slug?: string
   ingestedAt: string
+  // ! when the content itself was last changed (README commit, CV/project updatedAt);
+  // ! the chat prompt shows it so the model can prefer the newest source
+  contentDate?: string
 }
 
 export type TextChunk = {

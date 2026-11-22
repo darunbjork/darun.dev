@@ -34,18 +34,20 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 
 function loadContext(): {
   version: string
+  lastUpdated: string | undefined
   json: string
   data: Record<string, unknown>
 } {
   const data = JSON.parse(
     readFileSync(join(__dirname, "portfolio-context.json"), "utf-8")
-  ) as { version: string; [key: string]: unknown }
+  ) as { version: string; lastUpdated?: string; [key: string]: unknown }
   // ! throws on any technology without provenBy — fail at boot, not in a chat
   const tech = parseTech(data)
   data.repos = tech.repos
   data.stack = tech.stack
   return {
     version: data.version,
+    lastUpdated: data.lastUpdated,
     json: JSON.stringify(toModelContext(data)),
     data,
   }
@@ -178,6 +180,7 @@ export class ChatService {
         repoUrl: true,
         liveUrl: true,
         featured: true,
+        updatedAt: true,
       },
     })
 
@@ -185,6 +188,7 @@ export class ChatService {
     // ! the trimmed history so the prompt sent is exactly what was budgeted
     const { context: hybridContext, history: promptHistory } = buildHybridContext({
       system: contextState.json,
+      systemDate: contextState.lastUpdated,
       projects,
       chunks,
       history,

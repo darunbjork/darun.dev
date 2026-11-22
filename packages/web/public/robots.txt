@@ -4,4 +4,4 @@ Allow: /
 # Disallow admin surfaces
 Disallow: /admin/
 
-Sitemap: https://darun.dev/sitemap.xml
+Sitemap: https://darun-dev.pages.dev/sitemap.xml

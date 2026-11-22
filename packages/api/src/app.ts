@@ -75,8 +75,6 @@ export async function buildApp(): Promise<FastifyInstance> {
     const allowed =
       origin === env.FRONTEND_URL ||
       origin === "https://darun-dev.pages.dev" ||
-      origin === "https://darun.dev" ||
-      origin === "https://www.darun.dev" ||
       origin === "http://localhost:5173" ||
       /^https:\/\/[a-z0-9-]+\.darun-dev\.pages\.dev$/.test(origin)
 
